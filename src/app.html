@@ -261,7 +261,7 @@ details.names summary::-webkit-details-marker{display:none}
 .sus.dim{opacity:.45}
 
 /* 도장 */
-.stage{position:relative;text-align:center;margin-top:10px}
+.stage{position:relative;text-align:center;margin-top:10px;margin-bottom:50px}
 .stage .spot{position:absolute;left:50%;top:-30px;width:260px;height:320px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(255,240,180,.35),transparent);pointer-events:none}
 .stage .av{width:170px;margin:0 auto;position:relative}
 .stamp2{position:absolute;left:50%;top:93%;font-family:var(--disp);font-size:44px;color:var(--red);border:6px solid var(--red);border-radius:14px;padding:2px 18px 8px;white-space:nowrap;
@@ -351,6 +351,74 @@ details.names summary::-webkit-details-marker{display:none}
 .cuffs{position:absolute;left:calc(50% + 40px);bottom:-8px;width:86px;transform:rotate(-14deg);animation:pop .4s .75s both;z-index:2}
 .hi{width:32px;display:inline-block;vertical-align:-8px;margin-right:4px}
 .ptab .ico{width:24px;display:inline-block;vertical-align:-6px;margin:-6px 4px -4px -6px}
+
+/* 옵션 · 내 주제 · 여러 라이어 · 최종 순위 */
+:root{--pur2:#b79bff}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--paper2);border-radius:14px;padding:9px 10px 9px 12px}
+.opt>span{display:flex;flex-direction:column;min-width:0}
+.opt b{font-family:var(--disp);font-weight:400;font-size:17px;line-height:1.2}
+.opt small{font-size:12.5px;font-weight:600;color:#7a6ba8;line-height:1.3}
+.mseg{display:flex;gap:3px;background:#fff;border:2.5px solid var(--ink);border-radius:12px;padding:3px;flex:none}
+.mseg button{border:0;background:transparent;border-radius:8px;padding:6px 9px 7px;font-family:var(--disp);font-size:14px;color:#7a6ba8;cursor:pointer;white-space:nowrap}
+.mseg button.on{background:var(--acc);color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.mseg button[disabled]{opacity:.35;pointer-events:none}
+.tile.add{background:var(--paper2);border-style:dashed}
+.tile .ti.plus{display:grid;place-items:center;color:var(--ink)}
+.tile .ti.plus svg{width:28px;height:28px}
+.tile.my span:last-child{color:#7a3cff}
+.flabel{display:block;font-family:var(--disp);font-size:17px;margin:12px 0 6px}
+.flabel small{font-family:var(--body);font-size:12.5px;color:#7a6ba8;font-weight:600;margin-left:4px}
+.finput{width:100%;border:2.5px solid var(--ink);border-radius:12px;background:#fff;padding:10px 12px;font:inherit;font-weight:600;color:var(--ink);resize:vertical;outline:0}
+.finput:focus{box-shadow:0 0 0 3px var(--acc)}
+.clist{display:grid;gap:8px}
+.clist button{display:flex;align-items:center;gap:10px;text-align:left;border:2.5px solid var(--ink);border-radius:14px;background:#fff;padding:8px 10px;cursor:pointer;color:var(--ink);font:inherit}
+.clist .ico{width:40px;flex:none}
+.clist span{flex:1;min-width:0;display:flex;flex-direction:column}
+.clist b{font-family:var(--disp);font-weight:400;font-size:17px}
+.clist small{font-size:12.5px;color:#7a6ba8;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clist svg{width:18px;height:18px;flex:none}
+.chips2{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:10px}
+.chips2 span{font-size:12.5px;font-weight:800;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);border-radius:999px;padding:3px 10px;color:#efe9ff}
+.lav{width:96px;margin:8px auto 0}
+.hintb{display:inline-block;background:var(--yel);color:var(--ink);border-radius:8px;padding:1px 8px;margin-bottom:4px;opacity:1}
+.face.back.liar .note{opacity:.85}
+.face.back.acc{background:#2a1a5e;color:#fff;background-image:repeating-linear-gradient(-45deg,rgba(183,155,255,.14) 0 12px,transparent 12px 30px)}
+.face.back.acc .catTag{background:var(--pur2);color:var(--ink);border:2.5px solid #fff}
+.secret.sm{font-size:34px;margin:6px 0 8px;color:#fff}
+.secret.xl{font-size:28px}
+.caughtbar{display:flex;align-items:center;gap:10px;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:16px;padding:8px 12px;margin-top:10px;box-shadow:0 5px 0 var(--ink);font-weight:700;font-size:14px}
+.caughtbar.first{margin-top:4px}
+.caughtbar .ico{width:44px;flex:none}
+.order .o.out{opacity:.55}
+.sus.out{opacity:.5;pointer-events:none}
+.sus.out b{background:var(--red);color:#fff}
+.lrow{display:flex;justify-content:center;align-items:flex-end;gap:0}
+.lrow .av{width:150px;margin:0 -14px}
+.lrow .av:not(:only-child){width:110px}
+.fact .who .av{width:30px;margin-right:-4px}
+.pen .pentext{font-family:var(--disp);font-size:26px;text-align:center;margin:12px 0 2px;line-height:1.25;word-break:keep-all}
+.bi{width:24px!important;flex:none}
+.podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;gap:8px;margin:26px 0 0}
+.pd{text-align:center}
+.pd .pav{position:relative;width:78%;margin:0 auto -4px}
+.pd.p1 .pav{width:92%}
+.pd .crown{position:absolute;left:50%;top:-30px;width:46px;transform:translateX(-50%) rotate(-8deg);z-index:1}
+.pd b{display:block;font-family:var(--disp);font-weight:400;font-size:16px;margin:6px 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pd .bar{border:3px solid var(--ink);border-bottom:0;border-radius:14px 14px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--ink);box-shadow:inset 0 -6px 0 rgba(0,0,0,.12)}
+.pd .bar span{font-size:34px;line-height:1}
+.pd .bar small{font-weight:800;font-size:13px}
+.pd.p1 .bar{height:120px;background:var(--yel)}
+.pd.p2 .bar{height:90px;background:#dfe3ee}
+.pd.p3 .bar{height:70px;background:#f0b27a}
+.hist{display:grid;gap:6px}
+.hist div{display:flex;align-items:center;gap:10px;background:var(--paper2);border-radius:10px;padding:7px 10px;font-size:14px;font-weight:600}
+.hist .disp{font-size:16px;width:34px;flex:none}
+.hist span:nth-child(2){flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hist em{font-style:normal;font-family:var(--disp);font-size:13px;border-radius:6px;padding:1px 7px;color:#fff}
+.hist em.c{background:var(--grn-d)}.hist em.l{background:var(--red)}
+.otp{grid-template-columns:repeat(6,1fr)!important;gap:6px!important}
+.otp i{font-size:32px!important;border-radius:12px!important}
 
 /* 방법 */
 .how{display:grid;gap:10px}
@@ -477,15 +545,24 @@ function rng(...k){let a=hash(k.join('|'));return()=>{a=a+0x6D2B79F5|0;let t=Mat
 function shuffle(arr,r){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 const pick=(arr,r)=>arr[Math.floor(r()*arr.length)];
 
-/* 코드: 모드2·인원4·주제6·옵션2·시드11 비트 = 25비트 = 5글자
-   옵션: 스파이=난이도(0~2), 라이어·바보=1이면 라운드 미션 켬 */
-const ABC='23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
-const RANDOM=63;
-function encode(c){let v=((((MODE_KEYS.indexOf(c.mode)*16+(c.n-3))*64+c.cat)*4+c.diff)*2048)+c.seed,s='';for(let i=0;i<5;i++){s=ABC[v&31]+s;v=Math.floor(v/32)}return s}
-function cleanCode(s){return(s||'').toUpperCase().replace(/O/g,'0').replace(/[I1]/g,'L').replace(/[^0-9A-Z]/g,'').slice(0,5)}
-function decode(s){s=cleanCode(s);if(s.length!==5)return null;let v=0;for(const ch of s){const i=ABC.indexOf(ch);if(i<0)return null;v=v*32+i}
- const seed=v%2048;v=Math.floor(v/2048);const diff=v%4;v=Math.floor(v/4);const cat=v%64;v=Math.floor(v/64);const n=v%16+3;const m=Math.floor(v/16);
- const mode=MODE_KEYS[m];if(!mode||diff>2)return null;const cats=mode==='spy'?SPYC:LIARC;if(cat!==RANDOM&&cat>=cats.length)return null;return{mode,n,cat,diff,seed}}
+/* 코드 6글자 = 30비트: 모드2·인원4·주제6·옵션5·시드13
+   옵션 — 스파이: 난이도2·스파이 수2 / 라이어·바보: 미션1·힌트1·라이어 수2·공범1 */
+const ABC='23456789ABCDEFGHJKLMNPQRSTUVWXYZ',RANDOM=63,CODE_LEN=6;
+const maxLiars=(n,acc)=>Math.max(1,Math.min(3,Math.floor((n-(acc?1:0)-1)/2)));
+function packOpt(c){return c.mode==='spy'?(c.diff|((c.liars-1)<<2)):((c.mission?1:0)|(c.hint?2:0)|((c.liars-1)<<2)|(c.acc?16:0))}
+function unpackOpt(mode,o){const liars=((o>>2)&3)+1;return mode==='spy'?{diff:o&3,liars,mission:false,hint:false,acc:!!(o&16)}:{diff:0,mission:!!(o&1),hint:!!(o&2),liars,acc:!!(o&16)}}
+function encode(c){let v=(((MODE_KEYS.indexOf(c.mode)*16+(c.n-3))*64+c.cat)*32+packOpt(c))*8192+c.seed,s='';for(let i=0;i<CODE_LEN;i++){s=ABC[v%32]+s;v=Math.floor(v/32)}return s}
+function cleanCode(s){return(s||'').toUpperCase().replace(/O/g,'0').replace(/[I1]/g,'L').replace(/[^0-9A-Z]/g,'').slice(0,CODE_LEN)}
+function decode(s){s=cleanCode(s);if(s.length!==CODE_LEN)return null;let v=0;for(const ch of s){const i=ABC.indexOf(ch);if(i<0)return null;v=v*32+i}
+ const seed=v%8192;v=Math.floor(v/8192);const o=v%32;v=Math.floor(v/32);const cat=v%64;v=Math.floor(v/64);const n=v%16+3;const mode=MODE_KEYS[Math.floor(v/16)];
+ if(!mode)return null;const op=unpackOpt(mode,o);
+ if(op.diff>2||op.liars>maxLiars(n,op.acc)||(op.acc&&(mode!=='liar'||n<5))||(op.hint&&mode!=='liar'))return null;
+ const cats=mode==='spy'?SPYC:LIARC;if(cat!==RANDOM&&cat>=cats.length)return null;return{mode,n,cat,seed,...op}}
+
+/* ───────── 내가 만든 주제 (폰 돌리기 모드 전용, 이 브라우저에 저장) ───────── */
+let CUSTOM=store.get('custom',[]).filter(c=>c&&c.name&&Array.isArray(c.w)&&c.w.length>=4).map(c=>({name:c.name,icon:'envelope',w:c.w,custom:true}));
+function saveCustom(){store.set('custom',CUSTOM.map(c=>({name:c.name,w:c.w})))}
+const catsOf=cfg=>cfg.mode==='spy'?SPYC:(cfg.local?LIARC.concat(CUSTOM):LIARC);
 
 /* ───────── 라운드 만들기 ───────── */
 const candCache={};
@@ -498,37 +575,42 @@ function spyCands(ci,d,seed){
   const first=df.map((x,k)=>k).filter(k=>df[k]>=lo&&df[k]<=hi);
   if(!first.length||avg>sim)continue;
   const q1=pick(first,r);
-  let rest=shuffle(df.map((x,k)=>k).filter(k=>k!==q1&&df[k]>=lo-1&&df[k]<=hi+1),r);
+  let rest=shuffle(df.map((x,k)=>k).filter(k=>k!==q1&&df[k]>=Math.max(2,lo-1)&&df[k]<=hi+1),r);
   if(rest.length<2)rest=rest.concat(df.map((x,k)=>k).filter(k=>k!==q1&&!rest.includes(k)&&df[k]>=2).sort((a,b)=>df[b]-df[a]));
+  if(rest.length<2)continue; // 쓸 만한 질문(간극 2 이상)이 3개 안 되는 짝은 버린다
   out.push({i,j,qs:[q1,...rest.slice(0,2)]});
  }
  return candCache[key]=shuffle(out,r);
 }
+const letters=w=>[...w.replace(/\s/g,'')].length;
 /* recent: 폰 돌리기 모드에서만 — 최근 판에 나온 단어를 피한다(각자 폰 모드는 모든 폰이 같은 결과를 내야 하므로 쓰지 않음) */
 function genRound(cfg,round,recent){
- const spy=cfg.mode==='spy',cats=spy?SPYC:LIARC;
- const order=shuffle(cats.map((_,i)=>i),rng(cfg.seed,'cats'));
- const catOf=x=>cfg.cat===RANDOM?order[x%cats.length]:cfg.cat;
+ const spy=cfg.mode==='spy',cats=catsOf(cfg);
+ const order=shuffle(cats.map((_,i)=>i),rng(cfg.seed,'cats',cats.length));
+ const catOf=x=>cfg.cat===RANDOM||cfg.cat>=cats.length?order[x%cats.length]:cfg.cat;
  const c=catOf(round);let k=0;for(let x=0;x<round;x++)if(catOf(x)===c)k++;
  const rr=rng(cfg.seed,'round',round,cfg.mode);
- const liar=Math.floor(rr()*cfg.n);
- let starter=Math.floor(rr()*cfg.n);if(starter===liar&&cfg.mode==='liar')starter=(starter+1)%cfg.n;
- const mission=!spy&&(cfg.diff&1)?pick(MISSIONS,rng(cfg.seed,'mission',round)):null;
+ const people=shuffle([...Array(cfg.n).keys()],rr);
+ const liars=people.slice(0,cfg.liars).sort((a,b)=>a-b);
+ const acc=cfg.acc?people[cfg.liars]:-1;
+ let starter=Math.floor(rr()*cfg.n);
+ if(cfg.mode==='liar')for(let t=0;t<cfg.n&&liars.includes(starter);t++)starter=(starter+1)%cfg.n;
+ const mission=!spy&&cfg.mission?pick(MISSIONS,rng(cfg.seed,'mission',round)):null;
  const intro=pick(INTROS,rng(cfg.seed,'intro',round));
- const base={cat:cats[c].name,icon:cats[c].icon,liar,starter,mission,intro,rev:!!(mission&&mission[0]==='거꾸로 돌기')};
+ const base={cat:cats[c].name,icon:cats[c].icon,liars,acc,starter,mission,intro,rev:!!(mission&&mission[0]==='거꾸로 돌기')};
  if(!spy){
-  const words=shuffle(cats[c].w,rng(cfg.seed,'w',c));
+  const words=shuffle(cats[c].w,rng(cfg.seed,'w',c,cats[c].name));
   const used=new Set(recent?recent(cfg.mode+':'+cats[c].name):[]);
   const word=recent?(words.find(w=>!used.has(w))||words[0]):words[k%words.length];
   let lw=null;
   if(cfg.mode==='fool'){const others=cats[c].w.filter(x=>x!==word),usedL=new Set(recent?recent(cfg.mode+':'+cats[c].name+':lw'):[]);const fresh=others.filter(x=>!used.has(x)&&!usedL.has(x));lw=pick(fresh.length?fresh:others,rr)}
-  return{...base,word,lw,qs:[]};
+  return{...base,word,lw,hint:cfg.hint?letters(word):0,qs:[]};
  }
  const C=SPYC[c],cands=spyCands(c,cfg.diff,cfg.seed);
  let p=cands[k%cands.length];
  if(recent){const used=new Set(recent('spy:'+C.name));p=cands.find(x=>!used.has(C.w[x.i].name)&&!used.has(C.w[x.j].name))||cands.find(x=>!used.has(C.w[x.i].name+'|'+C.w[x.j].name))||p}
  const flip=rr()<.5,a=flip?p.j:p.i,b=flip?p.i:p.j;
- return{...base,word:C.w[a].name,lw:C.w[b].name,
+ return{...base,word:C.w[a].name,lw:C.w[b].name,hint:0,
   qs:p.qs.map(q=>({t:C.q[q][0],lo:C.q[q][1],hi:C.q[q][2],a:C.w[a].v[q],b:C.w[b].v[q]}))};
 }
 /* 최근에 나온 단어 기록(이 브라우저에만) */
@@ -536,24 +618,26 @@ const RECENT=store.get('recent',{});
 const recentOf=key=>RECENT[key]||[];
 function remember(key,words,cap){const a=(RECENT[key]||[]).filter(w=>!words.includes(w));a.push(...words);RECENT[key]=a.slice(-cap);store.set('recent',RECENT)}
 function rememberRound(){
- const R=G.R,m=G.cfg.mode,cats=m==='spy'?SPYC:LIARC,cat=cats.find(c=>c.name===R.cat),size=m==='spy'?cat.w.length:cat.w.length;
- const cap=Math.max(3,Math.floor(size*.7));
+ const R=G.R,m=G.cfg.mode,cat=catsOf(G.cfg).find(c=>c.name===R.cat);if(!cat)return;
+ const cap=Math.max(3,Math.floor(cat.w.length*.7));
  if(m==='spy')remember('spy:'+R.cat,[R.word,R.lw,[R.word,R.lw].sort().join('|')],cap+8);
  else{remember(m+':'+R.cat,[R.word],cap);if(R.lw)remember(m+':'+R.cat+':lw',[R.lw],Math.floor(cap/2))}
 }
 
 /* ───────── 상태 ───────── */
-const S=Object.assign({mode:'liar',n:5,cat:RANDOM,diff:1,mission:true,play:'pass',names:[]},store.get('cfg',{}));
+const S=Object.assign({mode:'liar',n:5,cat:RANDOM,diff:1,mission:true,hint:false,liars:1,acc:false,penalty:false,time:120,play:'pass',names:[]},store.get('cfg',{}));
 if(S.cat===31&&!store.get('v2',false))S.cat=RANDOM;store.set('v2',true);
 let G=null,scr='title',howTab=null;
 const nameOf=i=>(G&&G.own)?(i+1)+'번':((S.names[i]||'').trim()||(i+1)+'번');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const role=()=>MODES[G.cfg.mode].role;
-function saveCfg(){store.set('cfg',{mode:S.mode,n:S.n,cat:S.cat,diff:S.diff,mission:S.mission,play:S.play,names:S.names})}
+const isLiar=i=>G.R.liars.includes(i);
+const namesOf=arr=>arr.map(i=>nameOf(i)).join(', ');
+function saveCfg(){store.set('cfg',{mode:S.mode,n:S.n,cat:S.cat,diff:S.diff,mission:S.mission,hint:S.hint,liars:S.liars,acc:S.acc,penalty:S.penalty,time:S.time,play:S.play,names:S.names})}
 function go(s){scr=s;render()}
-function newGame(cfg,own,me){G={cfg,own,me,round:0,tally:{c:0,l:0},pts:Array(cfg.n).fill(0)}}
+function newGame(cfg,own,me){G={cfg,own,me,round:0,tally:{c:0,l:0},pts:Array(cfg.n).fill(0),history:[]}}
 function startRound(){
- G.R=genRound(G.cfg,G.round,G.own?null:recentOf);G.pi=0;G.qi=0;G.ans=G.R.qs.map(()=>null);G.accused=null;G.sel=null;G.guess=false;G.mine=false;G.rolled=false;
+ G.R=genRound(G.cfg,G.round,G.own?null:recentOf);G.pi=0;G.qi=0;G.ans=G.R.qs.map(()=>null);G.accused=null;G.sel=null;G.guess=false;G.mine=false;G.rolled=false;G.caught=[];G.done=false;G.pen=null;
  if(!G.own)rememberRound();
  resetTimer();
  if(G.own)store.set('own',{code:encode(G.cfg),round:G.round,me:G.me});
@@ -562,7 +646,7 @@ function startRound(){
 
 /* ───────── 타이머 ───────── */
 const T={left:120,total:120,run:false,last:0,id:null,lastSec:0};
-function resetTimer(){T.left=T.total=120;T.run=false;clearInterval(T.id);T.id=null}
+function resetTimer(){T.left=T.total=S.time||120;T.run=false;clearInterval(T.id);T.id=null}
 function tick(){if(!T.run)return;const now=Date.now();T.left-=(now-T.last)/1000;T.last=now;const s=Math.ceil(T.left);
  if(s!==T.lastSec){T.lastSec=s;if(s<=10&&s>0)sfx.tick()}
  if(T.left<=0){T.left=0;T.run=false;sfx.alarm();buzz([300,150,300])}drawTimer()}
@@ -578,7 +662,7 @@ const timerHTML=()=>`<section class="panel"><div class="ptab">${ico('hourglass')
 
 /* ───────── 렌더 ───────── */
 function render(){
- document.body.className='m-'+(G?G.cfg.mode:S.mode);
+ document.body.className='m-'+(G?G.cfg.mode:(scr==='how'?(howTab||'liar'):S.mode));
  const app=document.getElementById('app');app.innerHTML=`<div class="scr">${SCREENS[scr]()}</div>`;
  const dock=app.querySelector('.dock');if(dock)app.appendChild(dock); // 애니메이션(transform) 밖으로 빼야 화면 하단에 고정됨
  window.scrollTo(0,0);drawTimer();
@@ -587,6 +671,7 @@ function render(){
 }
 const SCREENS={};
 const sndBtn=()=>`<button class="ibtn" onclick="toggleMute()" aria-label="소리">${muted?IC.soff:IC.son}</button>`;
+const spacer='<span style="width:46px;flex:none"></span>';
 function hud(mid,left){return`<div class="hud">${left||`<button class="ibtn" onclick="quit()" aria-label="나가기">${IC.home}</button>`}<div class="mid">${mid}</div>${sndBtn()}</div>`}
 const roundPill=()=>`<span class="pill">ROUND <i>${G.round+1}</i></span>`;
 function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),1600)}
@@ -620,22 +705,36 @@ SCREENS.title=()=>{
 
 /* 게임 방법 */
 const HOW={
- liar:[['제시어 확인','라이어만 제시어 대신 주제를 봅니다.'],['한 마디씩 설명','시작하는 사람부터 돌아가며 제시어를 한 마디로 설명합니다. 너무 자세하면 라이어가 눈치채요.'],['동시에 지목','토론 후 하나, 둘, 셋에 라이어를 지목합니다.'],['마지막 기회','라이어가 잡혀도 제시어를 맞히면 라이어의 역전승!']],
- fool:[['제시어 확인','모두 단어를 받지만 한 명만 같은 주제의 다른 단어입니다. 본인은 모릅니다.'],['한 마디씩 설명','미묘하게 어긋나는 설명을 찾으세요. 나도 바보 라이어일 수 있어요.'],['동시에 지목','토론 후 가장 수상한 사람을 지목합니다.'],['마지막 기회','잡힌 라이어는 진짜 제시어를 맞히면 역전승!']],
- spy:[['제시어 확인','한 명만 다른 단어를 받습니다. 스파이 본인도 모릅니다.'],['숫자로 동시에','질문이 나오면 하나, 둘, 셋에 1~10 숫자를 외치거나 손가락으로 보여줍니다.'],['변명 타임','밥을 받은 사람들은 8~10, 스테이크를 받은 사람은 3? 튀었다면 그럴듯하게 변명하세요.'],['지목과 역전','질문은 최대 3개. 지목된 스파이가 다른 사람들의 단어를 맞히면 역전승!']],
+ liar:[['제시어 확인','폰을 돌려가며 제시어를 봅니다. 라이어만 제시어 대신 주제를 봅니다.'],['한 마디씩 설명','START부터 돌아가며 제시어를 한 마디로 설명합니다. 한두 바퀴 돌아요. 너무 자세하면 라이어가 눈치채고, 너무 애매하면 내가 의심받아요.'],['동시에 지목','토론한 뒤 하나, 둘, 셋에 라이어를 지목합니다. 가장 많이 지목된 사람을 고르세요. 동점이면 동점자끼리 변론하고 다시 지목합니다.'],['마지막 기회','지목된 사람이 라이어가 아니면 라이어 승리. 라이어가 잡혀도 제시어를 맞히면 라이어의 역전승!']],
+ fool:[['제시어 확인','모두 단어를 받지만 라이어만 같은 주제의 다른 단어를 받습니다. 라이어 본인도 자기가 라이어인 줄 모릅니다.'],['한 마디씩 설명','미묘하게 어긋나는 설명을 찾으세요. 나도 바보 라이어일 수 있어요.'],['동시에 지목','토론 후 가장 수상한 사람을 지목합니다.'],['마지막 기회','잡힌 라이어는 진짜 제시어를 맞히면 역전승!']],
+ spy:[['제시어 확인','스파이만 다른 단어를 받습니다. 스파이 본인도 모릅니다.'],['숫자로 동시에','질문이 나오면 하나, 둘, 셋에 1~10 숫자를 외치거나 손가락으로 보여줍니다. 폰 하나로 할 땐 몰래 입력해서 동시에 공개할 수도 있어요.'],['변명 타임','밥을 받은 사람들은 8~10, 스테이크를 받은 사람은 3? 튀었다면 그럴듯하게 변명하세요.'],['지목과 역전','질문은 최대 3개. 지목된 스파이가 다른 사람들의 단어를 맞히면 역전승!']],
 };
-SCREENS.how=()=>{const k=howTab||'liar';document.body.className='m-'+k;return`
+const HOW_OPT=[
+ ['라이어 수','인원이 많으면 라이어를 2~3명으로 늘릴 수 있어요. 한 명씩 지목하고, 잡힌 라이어마다 정답을 맞힐 기회가 있어요. 라이어를 모두 잡아야 시민 승리, 한 번이라도 시민을 지목하면 라이어 승리.'],
+ ['공범 (라이어 게임)','제시어를 아는 라이어 편입니다. 라이어가 누군지는 모릅니다. 시민을 헷갈리게 해서 엉뚱한 사람이 지목되면 라이어와 함께 승리. 공범이 지목되어도 라이어 승리예요.'],
+ ['라이어 힌트','라이어에게 제시어의 글자 수를 알려줍니다. 초보가 있을 때 좋아요.'],
+ ['라운드 미션','"비유로만", "딱 세 글자"처럼 설명 방식이 매 라운드 바뀝니다.'],
+ ['벌칙','진 쪽에게 랜덤 벌칙을 뽑아 줍니다.'],
+ ['점수','시민이 이기면 시민 모두 +1, 라이어 편이 이기면 라이어 +3, 공범 +2. 게임 끝내기를 누르면 최종 순위가 나와요.'],
+ ['각자 폰으로','방장이 만든 코드 6자리를 모두 입력하고 앉은 순서대로 번호를 고릅니다. 같은 코드면 모든 폰에 같은 라운드가 나와요. 지목 결과는 한 폰에서만 입력하고, 다음 라운드는 각자 ▶를 눌러 넘깁니다.'],
+ ['내 주제','설정의 주제 칸에서 "내 주제"를 눌러 원하는 단어들로 주제를 만들 수 있어요. 폰 하나 돌리기에서만 쓸 수 있어요.'],
+];
+SCREENS.how=()=>{const k=howTab||'liar';return`
  ${hud('<span class="hudtitle ol-s">게임 방법</span>',`<button class="ibtn" onclick="go('title')">${IC.back}</button>`)}
  <div class="seg" style="background:rgba(255,255,255,.1);border-color:var(--ink)">${MODE_KEYS.map(m=>`<button class="${k===m?'on':''}" style="${k===m?'':'color:#cfc4f7'}" onclick="howTab='${m}';render()">${MODES[m].short}</button>`).join('')}</div>
  <section class="panel"><div class="ptab acc">${MODES[k].name}</div>
  <div style="width:96px;margin:0 auto 8px">${emblem[k]()}</div>
- <div class="how">${HOW[k].map((s,i)=>`<div><em>${i+1}</em><div><b>${s[0]}</b><p>${s[1]}</p></div></div>`).join('')}</div></section>`};
+ <div class="how">${HOW[k].map((s,i)=>`<div><em>${i+1}</em><div><b>${s[0]}</b><p>${s[1]}</p></div></div>`).join('')}</div></section>
+ <section class="panel"><div class="ptab">옵션 규칙</div><div class="how">${HOW_OPT.filter(o=>k==='liar'||!/공범|힌트/.test(o[0])).filter(o=>k!=='spy'||!/미션/.test(o[0])).map(s=>`<div><em>+</em><div><b>${s[0]}</b><p>${s[1].replace(/라이어/g,k==='spy'?'스파이':'라이어')}</p></div></div>`).join('')}</div></section>`};
 
 /* 로비 */
+const segOpt=(key,list)=>`<div class="mseg">${list.map(([v,label,dis])=>`<button class="${S[key]===v?'on':''}" ${dis?'disabled':''} onclick="set('${key}',${JSON.stringify(v)})">${label}</button>`).join('')}</div>`;
 SCREENS.lobby=()=>{
- const cats=S.mode==='spy'?SPYC:LIARC;if(S.cat!==RANDOM&&S.cat>=cats.length)S.cat=RANDOM;
+ const own=S.play==='own',spy=S.mode==='spy',lm=S.mode==='liar';
+ const cats=spy?SPYC:(own?LIARC:LIARC.concat(CUSTOM));if(S.cat!==RANDOM&&S.cat>=cats.length)S.cat=RANDOM;
+ const mx=maxLiars(S.n,lm&&S.acc);if(S.liars>mx)S.liars=mx;if(S.n<5&&S.acc)S.acc=false;
  while(S.names.length<S.n)S.names.push('');
- const M=MODES[S.mode];
+ const M=MODES[S.mode],R=M.role;
  return`${hud('<span class="hudtitle ol-s">게임 설정</span>',`<button class="ibtn" onclick="go('title')">${IC.back}</button>`)}
  <section class="panel first"><div class="ptab">게임 모드</div>
   <div class="modegrid">${MODE_KEYS.map(k=>`<div class="mcard ${S.mode===k?'on':''}" style="--c:${MODES[k].c}" onclick="set('mode','${k}')"><span class="chk">${IC.chk}</span>${emblem[k]()}<b class="ol-s">${MODES[k].short}</b></div>`).join('')}</div>
@@ -644,32 +743,63 @@ SCREENS.lobby=()=>{
  <section class="panel"><div class="ptab">인원</div>
   <div class="stepper"><button class="ibtn" onclick="set('n',Math.max(3,S.n-1))" aria-label="빼기">${IC.minus}</button><div class="num">${S.n}<small>명</small></div><button class="ibtn" onclick="set('n',Math.min(18,S.n+1))" aria-label="더하기">${IC.plus}</button></div>
   <div class="avrow">${Array.from({length:S.n},(_,i)=>avatar(i)).join('')}</div>
-  ${S.play==='pass'?`<details class="names" ${S.namesOpen?'open':''} ontoggle="S.namesOpen=this.open"><summary>${IC.next.replace('<svg','<svg style="width:14px;height:14px"')} 이름 정하기 (선택)</summary><div class="nlist">${Array.from({length:S.n},(_,i)=>`<label class="nitem">${avatar(i)}<input maxlength="8" placeholder="${i+1}번" value="${esc(S.names[i]||'')}" oninput="S.names[${i}]=this.value;saveCfg()"></label>`).join('')}</div></details>`:''}
+  ${!own?`<details class="names" ${S.namesOpen?'open':''} ontoggle="S.namesOpen=this.open"><summary>${IC.next.replace('<svg','<svg style="width:14px;height:14px"')} 이름 정하기 (선택)</summary><div class="nlist">${Array.from({length:S.n},(_,i)=>`<label class="nitem">${avatar(i)}<input maxlength="8" placeholder="${i+1}번" value="${esc(S.names[i]||'')}" oninput="S.names[${i}]=this.value;saveCfg()"></label>`).join('')}</div></details>`:''}
  </section>
  <section class="panel"><div class="ptab">주제</div>
-  <div class="tiles"><button class="tile ${S.cat===RANDOM?'on':''}" onclick="set('cat',RANDOM)"><span class="ti dice">${IC.dice}</span><span>랜덤</span></button>${cats.map((c,i)=>`<button class="tile ${S.cat===i?'on':''}" onclick="set('cat',${i})">${ico(c.icon,'ti')}<span>${c.name}</span></button>`).join('')}</div>
-  <p class="hint">${S.mode==='spy'?`주제 ${cats.length}개 · 단어 ${cats.reduce((a,c)=>a+c.w.length,0)}개 · 질문 ${cats.length*10}개`:`주제 ${cats.length}개 · 제시어 ${cats.reduce((a,c)=>a+c.w.length,0)}개`} · 최근에 나온 단어는 피해서 나와요</p>
+  <div class="tiles"><button class="tile ${S.cat===RANDOM?'on':''}" onclick="set('cat',RANDOM)"><span class="ti dice">${IC.dice}</span><span>랜덤</span></button>${cats.map((c,i)=>`<button class="tile ${S.cat===i?'on':''} ${c.custom?'my':''}" onclick="set('cat',${i})">${ico(c.icon,'ti')}<span>${esc(c.name)}</span></button>`).join('')}${!spy&&!own?`<button class="tile add" onclick="openCustom()"><span class="ti plus">${IC.plus}</span><span>내 주제</span></button>`:''}</div>
+  <p class="hint">${spy?`주제 ${cats.length}개 · 단어 ${cats.reduce((a,c)=>a+c.w.length,0)}개 · 질문 ${cats.length*10}개`:`주제 ${cats.length}개 · 제시어 ${cats.reduce((a,c)=>a+c.w.length,0)}개`}${own?'':' · 최근에 나온 단어는 피해서 나와요'}${!spy&&own&&CUSTOM.length?'<br>내가 만든 주제는 폰 하나 돌리기에서만 쓸 수 있어요.':''}</p>
  </section>
- ${S.mode==='spy'?`<section class="panel"><div class="ptab">난이도</div>
+ ${spy?`<section class="panel"><div class="ptab">난이도</div>
   <div class="seg">${DIFFS.map((d,i)=>`<button class="${S.diff===i?'on':''}" onclick="set('diff',${i})"><span class="gauge">${[0,1,2].map(k=>`<i class="${k<=i?'f':''}" style="height:${6+k*5}px"></i>`).join('')}</span>${d.name}</button>`).join('')}</div>
   <p class="hint"><b>간극 ${DIFFS[S.diff].gap[0]}~${DIFFS[S.diff].gap[1]}</b> · ${DIFFS[S.diff].desc}</p></section>`:''}
- ${S.mode!=='spy'?`<section class="panel"><div class="ptab">라운드 미션</div>
-  <div class="seg"><button class="${S.mission?'on':''}" onclick="set('mission',true)">${ico('megaphone','segi')}미션 켜기</button><button class="${!S.mission?'on':''}" onclick="set('mission',false)">${IC.chk}자유 설명만</button></div>
-  <p class="hint">${S.mission?'라운드마다 <b>"비유로만", "딱 세 글자", "의성어 넣기"</b> 같은 설명 미션이 랜덤으로 붙어요.':'미션 없이 자유롭게 한 마디씩 설명합니다.'}</p></section>`:''}
+ <section class="panel"><div class="ptab">규칙 옵션</div><div class="opts">
+  <div class="opt"><span><b>${R} 수</b><small>${mx>1?`최대 ${mx}명`:'6명 이상부터 늘릴 수 있어요'}</small></span>${segOpt('liars',[[1,'1명'],[2,'2명',mx<2],[3,'3명',mx<3]])}</div>
+  ${lm?`<div class="opt"><span><b>공범</b><small>${S.n<5?'5명 이상부터':'제시어를 아는 라이어 편'}</small></span>${segOpt('acc',[[false,'없음'],[true,'있음',S.n<5]])}</div>
+  <div class="opt"><span><b>라이어 힌트</b><small>제시어 글자 수를 알려줌</small></span>${segOpt('hint',[[false,'끄기'],[true,'켜기']])}</div>`:''}
+  ${!spy?`<div class="opt"><span><b>라운드 미션</b><small>설명 방식이 매번 바뀜</small></span>${segOpt('mission',[[false,'끄기'],[true,'켜기']])}</div>`:''}
+  <div class="opt"><span><b>토론 시간</b><small>타이머 기본값</small></span>${segOpt('time',[[60,'1분'],[120,'2분'],[180,'3분'],[300,'5분']])}</div>
+  <div class="opt"><span><b>벌칙</b><small>진 쪽에게 랜덤 벌칙</small></span>${segOpt('penalty',[[false,'끄기'],[true,'켜기']])}</div>
+ </div>${!spy&&S.mission?'<p class="hint">미션 예: <b>비유로만</b>, <b>딱 세 글자</b>, <b>의성어 넣기</b>, <b>거꾸로 돌기</b></p>':''}</section>
  <section class="panel"><div class="ptab">진행 방식</div>
-  <div class="seg"><button class="${S.play==='pass'?'on':''}" onclick="set('play','pass')">${IC.phone}폰 하나 돌리기</button><button class="${S.play==='own'?'on':''}" onclick="set('play','own')">${IC.phones}각자 폰으로</button></div>
-  <p class="hint">${S.play==='pass'?'폰 한 대를 차례로 돌려가며 제시어를 확인합니다.':'방장이 만든 <b>코드 5자리</b>를 입력하면 각자 폰에 제시어가 뜹니다. 서버도 인터넷도 필요 없어요.'}</p>
+  <div class="seg"><button class="${!own?'on':''}" onclick="set('play','pass')">${IC.phone}폰 하나 돌리기</button><button class="${own?'on':''}" onclick="set('play','own')">${IC.phones}각자 폰으로</button></div>
+  <p class="hint">${!own?'폰 한 대를 차례로 돌려가며 제시어를 확인합니다.':'방장이 만든 <b>코드 6자리</b>를 입력하면 각자 폰에 제시어가 뜹니다. 서버도 인터넷도 필요 없어요.'}</p>
  </section>
- <div class="dock"><div><button class="btn" onclick="start()"><span class="lbl">${S.play==='pass'?'게임 시작':'코드 만들기'}</span></button></div></div>`;
+ <div class="dock"><div><button class="btn" onclick="start()"><span class="lbl">${!own?'게임 시작':'코드 만들기'}</span></button></div></div>`;
 };
-function set(k,v){S[k]=v;if(k==='mode'&&S.cat!==RANDOM)S.cat=RANDOM;saveCfg();const y=window.scrollY;render();window.scrollTo(0,y)}
+function set(k,v){S[k]=v;if(k==='mode'&&S.cat!==RANDOM)S.cat=RANDOM;if(k==='play'&&v==='own'&&S.cat>=LIARC.length&&S.cat!==RANDOM)S.cat=RANDOM;saveCfg();const y=window.scrollY;render();window.scrollTo(0,y)}
 function start(){
- const cfg={mode:S.mode,n:S.n,cat:S.cat,diff:S.mode==='spy'?S.diff:(S.mission?1:0),seed:Math.floor(Math.random()*2048)};
- newGame(cfg,S.play==='own',null);
+ const lm=S.mode==='liar',spy=S.mode==='spy',acc=lm&&S.acc&&S.n>=5;
+ const cfg={mode:S.mode,n:S.n,cat:S.cat,seed:Math.floor(Math.random()*8192),diff:spy?S.diff:0,mission:!spy&&!!S.mission,hint:lm&&!!S.hint,liars:Math.min(S.liars||1,maxLiars(S.n,acc)),acc,local:S.play!=='own'};
+ if(!cfg.local&&cfg.cat!==RANDOM&&cfg.cat>=(spy?SPYC:LIARC).length)cfg.cat=RANDOM;
+ newGame(cfg,!cfg.local,null);
  if(G.own)go('code');else startRound();
 }
 function quit(){if(scr==='title')return;if(!G||confirm('게임을 끝내고 처음 화면으로 갈까요?')){resetTimer();G=null;go('title')}}
-function catLabel(c){const cats=c.mode==='spy'?SPYC:LIARC;return(c.cat===RANDOM?'랜덤 주제':cats[c.cat].name)+(c.mode==='spy'?' · '+DIFFS[c.diff].name:(c.diff&1?' · 미션':''))}
+function catLabel(c){const cats=catsOf(c);const r=MODES[c.mode].role;return[(c.cat===RANDOM?'랜덤 주제':cats[c.cat].name),c.mode==='spy'?DIFFS[c.diff].name:'',c.liars>1?`${r} ${c.liars}명`:'',c.acc?'공범':'',c.hint?'힌트':'',c.mission?'미션':''].filter(Boolean).join(' · ')}
+
+/* 내 주제 만들기 */
+let CE=null; // 편집 중 {idx,name,words}
+function openCustom(idx){const c=idx!=null?CUSTOM[idx]:null;CE={idx:idx!=null?idx:-1,name:c?c.name:'',words:c?c.w.join(', '):''};go('custom')}
+const parseWords=t=>[...new Set(t.split(/[,\n、·/]+/).map(w=>w.trim()).filter(w=>w&&w.length<=20))];
+SCREENS.custom=()=>{const ws=parseWords(CE.words);return`
+ ${hud('<span class="hudtitle ol-s">내 주제</span>',`<button class="ibtn" onclick="go('lobby')">${IC.back}</button>`)}
+ <section class="panel first"><div class="ptab acc">${CE.idx>=0?'주제 고치기':'새 주제 만들기'}</div>
+  <label class="flabel">주제 이름</label>
+  <input class="finput" maxlength="10" placeholder="예: 우리 반 친구들" value="${esc(CE.name)}" oninput="CE.name=this.value">
+  <label class="flabel">제시어 <small>쉼표나 줄바꿈으로 구분 · 4개 이상</small></label>
+  <textarea class="finput" rows="7" placeholder="예: 철수, 영희, 민수, 지영, 담임 선생님" oninput="CE.words=this.value;document.getElementById('wcount').textContent=parseWords(this.value).length+'개'">${esc(CE.words)}</textarea>
+  <p class="hint">지금 <b id="wcount">${ws.length}개</b> · 같은 성격의 단어끼리 모아야 바보 라이어가 재밌어요. 이 폰에만 저장돼요.</p>
+  <div class="row"><button class="btn sm yel" onclick="saveCE()">${IC.chk}<span class="lbl">저장</span></button>${CE.idx>=0?`<button class="btn sm red" onclick="delCE()"><span class="lbl">삭제</span></button>`:''}</div>
+ </section>
+ ${CUSTOM.length?`<section class="panel"><div class="ptab">내가 만든 주제 ${CUSTOM.length}개</div><div class="clist">${CUSTOM.map((c,i)=>`<button onclick="openCustom(${i})">${ico('envelope')}<span><b>${esc(c.name)}</b><small>${c.w.length}개 · ${esc(c.w.slice(0,4).join(', '))}${c.w.length>4?'…':''}</small></span>${IC.next}</button>`).join('')}</div></section>`:''}`};
+function saveCE(){const name=CE.name.trim(),w=parseWords(CE.words);
+ if(!name){toast('주제 이름을 적어 주세요');return}
+ if(w.length<4){toast('제시어를 4개 이상 적어 주세요');return}
+ if([...LIARC,...CUSTOM].some((c,i)=>c.name===name&&(!c.custom||CUSTOM.indexOf(c)!==CE.idx))){toast('이미 있는 주제 이름이에요');return}
+ const item={name,icon:'envelope',w:w.slice(0,200),custom:true};
+ if(CE.idx>=0)CUSTOM[CE.idx]=item;else CUSTOM.push(item);
+ saveCustom();S.cat=LIARC.length+CUSTOM.indexOf(item);saveCfg();toast('저장했어요');go('lobby')}
+function delCE(){if(!confirm('이 주제를 지울까요?'))return;CUSTOM.splice(CE.idx,1);saveCustom();S.cat=RANDOM;saveCfg();go('lobby')}
 
 /* 각자 폰: 코드 */
 SCREENS.code=()=>{const code=encode(G.cfg);return`
@@ -689,42 +819,46 @@ function shareCode(c){navigator.share({title:'라이어 게임',text:'라이어 
 /* 코드로 참가 */
 SCREENS.join=()=>`
  ${hud('<span class="hudtitle ol-s">코드로 참가</span>',`<button class="ibtn" onclick="go('title')">${IC.back}</button>`)}
- <section class="panel first"><div class="ptab acc">코드 5자리</div>
-  <div class="otp" onclick="document.getElementById('jc').focus()"><span id="otpv" style="display:contents"></span><input id="jc" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" value="${esc(S.jc||'')}" oninput="S.jc=cleanCode(this.value);this.value=S.jc;joinSync()"></div>
-  <p class="hint">방장 화면에 보이는 코드를 입력하세요.</p>
+ <section class="panel first"><div class="ptab acc">코드 ${CODE_LEN}자리</div>
+  <div class="otp" onclick="document.getElementById('jc').focus()"><span id="otpv" style="display:contents"></span><input id="jc" maxlength="10" autocomplete="off" autocapitalize="characters" spellcheck="false" inputmode="text" value="${esc(S.jc||'')}" oninput="S.jc=cleanCode(this.value);this.value=S.jc;joinSync()"></div>
+  <p class="hint">방장 화면에 보이는 코드를 입력하세요. 모두 같은 버전의 게임 파일이어야 해요.</p>
  </section>
  <div id="jinfo"></div>`;
 function joinSync(){
  const v=S.jc||'',box=document.getElementById('otpv');if(!box)return;
- box.innerHTML=[0,1,2,3,4].map(i=>`<i class="${i===Math.min(v.length,4)?'cur':''}">${v[i]||''}</i>`).join('');
+ box.innerHTML=Array.from({length:CODE_LEN},(_,i)=>`<i class="${i===Math.min(v.length,CODE_LEN-1)?'cur':''}">${v[i]||''}</i>`).join('');
  const c=decode(v),el=document.getElementById('jinfo');
- if(!c){document.body.className='m-'+S.mode;el.innerHTML=v.length>=5?'<p class="why" style="color:#ffb3c0">코드가 올바르지 않아요. 다시 확인해 주세요.</p>':'';return}
+ if(!c){document.body.className='m-'+S.mode;el.innerHTML=v.length>=CODE_LEN?'<p class="why" style="color:#ffb3c0">코드가 올바르지 않아요. 다시 확인해 주세요.</p>':'';return}
  document.body.className='m-'+c.mode;
- el.innerHTML=`<section class="panel"><div class="ptab">${MODES[c.mode].name} · ${c.n}명 · ${catLabel(c)}</div>
- <p class="sub" style="margin-bottom:10px">내 번호를 고르세요. 앉은 순서대로 정한 번호예요.</p>
+ el.innerHTML=`<section class="panel"><div class="ptab">${MODES[c.mode].name} · ${c.n}명</div>
+ <p class="sub">${catLabel(c)}</p>
+ <p class="sub" style="margin:4px 0 10px">내 번호를 고르세요. 앉은 순서대로 정한 번호예요.</p>
  <div class="pick">${Array.from({length:c.n},(_,i)=>`<button onclick="joinAs(${i})">${avatar(i)}${i+1}번</button>`).join('')}</div></section>`;
 }
-function joinAs(i){const c=decode(S.jc);newGame(c,true,i);startRound()}
-function resumeOwn(){const o=store.get('own',null);const c=decode(o.code);if(!c)return;S.jc=o.code;newGame(c,true,o.me);G.round=o.round;startRound()}
+function joinAs(i){const c=decode(S.jc);if(!c)return;newGame(c,true,i);startRound()}
+function resumeOwn(){const o=store.get('own',null);const c=o&&decode(o.code);if(!c)return;S.jc=o.code;newGame(c,true,o.me);G.round=o.round;startRound()}
 
 /* 라운드 시작 */
+function ruleChips(){const c=G.cfg,R=role(),a=[];
+ if(c.liars>1)a.push(`${R} ${c.liars}명`);if(c.acc)a.push('공범 1명');if(c.hint)a.push('힌트: 글자 수');a.push(`토론 ${Math.round((S.time||120)/60)}분`);if(S.penalty)a.push('벌칙 있음');
+ return`<div class="chips2">${a.map(x=>`<span>${x}</span>`).join('')}</div>`}
 SCREENS.intro=()=>{
- const R=G.R,m=G.cfg.mode,roll=G.cfg.cat===RANDOM&&!G.rolled;
+ const R=G.R,m=G.cfg.mode,roll=G.cfg.cat===RANDOM&&!G.rolled,k=G.cfg.liars,rl=role();
  let h=`${hud(`<span class="pill">${MODES[m].name}</span>`)}<div class="intro">
   <div class="rnum disp ol-s">ROUND ${G.round+1}</div>
   <div class="slot ${roll?'rolling':''}" id="slot">${ico(roll?'play':R.icon)}</div>
-  <div class="catname disp ol" id="catname">${roll?'두구두구':R.cat}</div>
-  <p class="introline">“${R.intro}”</p></div>`;
- if(m==='spy')h+=`<section class="panel"><div class="ptab acc">이번 라운드</div><div class="mis">${ico('magnifier','misi')}<div><b>질문 ${R.qs.length}개 준비 완료</b><p>난이도 ${DIFFS[G.cfg.diff].name} · 한 명만 다른 단어를 받았어요. 그게 나일 수도!</p></div></div></section>`;
- else if(G.cfg.diff&1)h+=`<section class="panel"><div class="ptab acc">이번 라운드 미션</div><div class="mis">${ico('megaphone','misi')}<div>${R.mission?`<b>${R.mission[0]}</b><p>${R.mission[1]}</p>`:`<b>자유 설명</b><p>이번엔 미션 없이 자유롭게 한 마디!</p>`}</div></div></section>`;
- else h+=`<section class="panel"><div class="ptab acc">이번 라운드</div><div class="mis">${ico(m==='liar'?'masks':'qbubble','misi')}<div><b>${m==='liar'?'라이어를 찾아라':'바보 라이어를 찾아라'}</b><p>${m==='liar'?'라이어는 주제만 알고 있어요.':'한 명만 다른 단어를 받았어요. 본인도 몰라요.'}</p></div></div></section>`;
+  <div class="catname disp ol" id="catname">${roll?'두구두구':esc(R.cat)}</div>
+  <p class="introline">“${R.intro}”</p>${ruleChips()}</div>`;
+ if(m==='spy')h+=`<section class="panel"><div class="ptab acc">이번 라운드</div><div class="mis">${ico('magnifier','misi')}<div><b>질문 ${R.qs.length}개 준비 완료</b><p>난이도 ${DIFFS[G.cfg.diff].name} · ${k>1?`${k}명`:'한 명'}만 다른 단어를 받았어요. 그게 나일 수도!</p></div></div></section>`;
+ else if(G.cfg.mission)h+=`<section class="panel"><div class="ptab acc">이번 라운드 미션</div><div class="mis">${ico('megaphone','misi')}<div>${R.mission?`<b>${R.mission[0]}</b><p>${R.mission[1]}</p>`:`<b>자유 설명</b><p>이번엔 미션 없이 자유롭게 한 마디!</p>`}</div></div></section>`;
+ else h+=`<section class="panel"><div class="ptab acc">이번 라운드</div><div class="mis">${ico(m==='liar'?'masks':'qbubble','misi')}<div><b>${rl}를 찾아라</b><p>${m==='liar'?`${rl} ${k>1?k+'명':''}은 주제만 알고 있어요.`:`${k>1?k+'명':'한 명'}만 다른 단어를 받았어요. 본인도 몰라요.`}</p></div></div></section>`;
  h+=`<div class="dock"><div><button class="btn yel" onclick="go(G.own?'play':'pass')"><span class="lbl">${G.own?'내 제시어 보러 가기':'카드 나눠주기'}</span>${IC.next}</button></div></div>`;
  return h;
 };
 function introFx(){
  const slot=document.getElementById('slot');if(!slot)return;
  if(G.cfg.cat!==RANDOM||G.rolled){sfx.flip();return}
- const cats=G.cfg.mode==='spy'?SPYC:LIARC,keys=shuffle(cats.map(c=>c.icon),Math.random);let i=0,delay=55;
+ const keys=shuffle([...new Set(catsOf(G.cfg).map(c=>c.icon))],Math.random);let i=0,delay=55;
  const step=()=>{if(scr!=='intro'||!document.getElementById('slot'))return;
   if(delay>260){G.rolled=true;slot.classList.remove('rolling');slot.innerHTML=ico(G.R.icon);slot.classList.remove('landed');void slot.offsetWidth;slot.classList.add('landed');
    document.getElementById('catname').textContent=G.R.cat;sfx.reveal();buzz(30);return}
@@ -734,10 +868,11 @@ function introFx(){
 
 /* 제시어 카드 */
 function cardHTML(i,{short=false,hint}={}){
- const R=G.R,isL=i===R.liar,m=G.cfg.mode;
+ const R=G.R,isL=isLiar(i),m=G.cfg.mode,k=G.cfg.liars;
  let back;
- if(m==='liar'&&isL)back=`<div class="face back liar"><span class="catTag">주제 · ${R.cat}</span><div style="width:110px;margin:10px auto 0">${avatar(i,{d:true,hat:false,color:'#ff5a76'})}</div><div class="liarT ol-s" style="color:#fff">당신은 <span style="color:var(--red)">라이어</span></div><p class="note">제시어를 모릅니다. 들키지 말고 알아내세요.</p></div>`;
- else{const w=isL?R.lw:R.word;back=`<div class="face back"><span class="stamp">기밀</span>${ico(R.icon,'cardi')}<span class="catTag">주제 · ${R.cat}</span><div class="secret ${w.length>6?'long':''}">${esc(w)}</div><p class="note">${m==='liar'?'라이어는 이 단어를 모릅니다':m==='fool'?'혹시 나만 다른 단어일 수도…?':'한 명은 다른 단어를 받았어요. 나일 수도…?'}</p></div>`}
+ if(m==='liar'&&isL)back=`<div class="face back liar"><span class="catTag">주제 · ${esc(R.cat)}</span><div class="lav">${avatar(i,{d:true,hat:false,color:'#ff5a76'})}</div><div class="liarT ol-s" style="color:#fff">당신은 <span style="color:var(--red)">라이어</span></div><p class="note">${R.hint?`<b class="hintb">힌트: 제시어는 ${R.hint}글자</b><br>`:''}제시어를 모릅니다. 들키지 말고 알아내세요.${k>1?`<br>라이어는 모두 ${k}명이에요.`:''}</p></div>`;
+ else if(m==='liar'&&i===R.acc)back=`<div class="face back acc"><span class="catTag">주제 · ${esc(R.cat)}</span><div class="liarT ol-s" style="color:#fff;margin-top:8px">당신은 <span style="color:var(--pur2)">공범</span></div><div class="secret sm">${esc(R.word)}</div><p class="note">라이어 편! 라이어가 누군지는 몰라요.<br>시민을 헷갈리게 하세요. 라이어가 이기면 함께 이겨요.</p></div>`;
+ else{const w=isL?R.lw:R.word;back=`<div class="face back"><span class="stamp">기밀</span>${ico(R.icon,'cardi')}<span class="catTag">주제 · ${esc(R.cat)}</span><div class="secret ${letters(w)>6?'long':''} ${letters(w)>10?'xl':''}">${esc(w)}</div><p class="note">${m==='liar'?`라이어${k>1?' '+k+'명':''}은 이 단어를 모릅니다${G.cfg.acc?' · 공범은 알아요':''}`:m==='fool'?'혹시 나만 다른 단어일 수도…?':`${k>1?k+'명':'한 명'}은 다른 단어를 받았어요. 나일 수도…?`}</p></div>`}
  return`<div class="flip ${short?'short':''}" id="card" onclick="flipCard()"><div class="in">
  <div class="face front tapme"><span class="ts">TOP SECRET</span><div class="seal">${IC.lock}</div><h3>${hint||'탭해서 제시어 확인'}</h3><p>다른 사람이 못 보게 조심!</p><div class="lines"><i></i><i></i></div></div>
  ${back}</div></div>`;
@@ -752,27 +887,36 @@ SCREENS.pass=()=>{const i=G.pi;G.shown=false;return`
  ${cardHTML(i)}
  <div class="dock"><div><button class="btn" id="passNext" disabled onclick="passNext()">${IC.hand}<span class="lbl">${i+1<G.cfg.n?`확인 완료 · ${esc(nameOf(i+1))}에게`:'모두 확인 완료!'}</span></button>
  <p class="center" style="margin:10px 0 0;font-weight:700;color:#cfc4f7;font-size:13px">${i+1} / ${G.cfg.n}</p></div></div>`};
-function passNext(){const c=document.getElementById('card');if(c&&c.classList.contains('on')){c.classList.remove('on');sfx.flip();setTimeout(adv,380)}else adv()
- function adv(){G.pi++;go(G.pi>=G.cfg.n?'play':'pass')}}
+function passNext(){if(G.busy)return;G.busy=true;const c=document.getElementById('card');if(c&&c.classList.contains('on')){c.classList.remove('on');sfx.flip();setTimeout(adv,380)}else adv()
+ function adv(){G.busy=false;G.pi++;go(G.pi>=G.cfg.n?'play':'pass')}}
+
+/* 제시어 다시 보기 (폰 돌리기) */
+SCREENS.peek=()=>G.peek==null?`${hud('<span class="hudtitle ol-s">제시어 다시 보기</span>',`<button class="ibtn" onclick="go('play')">${IC.back}</button>`)}
+ <p class="why" style="margin-top:-6px">자기 캐릭터를 누르고, 혼자서만 확인하세요.</p>
+ <div class="lineupbg"><div class="vgrid ${G.cfg.n>=7&&G.cfg.n!==9?'n4':''}">${Array.from({length:G.cfg.n},(_,i)=>`<div class="sus" onclick="G.peek=${i};render()">${avatar(i)}<b>${esc(nameOf(i))}</b></div>`).join('')}</div></div>`
+ :`${hud('<span class="hudtitle ol-s">제시어 다시 보기</span>',spacer)}
+ <div class="turn">${avatar(G.peek)}<h2 class="ol">${esc(nameOf(G.peek))}</h2><p>본인만 보세요!</p></div>${cardHTML(G.peek)}
+ <div class="dock"><div><button class="btn" onclick="G.peek=null;go('play')">${IC.chk}<span class="lbl">확인했어요 · 돌아가기</span></button></div></div>`;
 
 /* 진행 */
-function orderHTML(){const R=G.R,n=G.cfg.n;return`<div class="order">${Array.from({length:n},(_,k)=>{const i=R.rev?(R.starter-k+n*2)%n:(R.starter+k)%n;return`${k?`<span class="arr">${IC.next.replace('<svg','<svg style="width:14px;height:14px"')}</span>`:''}<div class="o ${k===0?'st':''}">${k===0?'<span class="flag">START</span>':''}${avatar(i)}<span>${esc(nameOf(i))}</span></div>`}).join('')}</div>`}
+function orderHTML(){const R=G.R,n=G.cfg.n;return`<div class="order">${Array.from({length:n},(_,k)=>{const i=R.rev?(R.starter-k+n*2)%n:(R.starter+k)%n;return`${k?`<span class="arr">${IC.next.replace('<svg','<svg style="width:14px;height:14px"')}</span>`:''}<div class="o ${k===0?'st':''} ${G.caught.includes(i)?'out':''}">${k===0?'<span class="flag">START</span>':''}${avatar(i,G.caught.includes(i)?{d:true,hat:false}:{})}<span>${esc(nameOf(i))}</span></div>`}).join('')}</div>`}
 const scaleColors=['#8fd3ff','#9fdcf3','#b3e4e0','#c9eccb','#e1f2b4','#f7ef9b','#ffd98a','#ffc07c','#ffa070','#ff8072'];
 function plotHTML(qi,reveal){
  const a=G.ans[qi],q=G.R.qs[qi];if(!a&&!reveal)return'';
- const cols=Array.from({length:10},(_,v)=>`<div class="col">${a?a.map((x,i)=>x===v+1?avatar(i,{d:reveal&&i===G.R.liar,hat:!(reveal&&i===G.R.liar)}):'').join(''):''}</div>`).join('');
+ const cols=Array.from({length:10},(_,v)=>`<div class="col">${a?a.map((x,i)=>x===v+1?avatar(i,{d:reveal&&isLiar(i),hat:!(reveal&&isLiar(i))}):'').join(''):''}</div>`).join('');
  const exp=reveal?`<div class="exp">${Array.from({length:10},(_,v)=>`<span class="${q.a===v+1?'a':q.b===v+1?'b':''}">${q.a===v+1?esc(G.R.word):q.b===v+1?esc(G.R.lw):''}</span>`).join('')}</div>`:'';
  return`<div class="plot">${a?`<div class="cols">${cols}</div>`:''}<div class="axis">${Array.from({length:10},(_,v)=>`<span>${v+1}</span>`).join('')}</div>${exp}</div>`;
 }
 SCREENS.play=()=>{
- const R=G.R,m=G.cfg.mode;
+ const R=G.R,m=G.cfg.mode,left=G.cfg.liars-G.caught.length;
  let h=hud(roundPill());
- if(G.own)h+=`<div class="row" style="align-items:center;margin:-6px 0 6px"><button class="ibtn" style="flex:none" onclick="goRound(-1)" aria-label="이전 라운드">${IC.back}</button><div class="center" style="font-weight:800;color:#e3dbff;font-size:14px">코드 <b style="font-family:var(--disp);font-size:18px;color:var(--yel);letter-spacing:2px">${encode(G.cfg)}</b> · 나는 ${G.me+1}번</div><button class="ibtn" style="flex:none" onclick="goRound(1)" aria-label="다음 라운드">${IC.next}</button></div>${cardHTML(G.me,{short:true,hint:'탭해서 내 제시어 보기'})}`;
- h+=`<section class="panel ${G.own?'':'first'}"><div class="ptab">발언 순서 · ${R.cat}</div>${orderHTML()}`;
- if(m!=='spy')h+=`${R.mission?`<div class="mchip">${ico('megaphone')}<div><b>미션 · ${R.mission[0]}</b>${R.mission[1]}</div></div>`:''}<div class="tips"><div><em>1</em><span>START부터 ${R.rev?'<b>반대 방향</b>으로 ':''}돌아가며 제시어를 <b>한 마디</b>로 설명!</span></div><div><em>2</em><span>너무 자세하면 ${role()}가 눈치채고, 너무 애매하면 내가 의심받아요.</span></div><div><em>3</em><span>한두 바퀴 돌고 토론한 뒤 동시에 지목!</span></div></div></section>`;
+ if(G.own)h+=`<div class="row" style="align-items:center;margin:-6px 0 6px"><button class="ibtn" style="flex:none" onclick="goRound(-1)" aria-label="이전 라운드">${IC.back}</button><div class="center" style="font-weight:800;color:#e3dbff;font-size:14px">코드 <b style="font-family:var(--disp);font-size:18px;color:var(--yel);letter-spacing:2px">${encode(G.cfg)}</b> · 나는 ${G.me+1}번</div><button class="ibtn" style="flex:none" onclick="goRound(1)" aria-label="다음 라운드">${IC.next}</button></div>${cardHTML(G.me,{short:true,hint:'탭해서 내 제시어 보기'})}<p class="hint" style="color:#cfc4f7;text-align:center;margin:12px 0 0">지목 결과는 <b style="color:#fff">한 폰에서만</b> 입력하세요. 다음 라운드는 각자 ▶를 누르면 됩니다.</p>`;
+ if(G.caught.length)h+=`<div class="caughtbar ${G.own?'':'first'}">${ico('handcuffs')}<span><b>${esc(namesOf(G.caught))}</b> 검거! 남은 ${role()} <b>${left}명</b>. 다시 토론하고 지목하세요.</span></div>`;
+ h+=`<section class="panel ${G.own||G.caught.length?'':'first'}"><div class="ptab">발언 순서 · ${esc(R.cat)}</div>${orderHTML()}`;
+ if(m!=='spy')h+=`${R.mission?`<div class="mchip">${ico('megaphone')}<div><b>미션 · ${R.mission[0]}</b>${R.mission[1]}</div></div>`:''}<div class="tips"><div><em>1</em><span>START부터 ${R.rev?'<b>반대 방향</b>으로 ':''}돌아가며 제시어를 <b>한 마디</b>로 설명!</span></div><div><em>2</em><span>너무 자세하면 ${role()}가 눈치채고, 너무 애매하면 내가 의심받아요.</span></div><div><em>3</em><span>한두 바퀴 돌고 토론한 뒤 동시에 지목!</span></div></div>${!G.own?`<button class="btn sm paper" onclick="G.peek=null;go('peek')">${IC.eye}<span>제시어 다시 보기</span></button>`:''}</section>`;
  else{
   const q=R.qs[G.qi];
-  h+=`</section><section class="panel"><div class="ptab acc">질문 ${G.qi+1} / ${R.qs.length}</div>
+  h+=`${!G.own?`<button class="btn sm paper" onclick="G.peek=null;go('peek')">${IC.eye}<span>제시어 다시 보기</span></button>`:''}</section><section class="panel"><div class="ptab acc">질문 ${G.qi+1} / ${R.qs.length}</div>
   <div class="qtext">${esc(q.t)}</div>
   <div class="s10">${scaleColors.map((c,i)=>`<i style="background:${c}">${i+1}</i>`).join('')}</div>
   <div class="slbl"><span>1 · ${esc(q.lo)}</span><span>${esc(q.hi)} · 10</span></div>
@@ -806,54 +950,78 @@ function ansNext(){if(!G.tmp[G.ai])return;G.ai++;G.ashow=false;if(G.ai>=G.cfg.n)
 SCREENS.vote=()=>{const n=G.cfg.n;return`
  ${hud(`<span class="hudtitle ol-s">${ico('magnifier','hi')}용의자 지목</span>`,`<button class="ibtn" onclick="go('play')">${IC.back}</button>`)}
  <p class="why" style="margin-top:-6px">하나, 둘, 셋에 동시에 손가락으로 지목!<br>가장 많이 지목된 사람을 고르세요.</p>
- <div class="lineupbg"><div class="vgrid ${n>=7&&n!==9?'n4':''}">${Array.from({length:n},(_,i)=>`<div class="sus ${G.sel===i?'on':G.sel!=null?'dim':''}" onclick="G.sel=${i};sfx.pick();render()">${avatar(i,{look:G.sel===i?0:(i%3===0?1:i%3===1?0:-1),sweat:G.sel===i})}<b>${esc(nameOf(i))}</b></div>`).join('')}</div></div>
+ <div class="lineupbg"><div class="vgrid ${n>=7&&n!==9?'n4':''}">${Array.from({length:n},(_,i)=>G.caught.includes(i)?`<div class="sus out">${avatar(i,{d:true,hat:false})}<b>검거됨</b></div>`:`<div class="sus ${G.sel===i?'on':G.sel!=null?'dim':''}" onclick="G.sel=${i};sfx.pick();render()">${avatar(i,{look:G.sel===i?0:(i%3===0?1:i%3===1?0:-1),sweat:G.sel===i})}<b>${esc(nameOf(i))}</b></div>`).join('')}</div></div>
  <p class="center" style="font-size:13px;color:#cfc4f7;font-weight:600;margin-top:16px">동점이면 동점자끼리 한 번 더 변론하고 다시 지목하세요.</p>
  <div class="dock"><div><button class="btn red" ${G.sel==null?'disabled':''} onclick="accuse()">${IC.vote}<span class="lbl">${G.sel==null?'용의자를 고르세요':esc(nameOf(G.sel))+' 지목!'}</span></button></div></div>`};
-function accuse(){G.accused=G.sel;resetTimer();sfx.drum();go('suspense');setTimeout(()=>{if(scr!=='suspense')return;if(G.accused===G.R.liar){sfx.stamp();buzz(120);go('caught')}else finish('l')},1650)}
-SCREENS.suspense=()=>`${hud(roundPill(),' <span style="width:46px"></span>')}
+function accuse(){if(G.sel==null||G.busy)return;G.busy=true;G.accused=G.sel;resetTimer();sfx.drum();go('suspense');
+ setTimeout(()=>{G.busy=false;if(scr!=='suspense')return;if(isLiar(G.accused)&&!G.caught.includes(G.accused)){sfx.stamp();buzz(120);G.guess=false;go('caught')}else finish('l')},1650)}
+SCREENS.suspense=()=>`${hud(roundPill(),spacer)}
  <div class="stage" style="margin-top:30px"><div class="spot"></div><div class="tremble" style="width:170px;margin:0 auto">${avatar(G.accused,{sweat:true})}</div></div>
  <div class="sushead ol">${esc(nameOf(G.accused))}님은<br>과연<span class="dots"><span>.</span><span>.</span><span>.</span></span></div>`;
 
 SCREENS.caught=()=>{
- const R=G.R,m=G.cfg.mode;
- return`${hud(roundPill(),' <span style="width:46px"></span>')}
- <div class="stage shake"><div class="spot"></div><div class="av" style="width:170px;margin:0 auto">${avatar(R.liar,{d:true,hat:false})}</div><div class="stamp2">검거</div><div class="cuffs">${ico('handcuffs')}</div></div>
- <div class="sushead ol" style="margin-top:6px">${esc(nameOf(R.liar))}님이 ${role()}!</div>
+ const R=G.R,m=G.cfg.mode,a=G.accused,left=G.cfg.liars-G.caught.length-1;
+ return`${hud(roundPill(),spacer)}
+ <div class="stage shake"><div class="spot"></div><div class="av" style="width:170px;margin:0 auto">${avatar(a,{d:true,hat:false})}</div><div class="stamp2">검거</div><div class="cuffs">${ico('handcuffs')}</div></div>
+ <div class="sushead ol" style="margin-top:6px">${esc(nameOf(a))}님이 ${role()}!</div>
  ${m!=='liar'?`<p class="why" style="margin-top:2px">${role()}가 받은 단어는 <b style="color:#ff8aa0;font-family:var(--disp);font-size:20px">${esc(R.lw)}</b></p>`:''}
  <section class="panel"><div class="ptab acc">마지막 기회</div>
  <p style="font-weight:700">${role()}는 ${m==='liar'?'제시어를':'다른 사람들의 제시어를'} 소리 내어 맞혀 보세요.</p>
- <p class="sub">답을 말한 뒤 정답을 공개합니다.</p>
+ <p class="sub">기회는 한 번! 답을 말한 뒤 정답을 공개합니다.${left>0?` 틀리면 남은 ${role()} ${left}명을 계속 찾아요.`:''}</p>
  ${G.guess?`<div class="secret center" style="margin:14px 0 4px;animation:pop .45s both">${esc(R.word)}</div>
- <div class="row"><button class="btn red" onclick="finish('l')"><span class="lbl">맞혔다!</span></button><button class="btn grn" onclick="finish('c')"><span class="lbl">틀렸다</span></button></div>`
+ <div class="row"><button class="btn red" onclick="finish('l')"><span class="lbl">맞혔다!</span></button><button class="btn grn" onclick="wrongGuess()"><span class="lbl">틀렸다</span></button></div>`
  :`<button class="btn yel" onclick="G.guess=true;sfx.reveal();render()">${IC.eye}<span>정답 공개</span></button>`}
  </section>`;
 };
-function finish(w){G.win=w;G.tally[w]++;G.delta=G.pts.map((_,i)=>w==='c'?(i===G.R.liar?0:1):(i===G.R.liar?3:0));G.delta.forEach((d,i)=>G.pts[i]+=d);go('result');if(w==='c'){sfx.win();confetti()}else{sfx.lose();setTimeout(()=>confetti(40),200)}}
+function wrongGuess(){if(G.done)return;G.caught.push(G.accused);if(G.caught.length>=G.cfg.liars)finish('c');else{G.sel=null;sfx.reveal();go('play');toast(`남은 ${role()} ${G.cfg.liars-G.caught.length}명! 다시 토론하세요`)}}
+function finish(w){if(G.done)return;G.done=true;const R=G.R;G.win=w;G.tally[w]++;
+ G.delta=G.pts.map((_,i)=>w==='c'?(isLiar(i)||i===R.acc?0:1):(isLiar(i)?3:i===R.acc?2:0));G.delta.forEach((d,i)=>G.pts[i]+=d);
+ G.history.push({round:G.round+1,cat:R.cat,word:R.word,win:w,liars:R.liars.slice()});
+ if(S.penalty)G.pen=pick(PENALTIES,Math.random);
+ go('result');if(w==='c'){sfx.win();confetti()}else{sfx.lose();setTimeout(()=>confetti(40),200)}}
 
 SCREENS.result=()=>{
- const R=G.R,m=G.cfg.mode,lw=G.win==='l',innocent=G.accused!==R.liar;
- const st=innocent?['도주 성공','y']:lw?['역전승','y']:['검거',''];
- const why=innocent?`<b class="nm">${esc(nameOf(G.accused))}</b>님은 억울한 시민이었습니다!`:lw?`${role()}가 제시어를 맞혔습니다!`:`${role()}가 제시어를 못 맞혔습니다.`;
+ const R=G.R,m=G.cfg.mode,lw=G.win==='l',a=G.accused,innocent=!isLiar(a)||(G.caught.includes(a)&&!lw&&false),rl=role(),multi=R.liars.length>1;
+ const wrongPick=!isLiar(a);
+ const st=wrongPick?['도주 성공','y']:lw?['역전승','y']:['검거',''];
+ const why=wrongPick?`<b class="nm">${esc(nameOf(a))}</b>님은 ${a===R.acc?'라이어의 공범':'억울한 시민'}이었습니다!`:lw?`<b class="nm">${esc(nameOf(a))}</b>님이 제시어를 맞혔습니다!`:multi?`${rl}를 모두 잡았습니다!`:`${rl}가 제시어를 못 맞혔습니다.`;
  let h=`${hud(roundPill())}
- <div class="ribbon" style="--c:${lw?'var(--red)':'var(--grn)'};--cd:${lw?'var(--red-d)':'var(--grn-d)'}"><span class="ol-s">${lw?role()+' 승리':'시민 승리'}</span></div>
- <div class="stage" style="margin-top:20px"><div class="spot"></div><div class="av" style="width:150px;margin:0 auto">${avatar(R.liar,{d:true,hat:false})}</div><div class="stamp2 ${st[1]}" style="font-size:38px">${st[0]}</div></div>
+ <div class="ribbon" style="--c:${lw?'var(--red)':'var(--grn)'};--cd:${lw?'var(--red-d)':'var(--grn-d)'}"><span class="ol-s">${lw?rl+' 승리':'시민 승리'}</span></div>
+ <div class="stage" style="margin-top:20px"><div class="spot"></div><div class="lrow">${R.liars.map(i=>`<div class="av">${avatar(i,{d:true,hat:false})}</div>`).join('')}</div><div class="stamp2 ${st[1]}" style="font-size:38px">${st[0]}</div></div>
  <p class="why">${why}</p>
  <section class="panel"><div class="ptab">정답 공개</div><div class="facts">
- <div class="fact"><span>${role()}</span><b class="who r">${avatar(R.liar,{hat:false})}${esc(nameOf(R.liar))}</b></div>
- <div class="fact"><span>주제</span><b>${R.cat}</b></div>
+ <div class="fact"><span>${rl}</span><b class="who r">${R.liars.map(i=>avatar(i,{hat:false})).join('')}${esc(namesOf(R.liars))}</b></div>
+ ${R.acc>=0?`<div class="fact"><span>공범</span><b class="who" style="color:var(--pur2)">${avatar(R.acc,{hat:false})}${esc(nameOf(R.acc))}</b></div>`:''}
+ <div class="fact"><span>주제</span><b>${esc(R.cat)}</b></div>
  <div class="fact"><span>시민 제시어</span><b>${esc(R.word)}</b></div>
- ${m!=='liar'?`<div class="fact"><span>${role()}의 단어</span><b class="r">${esc(R.lw)}</b></div>`:''}
+ ${m!=='liar'?`<div class="fact"><span>${rl}의 단어</span><b class="r">${esc(R.lw)}</b></div>`:''}
+ ${R.mission?`<div class="fact"><span>미션</span><b style="font-size:17px">${R.mission[0]}</b></div>`:''}
  </div></section>`;
  if(m==='spy')h+=R.qs.map((q,k)=>`<section class="panel"><div class="ptab">질문 ${k+1} · 간극 ${Math.abs(q.a-q.b)}</div><p style="font-family:var(--disp);font-size:20px;margin:2px 0 0">${esc(q.t)}</p>
   ${plotHTML(k,true)}<p class="hint">▲ 표시는 그 단어를 받은 보통 사람이 낼 법한 숫자예요.</p></section>`).join('');
+ if(G.pen)h+=`<section class="panel pen"><div class="ptab acc">${ico('stamp')}벌칙</div><p class="sub">벌칙 대상 · <b>${lw?'시민 팀':esc(namesOf(R.liars))+(R.acc>=0?', '+esc(nameOf(R.acc)):'')}</b></p><div class="pentext" id="pentext">${esc(G.pen)}</div><button class="btn sm paper" onclick="G.pen=pick(PENALTIES.filter(p=>p!==G.pen),Math.random);document.getElementById('pentext').textContent=G.pen;sfx.pick()">${IC.reset}<span>다시 뽑기</span></button></section>`;
  const rank=G.pts.map((p,i)=>({p,i})).sort((a,b)=>b.p-a.p||a.i-b.i);
- h+=`<div class="score"><div><b style="color:var(--grn)">${G.tally.c}</b><span>시민</span></div><div class="vs">VS</div><div><b style="color:var(--red)">${G.tally.l}</b><span>${role()}</span></div></div>
- <section class="panel"><div class="ptab">${ico('trophy')}점수판</div><div class="board">${rank.map((r,k)=>`<div class="rowp"><span class="rk">${k===0&&r.p>0?ico('trophy'):k+1}</span>${avatar(r.i)}<span class="nm2">${esc(nameOf(r.i))}</span><span class="pt">${r.p}<small>점</small></span>${G.delta[r.i]?`<span class="plus ${r.i===G.R.liar?'r':''}">+${G.delta[r.i]}</span>`:''}</div>`).join('')}</div>
- <p class="hint">시민이 이기면 시민 모두 <b>+1</b> · ${role()}가 이기면 ${role()} <b>+3</b></p></section>
- <button class="btn paper sm" style="margin-top:20px" onclick="resetTimer();G=null;go('lobby')"><span>설정 바꾸기</span></button>
+ h+=`<div class="score"><div><b style="color:var(--grn)">${G.tally.c}</b><span>시민</span></div><div class="vs">VS</div><div><b style="color:var(--red)">${G.tally.l}</b><span>${rl}</span></div></div>
+ <section class="panel"><div class="ptab">${ico('trophy')}점수판</div><div class="board">${rank.map((r,k)=>`<div class="rowp"><span class="rk">${k===0&&r.p>0?ico('trophy'):k+1}</span>${avatar(r.i)}<span class="nm2">${esc(nameOf(r.i))}</span><span class="pt">${r.p}<small>점</small></span>${G.delta[r.i]?`<span class="plus ${isLiar(r.i)||r.i===R.acc?'r':''}">+${G.delta[r.i]}</span>`:''}</div>`).join('')}</div>
+ <p class="hint">시민이 이기면 시민 모두 <b>+1</b> · ${rl}가 이기면 ${rl} <b>+3</b>${G.cfg.acc?', 공범 <b>+2</b>':''}</p></section>
+ <div class="row" style="margin-top:20px"><button class="btn paper sm" onclick="resetTimer();G=null;go('lobby')"><span>설정 바꾸기</span></button><button class="btn paper sm" onclick="go('final')">${ico('trophy','bi')}<span>게임 끝내기</span></button></div>
  <div class="dock"><div><button class="btn yel" onclick="G.round++;startRound()"><span class="lbl">다음 라운드</span>${IC.next}</button>
  ${G.own?'<p class="center" style="margin:8px 0 0;font-size:12.5px;color:#cfc4f7;font-weight:600">모두 같은 라운드로 넘어갔는지 확인하세요</p>':''}</div></div>`;
  return h;
+};
+
+/* 최종 순위 */
+SCREENS.final=()=>{
+ const rank=G.pts.map((p,i)=>({p,i})).sort((a,b)=>b.p-a.p||a.i-b.i);
+ const top=rank[0].p,winners=rank.filter(r=>r.p===top&&top>0),pod=[rank[1],rank[0],rank[2]];
+ setTimeout(()=>{sfx.win();confetti(90)},250);
+ return`${hud('<span class="hudtitle ol-s">최종 순위</span>',spacer)}
+ <div class="ribbon" style="--c:var(--yel);--cd:var(--yel-d);color:var(--ink)"><span>${winners.length?esc(winners.map(r=>nameOf(r.i)).join(', '))+' 우승!':'무승부!'}</span></div>
+ <div class="podium">${pod.map((r,k)=>r?`<div class="pd p${[2,1,3][k]}"><div class="pav">${[2,1,3][k]===1?`<div class="crown">${ico('trophy')}</div>`:''}${avatar(r.i)}</div><b>${esc(nameOf(r.i))}</b><div class="bar"><span class="disp">${[2,1,3][k]}</span><small>${r.p}점</small></div></div>`:'<div class="pd"></div>').join('')}</div>
+ <section class="panel"><div class="ptab">전체 순위 · ${G.history.length}라운드</div><div class="board">${rank.map((r,k)=>`<div class="rowp"><span class="rk">${k+1}</span>${avatar(r.i)}<span class="nm2">${esc(nameOf(r.i))}</span><span class="pt">${r.p}<small>점</small></span></div>`).join('')}</div></section>
+ ${G.history.length?`<section class="panel"><div class="ptab">라운드 기록</div><div class="hist">${G.history.map(x=>`<div><span class="disp">R${x.round}</span><span>${esc(x.cat)} · <b>${esc(x.word)}</b></span><em class="${x.win==='c'?'c':'l'}">${x.win==='c'?'시민':'라이어'}</em></div>`).join('')}</div></section>`:''}
+ <div class="dock"><div><button class="btn yel" onclick="const c=G.cfg;newGame({...c,seed:Math.floor(Math.random()*8192)},G.own,G.me);if(G.own)go('code');else startRound()"><span class="lbl">같은 멤버로 새 게임</span></button>
+ <button class="btn paper sm" onclick="G=null;go('title')"><span>처음으로</span></button></div></div>`;
 };
 
 render();
