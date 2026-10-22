@@ -85,7 +85,7 @@ input{-webkit-user-select:text;user-select:text}
 .hint b{color:var(--ink)}
 
 /* 타이틀 */
-.title{min-height:calc(100dvh - 40px);display:flex;flex-direction:column;align-items:center;padding-top:4vh}
+.title{position:relative;min-height:calc(100dvh - 40px);display:flex;flex-direction:column;align-items:center;padding-top:4vh}
 .logo{position:relative;text-align:center;margin-top:10px}
 .logo .en{display:inline-block;font-family:var(--disp);font-size:15px;letter-spacing:6px;color:var(--ink);background:var(--yel);border:3px solid var(--ink);padding:3px 10px 4px 16px;border-radius:8px;transform:rotate(-4deg);box-shadow:0 4px 0 var(--ink)}
 .logo .ko{font-family:var(--disp);font-size:92px;line-height:1;color:var(--yel);margin-top:8px;transform:rotate(-3deg);
@@ -264,7 +264,7 @@ details.names summary::-webkit-details-marker{display:none}
 .stage{position:relative;text-align:center;margin-top:10px}
 .stage .spot{position:absolute;left:50%;top:-30px;width:260px;height:320px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(255,240,180,.35),transparent);pointer-events:none}
 .stage .av{width:170px;margin:0 auto;position:relative}
-.stamp2{position:absolute;left:50%;top:44%;font-family:var(--disp);font-size:56px;color:var(--red);border:6px solid var(--red);border-radius:14px;padding:2px 18px 8px;white-space:nowrap;
+.stamp2{position:absolute;left:50%;top:93%;font-family:var(--disp);font-size:44px;color:var(--red);border:6px solid var(--red);border-radius:14px;padding:2px 18px 8px;white-space:nowrap;
  transform:translate(-50%,-50%) rotate(-14deg);background:rgba(255,248,236,.93);box-shadow:0 5px 0 rgba(0,0,0,.35);text-shadow:none;
  animation:slam .45s cubic-bezier(.3,1.6,.5,1) both;animation-delay:.25s;mix-blend-mode:normal}
 .stamp2.g{color:var(--grn);border-color:var(--grn)}
@@ -309,6 +309,48 @@ details.names summary::-webkit-details-marker{display:none}
 .pick button{border:3px solid var(--ink);background:#fff;border-radius:14px;padding:6px 2px 6px;cursor:pointer;box-shadow:0 4px 0 var(--ink);font-family:var(--disp);font-size:15px;color:var(--ink)}
 .pick button .av{width:44px;margin:0 auto}
 .toast{position:fixed;left:50%;bottom:120px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;z-index:30;border:2px solid rgba(255,255,255,.2);animation:pop .3s both}
+
+/* 아이콘 (제미나이 그림) */
+.ico{display:block;width:100%;height:auto;pointer-events:none;-webkit-user-drag:none}
+.tile{flex-direction:column;gap:3px;padding:8px 4px 9px}
+.tile .ti{width:46px;height:46px}
+.tile .ti.dice{display:grid;place-items:center;color:var(--ink)}
+.tile .ti.dice svg{width:32px;height:32px}
+.tile span:last-child{font-size:15px;line-height:1.15;word-break:keep-all}
+.seg .segi{width:30px;height:30px}
+.intro{text-align:center;margin-top:4px;position:relative}
+.rnum{font-size:30px;color:var(--yel);letter-spacing:3px}
+.slot{width:156px;height:156px;margin:14px auto 6px;border-radius:38px;background:var(--paper);border:3px solid var(--ink);box-shadow:0 8px 0 var(--ink),inset 0 -8px 0 var(--paper2);display:grid;place-items:center;position:relative;animation:pop .5s cubic-bezier(.3,1.6,.5,1) both}
+.slot .ico{width:122px}
+.slot.rolling .ico{filter:blur(1px)}
+.slot.landed{animation:land .45s cubic-bezier(.3,1.8,.5,1)}
+@keyframes land{0%{transform:scale(1.25) rotate(-6deg)}100%{transform:none}}
+.catname{font-size:42px;margin-top:12px;min-height:46px}
+.introline{font-weight:700;color:#e3dbff;font-size:16px;margin:6px 0 0}
+.mis{display:flex;gap:12px;align-items:center}
+.mis .misi{width:64px;flex:none}
+.mis b{font-family:var(--disp);font-weight:400;font-size:23px;display:block;line-height:1.15}
+.mis p{margin:3px 0 0;font-weight:600;font-size:14.5px;color:#4b3d75}
+.cardi{width:66px;margin:-4px auto 6px}
+.mchip{display:flex;gap:10px;align-items:center;margin-top:12px;background:var(--acc);border:2.5px solid var(--ink);border-radius:14px;padding:8px 12px;font-weight:700;font-size:14px;line-height:1.4}
+.mchip .ico{width:40px;flex:none}
+.mchip b{font-family:var(--disp);font-weight:400;font-size:17px;display:block}
+.board .rowp{display:flex;align-items:center;gap:10px;padding:7px 4px;border-bottom:2px dashed var(--paper3)}
+.board .rowp:last-child{border-bottom:0}
+.board .rk{font-family:var(--disp);width:28px;text-align:center;font-size:18px;flex:none}
+.board .rk .ico{width:28px}
+.board .av{width:36px;flex:none}
+.board .nm2{flex:1;font-family:var(--disp);font-size:17px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.board .pt{font-family:var(--disp);font-size:22px}
+.board .pt small{font-size:13px;margin-left:2px}
+.board .plus{font-family:var(--disp);font-size:14px;color:var(--grn-d);margin-left:6px}
+.board .plus.r{color:var(--red)}
+.deco{position:absolute;width:62px;filter:drop-shadow(0 4px 0 rgba(0,0,0,.28));animation:floaty 4.5s ease-in-out infinite;pointer-events:none;z-index:0}
+@keyframes floaty{50%{transform:translateY(-9px) rotate(var(--r2,6deg))}}
+.title>*:not(.deco){position:relative;z-index:1}
+.cuffs{position:absolute;left:calc(50% + 40px);bottom:-8px;width:86px;transform:rotate(-14deg);animation:pop .4s .75s both;z-index:2}
+.hi{width:32px;display:inline-block;vertical-align:-8px;margin-right:4px}
+.ptab .ico{width:24px;display:inline-block;vertical-align:-6px;margin:-6px 4px -4px -6px}
 
 /* 방법 */
 .how{display:grid;gap:10px}
@@ -357,6 +399,10 @@ const IC={
  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4.5v-6h-5v6H5a1 1 0 01-1-1z"/></svg>',
  vote:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3.5" fill="currentColor"/><path d="M12 1.5v4M12 18.5v4M1.5 12h4M18.5 12h4"/></svg>',
 };
+
+/* ───────── 그림 아이콘 (빌드 때 assets/icons 가 들어감) ───────── */
+const ICONS=/*@ICONS@*/{};
+const ico=(k,cls='')=>ICONS[k]?`<img class="ico ${cls}" src="${ICONS[k]}" alt="" draggable="false">`:'';
 
 /* ───────── 캐릭터 ───────── */
 const COLORS=['#ff6b6b','#4dabf7','#ffd43b','#69db7c','#b197fc','#ff922b','#f783ac','#3bc9db','#a9e34b','#e599f7','#74c0fc','#ffa8a8','#63e6be','#ffe066','#91a7ff','#ffc078','#8ce99a','#d0bfff'];
@@ -431,13 +477,15 @@ function rng(...k){let a=hash(k.join('|'));return()=>{a=a+0x6D2B79F5|0;let t=Mat
 function shuffle(arr,r){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 const pick=(arr,r)=>arr[Math.floor(r()*arr.length)];
 
-/* 코드: 모드2·인원4·주제5·난이도2·시드12 비트 = 25비트 = 5글자 */
+/* 코드: 모드2·인원4·주제6·옵션2·시드11 비트 = 25비트 = 5글자
+   옵션: 스파이=난이도(0~2), 라이어·바보=1이면 라운드 미션 켬 */
 const ABC='23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
-function encode(c){let v=((((MODE_KEYS.indexOf(c.mode)*16+(c.n-3))*32+c.cat)*4+c.diff)*4096)+c.seed,s='';for(let i=0;i<5;i++){s=ABC[v&31]+s;v=Math.floor(v/32)}return s}
+const RANDOM=63;
+function encode(c){let v=((((MODE_KEYS.indexOf(c.mode)*16+(c.n-3))*64+c.cat)*4+c.diff)*2048)+c.seed,s='';for(let i=0;i<5;i++){s=ABC[v&31]+s;v=Math.floor(v/32)}return s}
 function cleanCode(s){return(s||'').toUpperCase().replace(/O/g,'0').replace(/[I1]/g,'L').replace(/[^0-9A-Z]/g,'').slice(0,5)}
 function decode(s){s=cleanCode(s);if(s.length!==5)return null;let v=0;for(const ch of s){const i=ABC.indexOf(ch);if(i<0)return null;v=v*32+i}
- const seed=v%4096;v=Math.floor(v/4096);const diff=v%4;v=Math.floor(v/4);const cat=v%32;v=Math.floor(v/32);const n=v%16+3;const m=Math.floor(v/16);
- const mode=MODE_KEYS[m];if(!mode||diff>2)return null;const cats=mode==='spy'?SPYC:LIARC;if(cat!==31&&cat>=cats.length)return null;return{mode,n,cat,diff,seed}}
+ const seed=v%2048;v=Math.floor(v/2048);const diff=v%4;v=Math.floor(v/4);const cat=v%64;v=Math.floor(v/64);const n=v%16+3;const m=Math.floor(v/16);
+ const mode=MODE_KEYS[m];if(!mode||diff>2)return null;const cats=mode==='spy'?SPYC:LIARC;if(cat!==RANDOM&&cat>=cats.length)return null;return{mode,n,cat,diff,seed}}
 
 /* ───────── 라운드 만들기 ───────── */
 const candCache={};
@@ -456,38 +504,60 @@ function spyCands(ci,d,seed){
  }
  return candCache[key]=shuffle(out,r);
 }
-function genRound(cfg,round){
+/* recent: 폰 돌리기 모드에서만 — 최근 판에 나온 단어를 피한다(각자 폰 모드는 모든 폰이 같은 결과를 내야 하므로 쓰지 않음) */
+function genRound(cfg,round,recent){
  const spy=cfg.mode==='spy',cats=spy?SPYC:LIARC;
  const order=shuffle(cats.map((_,i)=>i),rng(cfg.seed,'cats'));
- const catOf=x=>cfg.cat===31?order[x%cats.length]:cfg.cat;
+ const catOf=x=>cfg.cat===RANDOM?order[x%cats.length]:cfg.cat;
  const c=catOf(round);let k=0;for(let x=0;x<round;x++)if(catOf(x)===c)k++;
  const rr=rng(cfg.seed,'round',round,cfg.mode);
  const liar=Math.floor(rr()*cfg.n);
  let starter=Math.floor(rr()*cfg.n);if(starter===liar&&cfg.mode==='liar')starter=(starter+1)%cfg.n;
+ const mission=!spy&&(cfg.diff&1)?pick(MISSIONS,rng(cfg.seed,'mission',round)):null;
+ const intro=pick(INTROS,rng(cfg.seed,'intro',round));
+ const base={cat:cats[c].name,icon:cats[c].icon,liar,starter,mission,intro,rev:!!(mission&&mission[0]==='거꾸로 돌기')};
  if(!spy){
-  const words=shuffle(cats[c].w,rng(cfg.seed,'w',c));const word=words[k%words.length];
-  const lw=cfg.mode==='fool'?pick(cats[c].w.filter(x=>x!==word),rr):null;
-  return{cat:cats[c].name,word,lw,liar,starter,qs:[]};
+  const words=shuffle(cats[c].w,rng(cfg.seed,'w',c));
+  const used=new Set(recent?recent(cfg.mode+':'+cats[c].name):[]);
+  const word=recent?(words.find(w=>!used.has(w))||words[0]):words[k%words.length];
+  let lw=null;
+  if(cfg.mode==='fool'){const others=cats[c].w.filter(x=>x!==word),usedL=new Set(recent?recent(cfg.mode+':'+cats[c].name+':lw'):[]);const fresh=others.filter(x=>!used.has(x)&&!usedL.has(x));lw=pick(fresh.length?fresh:others,rr)}
+  return{...base,word,lw,qs:[]};
  }
- const C=SPYC[c],cands=spyCands(c,cfg.diff,cfg.seed),p=cands[k%cands.length];
+ const C=SPYC[c],cands=spyCands(c,cfg.diff,cfg.seed);
+ let p=cands[k%cands.length];
+ if(recent){const used=new Set(recent('spy:'+C.name));p=cands.find(x=>!used.has(C.w[x.i].name)&&!used.has(C.w[x.j].name))||cands.find(x=>!used.has(C.w[x.i].name+'|'+C.w[x.j].name))||p}
  const flip=rr()<.5,a=flip?p.j:p.i,b=flip?p.i:p.j;
- return{cat:C.name,word:C.w[a].name,lw:C.w[b].name,liar,starter,
+ return{...base,word:C.w[a].name,lw:C.w[b].name,
   qs:p.qs.map(q=>({t:C.q[q][0],lo:C.q[q][1],hi:C.q[q][2],a:C.w[a].v[q],b:C.w[b].v[q]}))};
+}
+/* 최근에 나온 단어 기록(이 브라우저에만) */
+const RECENT=store.get('recent',{});
+const recentOf=key=>RECENT[key]||[];
+function remember(key,words,cap){const a=(RECENT[key]||[]).filter(w=>!words.includes(w));a.push(...words);RECENT[key]=a.slice(-cap);store.set('recent',RECENT)}
+function rememberRound(){
+ const R=G.R,m=G.cfg.mode,cats=m==='spy'?SPYC:LIARC,cat=cats.find(c=>c.name===R.cat),size=m==='spy'?cat.w.length:cat.w.length;
+ const cap=Math.max(3,Math.floor(size*.7));
+ if(m==='spy')remember('spy:'+R.cat,[R.word,R.lw,[R.word,R.lw].sort().join('|')],cap+8);
+ else{remember(m+':'+R.cat,[R.word],cap);if(R.lw)remember(m+':'+R.cat+':lw',[R.lw],Math.floor(cap/2))}
 }
 
 /* ───────── 상태 ───────── */
-const S=Object.assign({mode:'liar',n:5,cat:31,diff:1,play:'pass',names:[]},store.get('cfg',{}));
+const S=Object.assign({mode:'liar',n:5,cat:RANDOM,diff:1,mission:true,play:'pass',names:[]},store.get('cfg',{}));
+if(S.cat===31&&!store.get('v2',false))S.cat=RANDOM;store.set('v2',true);
 let G=null,scr='title',howTab=null;
 const nameOf=i=>(G&&G.own)?(i+1)+'번':((S.names[i]||'').trim()||(i+1)+'번');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const role=()=>MODES[G.cfg.mode].role;
-function saveCfg(){store.set('cfg',{mode:S.mode,n:S.n,cat:S.cat,diff:S.diff,play:S.play,names:S.names})}
+function saveCfg(){store.set('cfg',{mode:S.mode,n:S.n,cat:S.cat,diff:S.diff,mission:S.mission,play:S.play,names:S.names})}
 function go(s){scr=s;render()}
+function newGame(cfg,own,me){G={cfg,own,me,round:0,tally:{c:0,l:0},pts:Array(cfg.n).fill(0)}}
 function startRound(){
- G.R=genRound(G.cfg,G.round);G.pi=0;G.qi=0;G.ans=G.R.qs.map(()=>null);G.accused=null;G.sel=null;G.guess=false;G.mine=false;
+ G.R=genRound(G.cfg,G.round,G.own?null:recentOf);G.pi=0;G.qi=0;G.ans=G.R.qs.map(()=>null);G.accused=null;G.sel=null;G.guess=false;G.mine=false;G.rolled=false;
+ if(!G.own)rememberRound();
  resetTimer();
  if(G.own)store.set('own',{code:encode(G.cfg),round:G.round,me:G.me});
- go(G.own?'play':'pass');
+ go('intro');
 }
 
 /* ───────── 타이머 ───────── */
@@ -502,7 +572,7 @@ function drawTimer(){const el=document.getElementById('tt');if(!el)return;const 
  document.getElementById('tb').innerHTML=(T.run?IC.pause:IC.play)+`<span class="lbl">${T.run?'일시정지':(T.left<T.total&&T.left>0?'계속':'토론 시작')}</span>`}
 function timerToggle(){if(T.left<=0){T.left=T.total}T.run=!T.run;T.last=Date.now();if(!T.id)T.id=setInterval(tick,200);drawTimer()}
 function timerAdd(s){T.left=Math.max(0,T.left+s);if(T.left>T.total)T.total=T.left;drawTimer()}
-const timerHTML=()=>`<section class="panel"><div class="ptab">토론 타이머</div><div class="timer">
+const timerHTML=()=>`<section class="panel"><div class="ptab">${ico('hourglass')}토론 타이머</div><div class="timer">
  <div class="ring" id="tring"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#fff" stroke="var(--ink)" stroke-width="13"/><circle cx="50" cy="50" r="40" fill="none" stroke="var(--paper2)" stroke-width="8"/><circle id="tarc" cx="50" cy="50" r="40" fill="none" stroke="var(--acc)" stroke-width="8" stroke-linecap="round" stroke-dasharray="251.3" stroke-dashoffset="0"/></svg><div class="t" id="tt"></div></div>
  <div class="ctl"><button class="btn sm" id="tb" onclick="timerToggle()"></button><button class="btn sm paper" onclick="timerAdd(30)">${IC.plus}<span>30초</span></button><button class="btn sm paper" onclick="resetTimer();drawTimer()">${IC.reset}<span>리셋</span></button></div></div></section>`;
 
@@ -513,6 +583,7 @@ function render(){
  const dock=app.querySelector('.dock');if(dock)app.appendChild(dock); // 애니메이션(transform) 밖으로 빼야 화면 하단에 고정됨
  window.scrollTo(0,0);drawTimer();
  if(scr==='join')joinSync();
+ if(scr==='intro')introFx();
 }
 const SCREENS={};
 const sndBtn=()=>`<button class="ibtn" onclick="toggleMute()" aria-label="소리">${muted?IC.soff:IC.son}</button>`;
@@ -526,6 +597,10 @@ SCREENS.title=()=>{
  const o=store.get('own',null),oc=o&&decode(o.code);
  return`<div class="title">
  <div class="hud" style="width:100%;margin:0"><button class="ibtn" onclick="howTab=S.mode;go('how')" aria-label="게임 방법">${IC.help}</button>${sndBtn()}</div>
+ <img class="deco" src="${ICONS.magnifier||''}" style="left:-6px;top:120px;--r2:-8deg" alt="">
+ <img class="deco" src="${ICONS.qbubble||''}" style="right:-4px;top:96px;width:56px;animation-delay:-1.5s" alt="">
+ <img class="deco" src="${ICONS.siren||''}" style="left:6px;top:575px;width:54px;animation-delay:-2.4s;--r2:10deg" alt="">
+ <img class="deco" src="${ICONS.detective||''}" style="right:4px;top:568px;width:64px;animation-delay:-.8s;--r2:-6deg" alt="">
  <div class="logo"><div class="en">LIAR GAME</div><div class="ko">라이<span>어</span></div><div class="game">게임</div></div>
  <div class="lineup">
   <div class="a">${avatar(1,{look:1,fedora:true})}</div>
@@ -558,7 +633,7 @@ SCREENS.how=()=>{const k=howTab||'liar';document.body.className='m-'+k;return`
 
 /* 로비 */
 SCREENS.lobby=()=>{
- const cats=S.mode==='spy'?SPYC:LIARC;if(S.cat!==31&&S.cat>=cats.length)S.cat=31;
+ const cats=S.mode==='spy'?SPYC:LIARC;if(S.cat!==RANDOM&&S.cat>=cats.length)S.cat=RANDOM;
  while(S.names.length<S.n)S.names.push('');
  const M=MODES[S.mode];
  return`${hud('<span class="hudtitle ol-s">게임 설정</span>',`<button class="ibtn" onclick="go('title')">${IC.back}</button>`)}
@@ -572,25 +647,29 @@ SCREENS.lobby=()=>{
   ${S.play==='pass'?`<details class="names" ${S.namesOpen?'open':''} ontoggle="S.namesOpen=this.open"><summary>${IC.next.replace('<svg','<svg style="width:14px;height:14px"')} 이름 정하기 (선택)</summary><div class="nlist">${Array.from({length:S.n},(_,i)=>`<label class="nitem">${avatar(i)}<input maxlength="8" placeholder="${i+1}번" value="${esc(S.names[i]||'')}" oninput="S.names[${i}]=this.value;saveCfg()"></label>`).join('')}</div></details>`:''}
  </section>
  <section class="panel"><div class="ptab">주제</div>
-  <div class="tiles"><button class="tile ${S.cat===31?'on':''}" onclick="set('cat',31)">${IC.dice}랜덤</button>${cats.map((c,i)=>`<button class="tile ${S.cat===i?'on':''}" onclick="set('cat',${i})">${c.name}</button>`).join('')}</div>
+  <div class="tiles"><button class="tile ${S.cat===RANDOM?'on':''}" onclick="set('cat',RANDOM)"><span class="ti dice">${IC.dice}</span><span>랜덤</span></button>${cats.map((c,i)=>`<button class="tile ${S.cat===i?'on':''}" onclick="set('cat',${i})">${ico(c.icon,'ti')}<span>${c.name}</span></button>`).join('')}</div>
+  <p class="hint">${S.mode==='spy'?`주제 ${cats.length}개 · 단어 ${cats.reduce((a,c)=>a+c.w.length,0)}개 · 질문 ${cats.length*10}개`:`주제 ${cats.length}개 · 제시어 ${cats.reduce((a,c)=>a+c.w.length,0)}개`} · 최근에 나온 단어는 피해서 나와요</p>
  </section>
  ${S.mode==='spy'?`<section class="panel"><div class="ptab">난이도</div>
   <div class="seg">${DIFFS.map((d,i)=>`<button class="${S.diff===i?'on':''}" onclick="set('diff',${i})"><span class="gauge">${[0,1,2].map(k=>`<i class="${k<=i?'f':''}" style="height:${6+k*5}px"></i>`).join('')}</span>${d.name}</button>`).join('')}</div>
   <p class="hint"><b>간극 ${DIFFS[S.diff].gap[0]}~${DIFFS[S.diff].gap[1]}</b> · ${DIFFS[S.diff].desc}</p></section>`:''}
+ ${S.mode!=='spy'?`<section class="panel"><div class="ptab">라운드 미션</div>
+  <div class="seg"><button class="${S.mission?'on':''}" onclick="set('mission',true)">${ico('megaphone','segi')}미션 켜기</button><button class="${!S.mission?'on':''}" onclick="set('mission',false)">${IC.chk}자유 설명만</button></div>
+  <p class="hint">${S.mission?'라운드마다 <b>"비유로만", "딱 세 글자", "의성어 넣기"</b> 같은 설명 미션이 랜덤으로 붙어요.':'미션 없이 자유롭게 한 마디씩 설명합니다.'}</p></section>`:''}
  <section class="panel"><div class="ptab">진행 방식</div>
   <div class="seg"><button class="${S.play==='pass'?'on':''}" onclick="set('play','pass')">${IC.phone}폰 하나 돌리기</button><button class="${S.play==='own'?'on':''}" onclick="set('play','own')">${IC.phones}각자 폰으로</button></div>
   <p class="hint">${S.play==='pass'?'폰 한 대를 차례로 돌려가며 제시어를 확인합니다.':'방장이 만든 <b>코드 5자리</b>를 입력하면 각자 폰에 제시어가 뜹니다. 서버도 인터넷도 필요 없어요.'}</p>
  </section>
  <div class="dock"><div><button class="btn" onclick="start()"><span class="lbl">${S.play==='pass'?'게임 시작':'코드 만들기'}</span></button></div></div>`;
 };
-function set(k,v){S[k]=v;if(k==='mode'&&S.cat!==31)S.cat=31;saveCfg();const y=window.scrollY;render();window.scrollTo(0,y)}
+function set(k,v){S[k]=v;if(k==='mode'&&S.cat!==RANDOM)S.cat=RANDOM;saveCfg();const y=window.scrollY;render();window.scrollTo(0,y)}
 function start(){
- const cfg={mode:S.mode,n:S.n,cat:S.cat,diff:S.mode==='spy'?S.diff:0,seed:Math.floor(Math.random()*4096)};
- G={cfg,own:S.play==='own',me:null,round:0,tally:{c:0,l:0}};
+ const cfg={mode:S.mode,n:S.n,cat:S.cat,diff:S.mode==='spy'?S.diff:(S.mission?1:0),seed:Math.floor(Math.random()*2048)};
+ newGame(cfg,S.play==='own',null);
  if(G.own)go('code');else startRound();
 }
 function quit(){if(scr==='title')return;if(!G||confirm('게임을 끝내고 처음 화면으로 갈까요?')){resetTimer();G=null;go('title')}}
-function catLabel(c){const cats=c.mode==='spy'?SPYC:LIARC;return(c.cat===31?'랜덤 주제':cats[c.cat].name)+(c.mode==='spy'?' · '+DIFFS[c.diff].name:'')}
+function catLabel(c){const cats=c.mode==='spy'?SPYC:LIARC;return(c.cat===RANDOM?'랜덤 주제':cats[c.cat].name)+(c.mode==='spy'?' · '+DIFFS[c.diff].name:(c.diff&1?' · 미션':''))}
 
 /* 각자 폰: 코드 */
 SCREENS.code=()=>{const code=encode(G.cfg);return`
@@ -625,15 +704,40 @@ function joinSync(){
  <p class="sub" style="margin-bottom:10px">내 번호를 고르세요. 앉은 순서대로 정한 번호예요.</p>
  <div class="pick">${Array.from({length:c.n},(_,i)=>`<button onclick="joinAs(${i})">${avatar(i)}${i+1}번</button>`).join('')}</div></section>`;
 }
-function joinAs(i){const c=decode(S.jc);G={cfg:c,own:true,me:i,round:0,tally:{c:0,l:0}};startRound()}
-function resumeOwn(){const o=store.get('own',null);const c=decode(o.code);if(!c)return;S.jc=o.code;G={cfg:c,own:true,me:o.me,round:o.round,tally:{c:0,l:0}};startRound()}
+function joinAs(i){const c=decode(S.jc);newGame(c,true,i);startRound()}
+function resumeOwn(){const o=store.get('own',null);const c=decode(o.code);if(!c)return;S.jc=o.code;newGame(c,true,o.me);G.round=o.round;startRound()}
+
+/* 라운드 시작 */
+SCREENS.intro=()=>{
+ const R=G.R,m=G.cfg.mode,roll=G.cfg.cat===RANDOM&&!G.rolled;
+ let h=`${hud(`<span class="pill">${MODES[m].name}</span>`)}<div class="intro">
+  <div class="rnum disp ol-s">ROUND ${G.round+1}</div>
+  <div class="slot ${roll?'rolling':''}" id="slot">${ico(roll?'play':R.icon)}</div>
+  <div class="catname disp ol" id="catname">${roll?'두구두구':R.cat}</div>
+  <p class="introline">“${R.intro}”</p></div>`;
+ if(m==='spy')h+=`<section class="panel"><div class="ptab acc">이번 라운드</div><div class="mis">${ico('magnifier','misi')}<div><b>질문 ${R.qs.length}개 준비 완료</b><p>난이도 ${DIFFS[G.cfg.diff].name} · 한 명만 다른 단어를 받았어요. 그게 나일 수도!</p></div></div></section>`;
+ else if(G.cfg.diff&1)h+=`<section class="panel"><div class="ptab acc">이번 라운드 미션</div><div class="mis">${ico('megaphone','misi')}<div>${R.mission?`<b>${R.mission[0]}</b><p>${R.mission[1]}</p>`:`<b>자유 설명</b><p>이번엔 미션 없이 자유롭게 한 마디!</p>`}</div></div></section>`;
+ else h+=`<section class="panel"><div class="ptab acc">이번 라운드</div><div class="mis">${ico(m==='liar'?'masks':'qbubble','misi')}<div><b>${m==='liar'?'라이어를 찾아라':'바보 라이어를 찾아라'}</b><p>${m==='liar'?'라이어는 주제만 알고 있어요.':'한 명만 다른 단어를 받았어요. 본인도 몰라요.'}</p></div></div></section>`;
+ h+=`<div class="dock"><div><button class="btn yel" onclick="go(G.own?'play':'pass')"><span class="lbl">${G.own?'내 제시어 보러 가기':'카드 나눠주기'}</span>${IC.next}</button></div></div>`;
+ return h;
+};
+function introFx(){
+ const slot=document.getElementById('slot');if(!slot)return;
+ if(G.cfg.cat!==RANDOM||G.rolled){sfx.flip();return}
+ const cats=G.cfg.mode==='spy'?SPYC:LIARC,keys=shuffle(cats.map(c=>c.icon),Math.random);let i=0,delay=55;
+ const step=()=>{if(scr!=='intro'||!document.getElementById('slot'))return;
+  if(delay>260){G.rolled=true;slot.classList.remove('rolling');slot.innerHTML=ico(G.R.icon);slot.classList.remove('landed');void slot.offsetWidth;slot.classList.add('landed');
+   document.getElementById('catname').textContent=G.R.cat;sfx.reveal();buzz(30);return}
+  slot.innerHTML=ico(keys[i++%keys.length]);sfx.tick();delay*=1.13;setTimeout(step,delay)};
+ step();
+}
 
 /* 제시어 카드 */
 function cardHTML(i,{short=false,hint}={}){
  const R=G.R,isL=i===R.liar,m=G.cfg.mode;
  let back;
  if(m==='liar'&&isL)back=`<div class="face back liar"><span class="catTag">주제 · ${R.cat}</span><div style="width:110px;margin:10px auto 0">${avatar(i,{d:true,hat:false,color:'#ff5a76'})}</div><div class="liarT ol-s" style="color:#fff">당신은 <span style="color:var(--red)">라이어</span></div><p class="note">제시어를 모릅니다. 들키지 말고 알아내세요.</p></div>`;
- else{const w=isL?R.lw:R.word;back=`<div class="face back"><span class="stamp">기밀</span><span class="catTag">주제 · ${R.cat}</span><div class="secret ${w.length>6?'long':''}">${esc(w)}</div><p class="note">${m==='liar'?'라이어는 이 단어를 모릅니다':m==='fool'?'혹시 나만 다른 단어일 수도…?':'한 명은 다른 단어를 받았어요. 나일 수도…?'}</p></div>`}
+ else{const w=isL?R.lw:R.word;back=`<div class="face back"><span class="stamp">기밀</span>${ico(R.icon,'cardi')}<span class="catTag">주제 · ${R.cat}</span><div class="secret ${w.length>6?'long':''}">${esc(w)}</div><p class="note">${m==='liar'?'라이어는 이 단어를 모릅니다':m==='fool'?'혹시 나만 다른 단어일 수도…?':'한 명은 다른 단어를 받았어요. 나일 수도…?'}</p></div>`}
  return`<div class="flip ${short?'short':''}" id="card" onclick="flipCard()"><div class="in">
  <div class="face front tapme"><span class="ts">TOP SECRET</span><div class="seal">${IC.lock}</div><h3>${hint||'탭해서 제시어 확인'}</h3><p>다른 사람이 못 보게 조심!</p><div class="lines"><i></i><i></i></div></div>
  ${back}</div></div>`;
@@ -652,7 +756,7 @@ function passNext(){const c=document.getElementById('card');if(c&&c.classList.co
  function adv(){G.pi++;go(G.pi>=G.cfg.n?'play':'pass')}}
 
 /* 진행 */
-function orderHTML(){const R=G.R,n=G.cfg.n;return`<div class="order">${Array.from({length:n},(_,k)=>{const i=(R.starter+k)%n;return`${k?`<span class="arr">${IC.next.replace('<svg','<svg style="width:14px;height:14px"')}</span>`:''}<div class="o ${k===0?'st':''}">${k===0?'<span class="flag">START</span>':''}${avatar(i)}<span>${esc(nameOf(i))}</span></div>`}).join('')}</div>`}
+function orderHTML(){const R=G.R,n=G.cfg.n;return`<div class="order">${Array.from({length:n},(_,k)=>{const i=R.rev?(R.starter-k+n*2)%n:(R.starter+k)%n;return`${k?`<span class="arr">${IC.next.replace('<svg','<svg style="width:14px;height:14px"')}</span>`:''}<div class="o ${k===0?'st':''}">${k===0?'<span class="flag">START</span>':''}${avatar(i)}<span>${esc(nameOf(i))}</span></div>`}).join('')}</div>`}
 const scaleColors=['#8fd3ff','#9fdcf3','#b3e4e0','#c9eccb','#e1f2b4','#f7ef9b','#ffd98a','#ffc07c','#ffa070','#ff8072'];
 function plotHTML(qi,reveal){
  const a=G.ans[qi],q=G.R.qs[qi];if(!a&&!reveal)return'';
@@ -665,7 +769,7 @@ SCREENS.play=()=>{
  let h=hud(roundPill());
  if(G.own)h+=`<div class="row" style="align-items:center;margin:-6px 0 6px"><button class="ibtn" style="flex:none" onclick="goRound(-1)" aria-label="이전 라운드">${IC.back}</button><div class="center" style="font-weight:800;color:#e3dbff;font-size:14px">코드 <b style="font-family:var(--disp);font-size:18px;color:var(--yel);letter-spacing:2px">${encode(G.cfg)}</b> · 나는 ${G.me+1}번</div><button class="ibtn" style="flex:none" onclick="goRound(1)" aria-label="다음 라운드">${IC.next}</button></div>${cardHTML(G.me,{short:true,hint:'탭해서 내 제시어 보기'})}`;
  h+=`<section class="panel ${G.own?'':'first'}"><div class="ptab">발언 순서 · ${R.cat}</div>${orderHTML()}`;
- if(m!=='spy')h+=`<div class="tips"><div><em>1</em>START부터 돌아가며 제시어를 <b>&nbsp;한 마디</b>로 설명!</div><div><em>2</em>너무 자세하면 ${role()}가 눈치채고, 너무 애매하면 내가 의심받아요.</div><div><em>3</em>한두 바퀴 돌고 토론한 뒤 동시에 지목!</div></div></section>`;
+ if(m!=='spy')h+=`${R.mission?`<div class="mchip">${ico('megaphone')}<div><b>미션 · ${R.mission[0]}</b>${R.mission[1]}</div></div>`:''}<div class="tips"><div><em>1</em><span>START부터 ${R.rev?'<b>반대 방향</b>으로 ':''}돌아가며 제시어를 <b>한 마디</b>로 설명!</span></div><div><em>2</em><span>너무 자세하면 ${role()}가 눈치채고, 너무 애매하면 내가 의심받아요.</span></div><div><em>3</em><span>한두 바퀴 돌고 토론한 뒤 동시에 지목!</span></div></div></section>`;
  else{
   const q=R.qs[G.qi];
   h+=`</section><section class="panel"><div class="ptab acc">질문 ${G.qi+1} / ${R.qs.length}</div>
@@ -700,7 +804,7 @@ function ansNext(){if(!G.tmp[G.ai])return;G.ai++;G.ashow=false;if(G.ai>=G.cfg.n)
 
 /* 투표 */
 SCREENS.vote=()=>{const n=G.cfg.n;return`
- ${hud('<span class="hudtitle ol-s">용의자 지목</span>',`<button class="ibtn" onclick="go('play')">${IC.back}</button>`)}
+ ${hud(`<span class="hudtitle ol-s">${ico('magnifier','hi')}용의자 지목</span>`,`<button class="ibtn" onclick="go('play')">${IC.back}</button>`)}
  <p class="why" style="margin-top:-6px">하나, 둘, 셋에 동시에 손가락으로 지목!<br>가장 많이 지목된 사람을 고르세요.</p>
  <div class="lineupbg"><div class="vgrid ${n>=7&&n!==9?'n4':''}">${Array.from({length:n},(_,i)=>`<div class="sus ${G.sel===i?'on':G.sel!=null?'dim':''}" onclick="G.sel=${i};sfx.pick();render()">${avatar(i,{look:G.sel===i?0:(i%3===0?1:i%3===1?0:-1),sweat:G.sel===i})}<b>${esc(nameOf(i))}</b></div>`).join('')}</div></div>
  <p class="center" style="font-size:13px;color:#cfc4f7;font-weight:600;margin-top:16px">동점이면 동점자끼리 한 번 더 변론하고 다시 지목하세요.</p>
@@ -713,7 +817,7 @@ SCREENS.suspense=()=>`${hud(roundPill(),' <span style="width:46px"></span>')}
 SCREENS.caught=()=>{
  const R=G.R,m=G.cfg.mode;
  return`${hud(roundPill(),' <span style="width:46px"></span>')}
- <div class="stage shake"><div class="spot"></div><div class="av" style="width:170px;margin:0 auto">${avatar(R.liar,{d:true,hat:false})}</div><div class="stamp2">검거</div></div>
+ <div class="stage shake"><div class="spot"></div><div class="av" style="width:170px;margin:0 auto">${avatar(R.liar,{d:true,hat:false})}</div><div class="stamp2">검거</div><div class="cuffs">${ico('handcuffs')}</div></div>
  <div class="sushead ol" style="margin-top:6px">${esc(nameOf(R.liar))}님이 ${role()}!</div>
  ${m!=='liar'?`<p class="why" style="margin-top:2px">${role()}가 받은 단어는 <b style="color:#ff8aa0;font-family:var(--disp);font-size:20px">${esc(R.lw)}</b></p>`:''}
  <section class="panel"><div class="ptab acc">마지막 기회</div>
@@ -724,7 +828,7 @@ SCREENS.caught=()=>{
  :`<button class="btn yel" onclick="G.guess=true;sfx.reveal();render()">${IC.eye}<span>정답 공개</span></button>`}
  </section>`;
 };
-function finish(w){G.win=w;G.tally[w]++;go('result');if(w==='c'){sfx.win();confetti()}else{sfx.lose();setTimeout(()=>confetti(40),200)}}
+function finish(w){G.win=w;G.tally[w]++;G.delta=G.pts.map((_,i)=>w==='c'?(i===G.R.liar?0:1):(i===G.R.liar?3:0));G.delta.forEach((d,i)=>G.pts[i]+=d);go('result');if(w==='c'){sfx.win();confetti()}else{sfx.lose();setTimeout(()=>confetti(40),200)}}
 
 SCREENS.result=()=>{
  const R=G.R,m=G.cfg.mode,lw=G.win==='l',innocent=G.accused!==R.liar;
@@ -732,7 +836,7 @@ SCREENS.result=()=>{
  const why=innocent?`<b class="nm">${esc(nameOf(G.accused))}</b>님은 억울한 시민이었습니다!`:lw?`${role()}가 제시어를 맞혔습니다!`:`${role()}가 제시어를 못 맞혔습니다.`;
  let h=`${hud(roundPill())}
  <div class="ribbon" style="--c:${lw?'var(--red)':'var(--grn)'};--cd:${lw?'var(--red-d)':'var(--grn-d)'}"><span class="ol-s">${lw?role()+' 승리':'시민 승리'}</span></div>
- <div class="stage" style="margin-top:20px"><div class="spot"></div><div class="av" style="width:150px;margin:0 auto">${avatar(R.liar,{d:true,hat:false})}</div><div class="stamp2 ${st[1]}" style="font-size:44px">${st[0]}</div></div>
+ <div class="stage" style="margin-top:20px"><div class="spot"></div><div class="av" style="width:150px;margin:0 auto">${avatar(R.liar,{d:true,hat:false})}</div><div class="stamp2 ${st[1]}" style="font-size:38px">${st[0]}</div></div>
  <p class="why">${why}</p>
  <section class="panel"><div class="ptab">정답 공개</div><div class="facts">
  <div class="fact"><span>${role()}</span><b class="who r">${avatar(R.liar,{hat:false})}${esc(nameOf(R.liar))}</b></div>
@@ -742,7 +846,10 @@ SCREENS.result=()=>{
  </div></section>`;
  if(m==='spy')h+=R.qs.map((q,k)=>`<section class="panel"><div class="ptab">질문 ${k+1} · 간극 ${Math.abs(q.a-q.b)}</div><p style="font-family:var(--disp);font-size:20px;margin:2px 0 0">${esc(q.t)}</p>
   ${plotHTML(k,true)}<p class="hint">▲ 표시는 그 단어를 받은 보통 사람이 낼 법한 숫자예요.</p></section>`).join('');
+ const rank=G.pts.map((p,i)=>({p,i})).sort((a,b)=>b.p-a.p||a.i-b.i);
  h+=`<div class="score"><div><b style="color:var(--grn)">${G.tally.c}</b><span>시민</span></div><div class="vs">VS</div><div><b style="color:var(--red)">${G.tally.l}</b><span>${role()}</span></div></div>
+ <section class="panel"><div class="ptab">${ico('trophy')}점수판</div><div class="board">${rank.map((r,k)=>`<div class="rowp"><span class="rk">${k===0&&r.p>0?ico('trophy'):k+1}</span>${avatar(r.i)}<span class="nm2">${esc(nameOf(r.i))}</span><span class="pt">${r.p}<small>점</small></span>${G.delta[r.i]?`<span class="plus ${r.i===G.R.liar?'r':''}">+${G.delta[r.i]}</span>`:''}</div>`).join('')}</div>
+ <p class="hint">시민이 이기면 시민 모두 <b>+1</b> · ${role()}가 이기면 ${role()} <b>+3</b></p></section>
  <button class="btn paper sm" style="margin-top:20px" onclick="resetTimer();G=null;go('lobby')"><span>설정 바꾸기</span></button>
  <div class="dock"><div><button class="btn yel" onclick="G.round++;startRound()"><span class="lbl">다음 라운드</span>${IC.next}</button>
  ${G.own?'<p class="center" style="margin:8px 0 0;font-size:12.5px;color:#cfc4f7;font-weight:600">모두 같은 라운드로 넘어갔는지 확인하세요</p>':''}</div></div>`;

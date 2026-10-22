@@ -48,5 +48,16 @@ for fam, path, weight, names in FONTS:
     faces.append(f"@font-face{{font-family:'{fam}';font-weight:{weight};font-display:block;src:url(data:font/woff2;base64,{b64}) format('woff2')}}")
 
 html = html.replace('/*@FONTS@*/', '\n'.join(faces))
+
+# 그림 아이콘: assets/icons/*.png -> webp data URI
+import glob, json
+from PIL import Image
+icons = {}
+for f in sorted(glob.glob(os.path.join(ROOT, 'assets/icons/*.png'))):
+    buf = io.BytesIO()
+    Image.open(f).save(buf, 'WEBP', quality=86, method=6)
+    icons[os.path.splitext(os.path.basename(f))[0]] = 'data:image/webp;base64,' + base64.b64encode(buf.getvalue()).decode()
+print('icons', len(icons), sum(len(v) for v in icons.values()) // 1024, 'KB')
+html = html.replace('/*@ICONS@*/{}', json.dumps(icons))
 open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8').write(html)
 print('index.html', len(html.encode()) // 1024, 'KB')
