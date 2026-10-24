@@ -467,6 +467,15 @@ details.names summary::-webkit-details-marker{display:none}
 .chip2{display:inline-flex;align-items:center;gap:4px;border:2px solid var(--ink);background:#fff;border-radius:999px;padding:2px 10px 3px 4px;font:inherit;font-weight:800;font-size:13px;cursor:pointer;margin:3px 2px;color:var(--ink)}
 .chip2 .ico{width:22px}.chip2 svg{width:16px;height:16px}
 
+/* ── 주제 투표 · 룰렛 ── */
+.tile.vt{position:relative;cursor:pointer;user-select:none}
+.tile .vc{position:absolute;top:-8px;right:-6px;min-width:26px;height:26px;border-radius:13px;background:var(--red);color:#fff;border:2.5px solid var(--ink);font-style:normal;font-family:var(--disp);font-size:15px;display:grid;place-items:center;padding:0 5px}
+.tile .vm{position:absolute;top:-8px;left:-6px;width:24px;height:24px;border-radius:50%;border:2.5px solid var(--ink);background:#fff;font-weight:900;font-size:15px;line-height:1;cursor:pointer;color:var(--ink);padding:0}
+.tile .vme{position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);font-style:normal;font-family:var(--disp);font-size:11px;background:var(--ink);color:#fff;border-radius:6px;padding:0 6px 1px}
+.wheel{position:relative;width:min(300px,78vw);margin:14px auto 4px}
+.wheel svg{display:block;width:100%;height:auto;filter:drop-shadow(0 7px 0 #1b1038)}
+.wptr{position:absolute;left:50%;top:-12px;transform:translateX(-50%);z-index:2;width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-top:30px solid var(--yel);filter:drop-shadow(0 3px 0 #1b1038)}
+
 /* ── 온라인: 판 ── */
 .mycard{display:flex;align-items:center;gap:10px;width:100%;margin-top:10px;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:16px;padding:10px 14px;font:inherit;font-weight:700;font-size:15.5px;cursor:pointer;box-shadow:0 5px 0 var(--ink);text-align:left}
 .mycard svg{width:22px;height:22px;flex:none;color:var(--red)}
@@ -597,6 +606,12 @@ const IC={
 
 /* ───────── 그림 아이콘 (빌드 때 assets/icons 가 들어감) ───────── */
 const ICONS=/*@ICONS@*/{};
+/* 화면을 다시 그릴 때마다 큰 base64 글자를 HTML에 넣으면 모드·주제를 바꿀 때 0.5~2초 멈춘다.
+   시작할 때 한 번 Blob 주소로 바꾸고, 쉬는 틈에 미리 해독해 둔다. */
+(function(){for(const k in ICONS){const v=ICONS[k];if(typeof v!=='string'||!v.startsWith('data:'))continue;
+ try{const b=atob(v.slice(v.indexOf(',')+1)),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);ICONS[k]=URL.createObjectURL(new Blob([u],{type:'image/webp'}))}catch(e){}}
+ const warm=()=>{for(const k in ICONS){const im=new Image();im.src=ICONS[k];if(im.decode)im.decode().catch(()=>{})}};
+ if(window.requestIdleCallback)requestIdleCallback(warm);else setTimeout(warm,200)})();
 const ico=(k,cls='')=>ICONS[k]?`<img class="ico ${cls}" src="${ICONS[k]}" alt="" draggable="false">`:'';
 
 /* ───────── 캐릭터 ───────── */
@@ -699,7 +714,7 @@ function rememberRound(){
 }
 
 /* ───────── 상태 ───────── */
-const S=Object.assign({mode:'liar',n:5,cat:RANDOM,diff:1,mission:true,hint:false,liars:1,acc:false,penalty:false,time:120,play:'pass',names:[]},store.get('cfg',{}));
+const S=Object.assign({mode:'liar',n:5,cat:VOTE,diff:1,mission:true,hint:false,liars:1,acc:false,penalty:false,time:120,play:'pass',names:[]},store.get('cfg',{}));
 if(S.cat===31&&!store.get('v2',false))S.cat=RANDOM;store.set('v2',true);
 let G=null,scr='title',howTab=null;
 const nameOf=i=>(G&&G.own)?(i+1)+'번':((S.names[i]||'').trim()||(i+1)+'번');
@@ -711,7 +726,11 @@ function saveCfg(){store.set('cfg',{mode:S.mode,n:S.n,cat:S.cat,diff:S.diff,miss
 function go(s){scr=s;render(true)}
 function newGame(cfg,own,me){G={cfg,own,me,round:0,tally:{c:0,l:0},pts:Array(cfg.n).fill(0),history:[]}}
 function startRound(){
- G.R=genRound(G.cfg,G.round,G.own?null:recentOf,catsOf(G.cfg));G.pi=0;G.qi=0;G.ans=G.R.qs.map(()=>null);G.accused=null;G.sel=null;G.guess=false;G.mine=false;G.rolled=false;G.caught=[];G.done=false;G.pen=null;
+ if(!G.own&&G.cfg.cat===VOTE){G.R=null;G.tv={};G.tpick=null;resetTimer();go('tvote');return}
+ dealRound(G.cfg.cat);
+}
+function dealRound(cat){
+ G.R=genRound(Object.assign({},G.cfg,{cat}),G.round,G.own?null:recentOf,catsOf(G.cfg));G.pi=0;G.qi=0;G.ans=G.R.qs.map(()=>null);G.accused=null;G.sel=null;G.guess=false;G.mine=false;G.rolled=false;G.caught=[];G.done=false;G.pen=null;
  if(!G.own)rememberRound();
  resetTimer();
  if(G.own)store.set('own',{code:encode(G.cfg),round:G.round,me:G.me});
@@ -748,6 +767,8 @@ function render(fresh){
  window.scrollTo(0,fresh?0:y);drawTimer();
  if(scr==='join')joinSync();
  if(scr==='intro'&&fresh)introFx();
+ if(scr==='tspin')tspinFx();
+ if(typeof oAfter==='function')oAfter(fresh);
 }
 const SCREENS={};
 const sndBtn=()=>`<button class="ibtn" onclick="toggleMute()" aria-label="소리">${muted?IC.soff:IC.son}</button>`;
@@ -812,7 +833,7 @@ SCREENS.how=()=>{const k=howTab||'liar';return`
 const segOpt=(key,list)=>`<div class="mseg">${list.map(([v,label,dis])=>`<button class="${S[key]===v?'on':''}" ${dis?'disabled':''} onclick="set('${key}',${JSON.stringify(v)})">${label}</button>`).join('')}</div>`;
 SCREENS.lobby=()=>{
  const own=S.play==='own',spy=S.mode==='spy',lm=S.mode==='liar';
- const cats=spy?SPYC:(own?LIARC:LIARC.concat(CUSTOM));if(S.cat!==RANDOM&&S.cat>=cats.length)S.cat=RANDOM;
+ const cats=spy?SPYC:(own?LIARC:LIARC.concat(CUSTOM));if(S.cat!==RANDOM&&S.cat!==VOTE&&S.cat>=cats.length)S.cat=VOTE;if(own&&S.cat===VOTE)S.cat=RANDOM;
  const mx=maxLiars(S.n,lm&&S.acc);if(S.liars>mx)S.liars=mx;if(S.n<5&&S.acc)S.acc=false;
  while(S.names.length<S.n)S.names.push('');
  const M=MODES[S.mode],R=M.role;
@@ -827,7 +848,8 @@ SCREENS.lobby=()=>{
   ${!own?`<details class="names" ${S.namesOpen?'open':''} ontoggle="S.namesOpen=this.open"><summary>${IC.next.replace('<svg','<svg style="width:14px;height:14px"')} 이름 정하기 (선택)</summary><div class="nlist">${Array.from({length:S.n},(_,i)=>`<label class="nitem">${avatar(i)}<input maxlength="8" placeholder="${i+1}번" value="${esc(S.names[i]||'')}" oninput="S.names[${i}]=this.value;saveCfg()"></label>`).join('')}</div></details>`:''}
  </section>
  <section class="panel"><div class="ptab">주제</div>
-  <div class="tiles"><button class="tile ${S.cat===RANDOM?'on':''}" onclick="set('cat',RANDOM)"><span class="ti dice">${IC.dice}</span><span>랜덤</span></button>${cats.map((c,i)=>`<button class="tile ${S.cat===i?'on':''} ${c.custom?'my':''}" onclick="set('cat',${i})">${ico(c.icon,'ti')}<span>${esc(c.name)}</span></button>`).join('')}${!spy&&!own?`<button class="tile add" onclick="openCustom()"><span class="ti plus">${IC.plus}</span><span>내 주제</span></button>`:''}</div>
+  <div class="tiles">${own?'':`<button class="tile ${S.cat===VOTE?'on':''}" onclick="set('cat',VOTE)"><span class="ti dice">${IC.vote}</span><span>다 같이 투표</span></button>`}<button class="tile ${S.cat===RANDOM?'on':''}" onclick="set('cat',RANDOM)"><span class="ti dice">${IC.dice}</span><span>랜덤</span></button>${cats.map((c,i)=>`<button class="tile ${S.cat===i?'on':''} ${c.custom?'my':''}" onclick="set('cat',${i})">${ico(c.icon,'ti')}<span>${esc(c.name)}</span></button>`).join('')}${!spy&&!own?`<button class="tile add" onclick="openCustom()"><span class="ti plus">${IC.plus}</span><span>내 주제</span></button>`:''}</div>
+  ${S.cat===VOTE&&!own?'<p class="hint"><b>다 같이 투표</b> · 라운드마다 손을 들어 주제를 정하고, 표 수만큼 칸이 큰 룰렛으로 뽑아요. (3표·1표·1표면 3:1:1)</p>':''}
   <p class="hint">${spy?`주제 ${cats.length}개 · 단어 ${cats.reduce((a,c)=>a+c.w.length,0)}개 · 질문 ${cats.length*10}개`:`주제 ${cats.length}개 · 제시어 ${cats.reduce((a,c)=>a+c.w.length,0)}개`}${own?'':' · 최근에 나온 단어는 피해서 나와요'}${!spy&&own&&CUSTOM.length?'<br>내가 만든 주제는 폰 하나 돌리기에서만 쓸 수 있어요.':''}</p>
  </section>
  ${spy?`<section class="panel"><div class="ptab">난이도</div>
@@ -850,16 +872,16 @@ SCREENS.lobby=()=>{
 function set(k,v){
  if(k==='play'&&v==='own'&&S.mode==='spy'){toast('스파이는 숫자를 동시에 공개해야 해서 각자 폰(코드)으론 못 해요. 폰 하나 돌리기나 컴퓨터에서 해요로!');return}
  if(k==='mode'&&v==='spy'&&S.play==='own'){S.play='pass';toast('스파이는 폰 하나 돌리기로 바꿨어요(숫자 동시 공개)')}
- S[k]=v;if(k==='mode'&&S.cat!==RANDOM)S.cat=RANDOM;if(k==='play'&&v==='own'&&S.cat>=LIARC.length&&S.cat!==RANDOM)S.cat=RANDOM;saveCfg();const y=window.scrollY;render();window.scrollTo(0,y)}
+ S[k]=v;if(k==='mode'&&S.cat!==RANDOM&&S.cat!==VOTE)S.cat=S.play==='own'?RANDOM:VOTE;if(k==='play'&&v==='own'&&(S.cat===VOTE||(S.cat>=LIARC.length&&S.cat!==RANDOM)))S.cat=RANDOM;saveCfg();const y=window.scrollY;render();window.scrollTo(0,y)}
 function start(){
  const lm=S.mode==='liar',spy=S.mode==='spy',acc=lm&&S.acc&&S.n>=5;
  const cfg={mode:S.mode,n:S.n,cat:S.cat,seed:Math.floor(Math.random()*8192),diff:spy?S.diff:0,mission:!spy&&!!S.mission,hint:lm&&!!S.hint,liars:Math.min(S.liars||1,maxLiars(S.n,acc)),acc,local:S.play!=='own'};
- if(!cfg.local&&cfg.cat!==RANDOM&&cfg.cat>=(spy?SPYC:LIARC).length)cfg.cat=RANDOM;
+ if(!cfg.local&&(cfg.cat===VOTE||(cfg.cat!==RANDOM&&cfg.cat>=(spy?SPYC:LIARC).length)))cfg.cat=RANDOM;
  newGame(cfg,!cfg.local,null);
  if(G.own)go('code');else startRound();
 }
 function quit(){if(scr==='title')return;if(!G||confirm('게임을 끝내고 처음 화면으로 갈까요?')){resetTimer();G=null;go('title')}}
-function catLabel(c){const cats=catsOf(c);const r=MODES[c.mode].role;return[(c.cat===RANDOM?'랜덤 주제':cats[c.cat].name),c.mode==='spy'?DIFFS[c.diff].name:'',c.liars>1?`${r} ${c.liars}명`:'',c.acc?'공범':'',c.hint?'힌트':'',c.mission?'미션':''].filter(Boolean).join(' · ')}
+function catLabel(c){const cats=catsOf(c);const r=MODES[c.mode].role;return[(c.cat===RANDOM?'랜덤 주제':c.cat===VOTE?'주제 투표':cats[c.cat].name),c.mode==='spy'?DIFFS[c.diff].name:'',c.liars>1?`${r} ${c.liars}명`:'',c.acc?'공범':'',c.hint?'힌트':'',c.mission?'미션':''].filter(Boolean).join(' · ')}
 
 /* 내 주제 만들기 */
 let CE=null; // 편집 중 {idx,name,words}
@@ -883,7 +905,7 @@ function saveCE(){const name=CE.name.trim(),w=parseWords(CE.words);
  const item={name,icon:'envelope',w:w.slice(0,200),custom:true};
  if(CE.idx>=0)CUSTOM[CE.idx]=item;else CUSTOM.push(item);
  saveCustom();S.cat=LIARC.length+CUSTOM.indexOf(item);saveCfg();toast('저장했어요');go('lobby')}
-function delCE(){if(!confirm('이 주제를 지울까요?'))return;CUSTOM.splice(CE.idx,1);saveCustom();S.cat=RANDOM;saveCfg();go('lobby')}
+function delCE(){if(!confirm('이 주제를 지울까요?'))return;CUSTOM.splice(CE.idx,1);saveCustom();S.cat=VOTE;saveCfg();go('lobby')}
 
 /* 각자 폰: 코드 */
 SCREENS.code=()=>{const code=encode(G.cfg);return`
@@ -921,6 +943,61 @@ function joinSync(){
 }
 function joinAs(i){const c=decode(S.jc);if(!c)return;newGame(c,true,i);startRound()}
 function resumeOwn(){const o=store.get('own',null);const c=o&&decode(o.code);if(!c)return;S.jc=o.code;newGame(c,true,o.me);G.round=o.round;startRound()}
+
+/* ───────── 주제 룰렛 (오프라인·온라인 공용) — 표 수만큼 칸이 크다 ───────── */
+const WHEEL_COLS=['#ff6b6b','#4dabf7','#ffd43b','#69db7c','#b197fc','#ff922b','#f783ac','#3bc9db','#a9e34b','#e599f7','#74c0fc','#ffc078'];
+function wheelSegs(counts,cats){return counts.map(([k,n])=>({k,n,name:(cats[k]||{}).name||'?',icon:(cats[k]||{}).icon}))}
+function wheelHTML(segs){
+ const total=segs.reduce((a,x)=>a+x.n,0)||1,R=100,c=110,pt=a=>[c+R*Math.sin(a*Math.PI/180),c-R*Math.cos(a*Math.PI/180)];
+ let a0=0,paths='',icons='';
+ segs.forEach((x,i)=>{const a1=a0+x.n/total*360;x.a0=a0;x.a1=a1;const col=WHEEL_COLS[i%WHEEL_COLS.length];
+  if(segs.length===1)paths+=`<circle cx="${c}" cy="${c}" r="${R}" fill="${col}" stroke="#1b1038" stroke-width="3"/>`;
+  else{const[x0,y0]=pt(a0),[x1,y1]=pt(a1);paths+=`<path d="M${c} ${c}L${x0.toFixed(2)} ${y0.toFixed(2)}A${R} ${R} 0 ${a1-a0>180?1:0} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}Z" fill="${col}" stroke="#1b1038" stroke-width="3" stroke-linejoin="round"/>`}
+  const m=(a0+a1)/2,rr=segs.length===1?0:R*.63,sz=Math.max(12,Math.min(44,(a1-a0)*.55+8)),ix=c+rr*Math.sin(m*Math.PI/180),iy=c-rr*Math.cos(m*Math.PI/180);
+  if(ICONS[x.icon]&&(a1-a0)>=9)icons+=`<image href="${ICONS[x.icon]}" x="${(ix-sz/2).toFixed(1)}" y="${(iy-sz/2).toFixed(1)}" width="${sz.toFixed(1)}" height="${sz.toFixed(1)}" transform="rotate(${m.toFixed(1)} ${ix.toFixed(1)} ${iy.toFixed(1)})"/>`;
+  a0=a1});
+ return`<div class="wheel"><div class="wptr"></div><svg viewBox="0 0 220 220" aria-hidden="true"><g id="wheelRot">${paths}${icons}</g><circle cx="110" cy="110" r="15" fill="#fff8ec" stroke="#1b1038" stroke-width="3"/></svg></div>`;
+}
+/** 뽑힌 칸이 위쪽 바늘에 오도록 돌린다. ms=0 이면 바로 그 자리 */
+function wheelSpin(segs,k,ms,seed){
+ const x=segs.find(q=>q.k===k),g=document.getElementById('wheelRot');if(!x||!g)return;
+ const w=x.a1-x.a0,jit=(((seed||0)%997)/997-.5)*w*.6,target=360*6+(360-((x.a0+x.a1)/2+jit));
+ g.style.transformOrigin='110px 110px';g.style.transition='none';g.style.transform='rotate(0deg)';g.getBoundingClientRect();
+ if(!ms){g.style.transform=`rotate(${target}deg)`;return}
+ g.style.transition=`transform ${ms}ms cubic-bezier(.12,.72,.12,1)`;g.style.transform=`rotate(${target}deg)`;
+ let t=0;const ticks=[];for(let i=0;i<22;i++){t+=40+i*i*0.55;if(t<ms-150)ticks.push(t)}ticks.forEach(d=>setTimeout(()=>sfx.tick(),d));
+}
+
+/* 폰 하나 돌리기: 손들기 주제 투표 */
+SCREENS.tvote=()=>{
+ const cats=catsOf(G.cfg),tot=Object.values(G.tv).reduce((a,b)=>a+b,0);
+ return`${hud(roundPill())}
+ <div class="intro"><div class="rnum disp ol-s">ROUND ${G.round+1}</div><div class="catname disp ol" style="margin-top:4px">주제 투표</div>
+ <p class="introline">한 주제씩 불러서 손 든 사람 수만큼 눌러 주세요. 표 수만큼 룰렛 칸이 커져요!</p></div>
+ <section class="panel"><div class="ptab acc">${ico('megaphone')}지금 ${tot}표</div>
+  <div class="tiles">${cats.map((x,i)=>`<div class="tile vt ${G.tv[i]?'on':''}" onclick="G.tv[${i}]=(G.tv[${i}]||0)+1;sfx.pick();render()">${ico(x.icon,'ti')}<span>${esc(x.name)}</span>${G.tv[i]?`<em class="vc">${G.tv[i]}</em><button class="vm" onclick="event.stopPropagation();G.tv[${i}]--;if(!G.tv[${i}])delete G.tv[${i}];render()" aria-label="한 표 빼기">−</button>`:''}</div>`).join('')}</div>
+ </section>
+ <div class="dock"><div><button class="btn yel" onclick="tvSpin()">${IC.reset}<span class="lbl">${tot?`룰렛 돌리기 (${tot}표)`:'표 없이 아무 주제나 돌리기'}</span></button></div></div>`;
+};
+function tvSpin(){
+ const cats=catsOf(G.cfg),counts=Object.entries(G.tv).map(([k,n])=>[+k,n]).filter(x=>x[1]>0).sort((a,b)=>b[1]-a[1]||a[0]-b[0]);
+ G.tcounts=counts.length?counts:cats.map((_,i)=>[i,1]);
+ G.tpick=weightedPick(G.tcounts,Math.random,cats.map((_,i)=>i));G.tdone=false;go('tspin');
+}
+SCREENS.tspin=()=>{
+ const cats=catsOf(G.cfg),segs=wheelSegs(G.tcounts,cats),tot=G.tcounts.reduce((a,x)=>a+x[1],0);
+ return`${hud(roundPill())}
+ <div class="intro"><div class="rnum disp ol-s">ROUND ${G.round+1}</div>${wheelHTML(segs)}
+ <div class="catname disp ol" id="wheelName">${G.tdone?esc(cats[G.tpick].name):'두구두구'}</div>
+ <p class="introline">${G.tcounts.length===cats.length&&tot===cats.length?'모든 주제가 같은 칸이에요':G.tcounts.map(([k,n])=>`${esc(cats[k].name)} ${n}`).join(' · ')}</p></div>
+ <div class="dock"><div><button class="btn yel" id="tGo" ${G.tdone?'':'disabled'} onclick="dealRound(G.tpick)"><span class="lbl">이 주제로 시작</span>${IC.next}</button></div></div>`;
+};
+function tspinFx(){
+ const cats=catsOf(G.cfg),segs=wheelSegs(G.tcounts,cats);wheelHTML(segs);
+ if(G.tdone){wheelSpin(segs,G.tpick,0,G.round*31+7);return}
+ wheelSpin(segs,G.tpick,3600,G.round*31+7);
+ setTimeout(()=>{if(scr!=='tspin')return;G.tdone=true;const n=document.getElementById('wheelName');if(n)n.textContent=cats[G.tpick].name;const b=document.getElementById('tGo');if(b)b.disabled=false;sfx.reveal();buzz(40)},3700);
+}
 
 /* 라운드 시작 */
 function ruleChips(){const c=G.cfg,R=role(),a=[];

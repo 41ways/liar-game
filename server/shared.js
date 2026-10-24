@@ -259,6 +259,14 @@ const pick=(arr,r)=>arr[Math.floor(r()*arr.length)];
 
 /* 주제 번호 63 = 랜덤. 라이어 수 상한: 시민이 라이어보다 많게, 최대 3명 */
 const RANDOM=63;
+/* 주제 번호 62 = 라운드마다 다 같이 투표 → 표 수만큼 칸이 큰 룰렛 */
+const VOTE=62;
+/** counts: [[주제번호, 표수], ...] → 표 수 비율로 하나 뽑기. 표가 없으면 all 중 고르게 */
+function weightedPick(counts,r,all){
+ const total=counts.reduce((a,c)=>a+c[1],0);
+ if(!total)return all[Math.floor(r()*all.length)];
+ let x=r()*total;for(const [k,n] of counts){if((x-=n)<0)return k}return counts[counts.length-1][0];
+}
 const maxLiars=(n,acc)=>Math.max(1,Math.min(3,Math.floor((n-(acc?1:0)-1)/2)));
 
 /* ───────── 라운드 만들기 ───────── */
@@ -311,4 +319,4 @@ function genRound(cfg,round,recent,cats){
   qs:p.qs.map(q=>({t:C.q[q][0],lo:C.q[q][1],hi:C.q[q][2],a:C.w[a].v[q],b:C.w[b].v[q]}))};
 }
 
-module.exports={LIARC,SPYC,DIFFS,MISSIONS,INTROS,PENALTIES,RANDOM,maxLiars,hash,rng,shuffle,pick,spyCands,genRound,letters};
+module.exports={LIARC,SPYC,DIFFS,MISSIONS,INTROS,PENALTIES,RANDOM,VOTE,weightedPick,maxLiars,hash,rng,shuffle,pick,spyCands,genRound,letters};

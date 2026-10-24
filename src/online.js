@@ -66,7 +66,9 @@ function oHandle(m){
    const key=want+'|'+m.round+'|'+(m.g?m.g.step+'|'+m.g.qi+'|'+m.g.voteRound+'|'+m.g.caught.length:'');
    const fresh=scr!==want||key!==O.stepKey;
    if(fresh&&m.g&&m.g.step==='check'&&(!prev||!prev.g||prev.round!==m.round||prev.phase!=='playing'))O.cardOpen=false;
-   O.stepKey=key;scr=want;render(fresh);
+   O.stepKey=key;
+   if(!fresh&&scr==='ogame'&&m.g&&m.g.step==='spin'){chatSync();break}   // 룰렛이 도는 중엔 다시 그리지 않는다
+   scr=want;render(fresh);
    break}
   case 'err':
    O.entering=0;toast(m.msg);
@@ -79,17 +81,17 @@ function oHandle(m){
 function oFollow(prev,m){
  const g=m.g;if(!g)return;
  const k=m.round+':'+m.code;
- if(O.descKey!==k){O.descKey=k;O.descN=0;if(m.phase==='playing'&&g.step==='check')addChat({sys:true,text:`라운드 ${m.round+1} 시작 · 주제 ${g.cat}`})}
- while(O.descN<g.descs.length){const d=g.descs[O.descN++];addChat({desc:true,from:d.id,name:(oP(d.id)||{}).name||'?',text:d.text||(d.timeout?'(시간 초과)':'(자리 비움)')})}
+ if(O.descKey!==k){O.descKey=k;O.descN=0}
+ while(g.descs&&O.descN<g.descs.length){const d=g.descs[O.descN++];addChat({desc:true,from:d.id,name:(oP(d.id)||{}).name||'?',text:d.text||(d.timeout?'(시간 초과)':'(자리 비움)')})}
  const ps=prev&&prev.g;
  if(!ps||ps.step!==g.step||prev.round!==m.round){
-  const say={talk:'설명 차례 시작! 차례인 사람이 한 마디씩 입력해요.',discuss:'토론 시간! 채팅으로 이야기하고 준비되면 「지목하자」.',vote:g.voteRound===2?'동점! 동점자 중에서 다시 지목해요.':'비밀 투표! 라이어라고 생각하는 사람을 누르세요.',answer:`질문 ${g.qi+1}: ${g.qs[g.qi]&&g.qs[g.qi].t} — 1~10을 몰래 내요.`,reveal:'숫자 공개!'}[g.step];
+  const say={topic:`라운드 ${m.round+1} · 주제 투표! 하고 싶은 주제를 하나 찍어요.`,check:`라운드 ${m.round+1} · 주제 ${g.cat}`,talk:'설명 차례 시작! 차례인 사람이 한 마디씩 입력해요.',discuss:'토론 시간! 채팅으로 이야기하고 준비되면 「지목하자」.',vote:g.voteRound===2?'동점! 동점자 중에서 다시 지목해요.':'비밀 투표! 라이어라고 생각하는 사람을 누르세요.',answer:g.qs?`질문 ${g.qi+1}: ${g.qs[g.qi]&&g.qs[g.qi].t} — 1~10을 몰래 내요.`:'',reveal:'숫자 공개!'}[g.step];
   if(say&&m.phase==='playing')addChat({sys:true,text:say});
-  if(g.step==='talk'||g.step==='answer'||g.step==='guess')sfx.reveal();
+  if(g.step==='talk'||g.step==='answer'||g.step==='guess'||g.step==='topic')sfx.reveal();
   if(g.step==='accuse')sfx.drum();
   if(g.step==='result'){if(g.win==='c'){sfx.win();confetti(60)}else sfx.lose()}
  }
- if(g.step==='talk'&&g.seq[g.turn]===O.me&&(!ps||ps.turn!==g.turn||ps.step!=='talk'))toast('내 차례예요! 제시어를 한 마디로 설명해 주세요');
+ if(g.step==='talk'&&g.seq&&g.seq[g.turn]===O.me&&(!ps||ps.turn!==g.turn||ps.step!=='talk'))toast('내 차례예요! 제시어를 한 마디로 설명해 주세요');
 }
 
 /* ── 채팅 (오른쪽 칸 · 좁은 화면은 💬 버튼) ── */
@@ -178,7 +180,8 @@ SCREENS.olobby=()=>{
   <div class="modegrid">${MODE_KEYS.map(k=>`<div class="mcard ${c.mode===k?'on':''}" style="--c:${MODES[k].c}" ${host?`onclick="oCfg({mode:'${k}'})"`:''}><span class="chk">${IC.chk}</span>${emblem[k]()}<b class="ol-s">${MODES[k].short}</b></div>`).join('')}</div>
   <div class="mdesc"><b>${MODES[c.mode].name}</b>${MODES[c.mode].desc}</div></section>
  <section class="panel"><div class="ptab">주제</div>
-  <div class="tiles">${host||c.cat===RANDOM?`<button class="tile ${c.cat===RANDOM?'on':''}" ${host?`onclick="oCfg({cat:RANDOM})"`:'disabled'}><span class="ti dice">${IC.dice}</span><span>랜덤</span></button>`:''}${cats.map((x,i)=>host||c.cat===i?`<button class="tile ${c.cat===i?'on':''} ${i>=LIARC.length&&!sp?'my':''}" ${host?`onclick="oCfg({cat:${i}})"`:'disabled'}>${ico(x.icon,'ti')}<span>${esc(x.name)}</span></button>`:'').join('')}</div>
+  <div class="tiles">${host||c.cat===VOTE?`<button class="tile ${c.cat===VOTE?'on':''}" ${host?`onclick="oCfg({cat:VOTE})"`:'disabled'}><span class="ti dice">${IC.vote}</span><span>다 같이 투표</span></button>`:''}${host||c.cat===RANDOM?`<button class="tile ${c.cat===RANDOM?'on':''}" ${host?`onclick="oCfg({cat:RANDOM})"`:'disabled'}><span class="ti dice">${IC.dice}</span><span>랜덤</span></button>`:''}${cats.map((x,i)=>host||c.cat===i?`<button class="tile ${c.cat===i?'on':''} ${i>=LIARC.length&&!sp?'my':''}" ${host?`onclick="oCfg({cat:${i}})"`:'disabled'}>${ico(x.icon,'ti')}<span>${esc(x.name)}</span></button>`:'').join('')}</div>
+  ${c.cat===VOTE?'<p class="hint"><b>다 같이 투표</b> · 라운드마다 각자 주제를 하나 찍고, 표 수만큼 칸이 큰 룰렛으로 뽑아요. (3표·1표·1표면 3:1:1)</p>':''}
   ${host&&!sp&&CUSTOM.length?`<p class="hint">이 기기에 저장된 내 주제를 방에 올릴 수 있어요: ${CUSTOM.map((x,i)=>`<button class="chip2" onclick='oCfg({custom:${JSON.stringify({name:x.name,w:x.w})}})'>${ico('envelope')}${esc(x.name)}</button>`).join(' ')}${c.custom?` <button class="chip2" onclick="oCfg({custom:null})">${IC.x}내 주제 빼기</button>`:''}</p>`:''}</section>
  ${sp?`<section class="panel"><div class="ptab">난이도</div><div class="seg">${DIFFS.map((d,i)=>`<button class="${c.diff===i?'on':''}" ${host?`onclick="oCfg({diff:${i}})"`:'disabled'}><span class="gauge">${[0,1,2].map(k=>`<i class="${k<=i?'f':''}" style="height:${6+k*5}px"></i>`).join('')}</span>${d.name}</button>`).join('')}</div><p class="hint"><b>간극 ${DIFFS[c.diff].gap[0]}~${DIFFS[c.diff].gap[1]}</b> · ${DIFFS[c.diff].desc}</p></section>`:''}
  <section class="panel"><div class="ptab">규칙 옵션</div><div class="opts">
@@ -218,6 +221,8 @@ function ocard(){
 function ostatus(p){
  const g=oG(),s=g.step;
  if(p.left)return['나감','x'];if(!p.connected)return['끊김','x'];
+ if(s==='topic')return g.voted.includes(p.id)?['찍음','ok']:['고르는 중',''];
+ if(s==='spin')return['',''];
  if(g.caught.includes(p.id))return['검거','r'];
  if(s==='check')return g.ready.includes(p.id)?['준비','ok']:['확인 중',''];
  if(s==='talk')return g.seq[g.turn]===p.id?['설명 중','now']:g.descs.some(d=>d.id===p.id&&d.lap===Math.floor(g.turn/g.order.length))?['말함','ok']:['',''];
@@ -229,7 +234,7 @@ function ostatus(p){
 }
 function ostrip(){
  const s=O.S,g=s.g,done=g.step==='result';
- return`<div class="ostrip">${(g.order.length?g.order.map(oP):s.players).filter(Boolean).map(p=>{const[t,c]=ostatus(p),liar=done&&g.answer&&g.answer.liars.includes(p.id);
+ return`<div class="ostrip">${(g.order&&g.order.length?g.order.map(oP):s.players).filter(Boolean).map(p=>{const[t,c]=ostatus(p),liar=done&&g.answer&&g.answer.liars.includes(p.id);
   return`<div class="os ${p.id===O.me?'me':''} ${c}">${p.id===s.hostId?`<span class="cr">${IC.crown}</span>`:''}${avatar(p.av,liar?{d:true,hat:false}:{})}<b>${esc(p.id===O.me?'나':p.name)}</b>${t?`<small>${t}</small>`:''}<span class="pt">${p.pts}점</span></div>`}).join('')}</div>`;
 }
 function oboard(){
@@ -256,8 +261,33 @@ function oform(id,ph,fn,max){return`<form class="dform" onsubmit="event.preventD
 function oSendDesc(){const el=document.getElementById('oDesc');const t=el.value.trim();if(!t)return toast('설명을 적어 주세요');oSend({t:'desc',text:t});el.value=''}
 function oSendGuess(){const el=document.getElementById('oGuess');const t=el.value.trim();if(!t)return toast('정답을 적어 주세요');if(!confirm(`"${t}"(으)로 낼까요? 기회는 한 번!`))return;oSend({t:'guess',text:t})}
 
+function ocats(){const c=O.S.cfg;return c.mode==='spy'?SPYC:LIARC.concat(c.custom?[{name:c.custom.name,icon:'envelope',w:[]}]:[])}
+function otopic(){
+ const s=O.S,g=s.g,spec=oSpec(),left=oLeft(),cats=ocats(),need=s.players.filter(p=>p.connected&&!p.left).length;
+ let h=hud(`<span class="pill">ROUND <i>${s.round+1}</i></span>${left!=null&&g.step==='topic'?` <span class="pill tm" data-ends>${mmss(left)}</span>`:''}`,`<button class="ibtn" onclick="oLeave(true)" aria-label="나가기">${IC.home}</button>`);
+ h+=ostrip();
+ if(g.step==='topic'){
+  h+=`<section class="panel"><div class="ptab acc">${ico('megaphone')}주제 투표</div><p style="font-weight:700">하고 싶은 주제를 하나 찍어요. 표 수만큼 룰렛 칸이 커져요!</p><p class="sub">${g.voted.length} / ${need}명 찍음 · 바꿀 수 있어요 ${oHostSkip()}</p>
+  <div class="tiles" style="margin-top:12px">${cats.map((x,i)=>`<button class="tile vt ${g.myTopic===i?'on':''}" ${spec?'disabled':`onclick="oSend({t:'topic',cat:${i}});sfx.pick()"`}>${ico(x.icon,'ti')}<span>${esc(x.name)}</span>${g.tally[i]?`<em class="vc">${g.tally[i]}</em>`:''}${g.myTopic===i?'<em class="vme">내 표</em>':''}</button>`).join('')}</div></section>`;
+ }else{
+  const segs=wheelSegs(g.counts||[],cats),tot=(g.counts||[]).reduce((a,x)=>a+x[1],0);
+  h+=`<div class="intro">${wheelHTML(segs)}<div class="catname disp ol" id="wheelName">두구두구</div>
+  <p class="introline">${(g.counts||[]).length===cats.length&&tot===cats.length?'아무도 안 찍어서 모든 주제가 같은 칸':(g.counts||[]).map(([k,n])=>`${esc((cats[k]||{}).name)} ${n}표`).join(' · ')}</p></div>`;
+ }
+ return h;
+}
+/** 화면을 그린 뒤 — 룰렛은 한 번만 돌린다(그 사이 다른 갱신이 와도 다시 돌리지 않게) */
+function oAfter(fresh){
+ if(scr!=='ogame'||!O.S||!O.S.g||O.S.g.step!=='spin')return;
+ const g=O.S.g,cats=ocats(),segs=wheelSegs(g.counts||[],cats);wheelHTML(segs);
+ const key=O.S.code+':'+O.S.round,seed=O.S.round*31+7;
+ if(O.spinKey===key){wheelSpin(segs,g.pick,0,seed);const n=document.getElementById('wheelName');if(n&&O.spinDone)n.textContent=(cats[g.pick]||{}).name;return}
+ O.spinKey=key;O.spinDone=false;wheelSpin(segs,g.pick,3700,seed);
+ setTimeout(()=>{O.spinDone=true;const n=document.getElementById('wheelName');if(n&&O.S&&O.S.g&&O.S.g.step==='spin')n.textContent=(cats[g.pick]||{}).name;sfx.reveal()},3800);
+}
 SCREENS.ogame=()=>{
  const s=O.S,g=s.g,c=s.cfg,me=O.me,spec=oSpec(),left=oLeft(),R=MODES[c.mode].role;
+ if(g.step==='topic'||g.step==='spin')return otopic();
  const caughtMe=g.caught.includes(me),need=s.players.filter(p=>p.connected&&!p.left).length;
  let h=hud(`<span class="pill">ROUND <i>${s.round+1}</i></span>${left!=null?` <span class="pill tm" data-ends>${mmss(left)}</span>`:''}`,`<button class="ibtn" onclick="oLeave(true)" aria-label="나가기">${IC.home}</button>`);
  h+=`<div class="ohead">${ico(g.icon,'ohi')}<div><b class="disp">${esc(g.cat)}</b><small>${MODES[c.mode].name}${g.liarsN>1?` · ${R} ${g.liarsN}명`:''}${g.accOn?' · 공범 있음':''}</small></div></div>`;

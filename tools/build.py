@@ -72,6 +72,6 @@ print('index.html', len(html.encode()) // 1024, 'KB  (+ public/index.html)')
 os.makedirs(os.path.join(ROOT, 'server'), exist_ok=True)
 shared = ("'use strict';\n/* 빌드가 만든 파일 — 직접 고치지 말 것. 원본은 src/data.js · src/rules.js */\n"
           + data + '\n' + rules +
-          '\nmodule.exports={LIARC,SPYC,DIFFS,MISSIONS,INTROS,PENALTIES,RANDOM,maxLiars,hash,rng,shuffle,pick,spyCands,genRound,letters};\n')
+          '\nmodule.exports={LIARC,SPYC,DIFFS,MISSIONS,INTROS,PENALTIES,RANDOM,VOTE,weightedPick,maxLiars,hash,rng,shuffle,pick,spyCands,genRound,letters};\n')
 open(os.path.join(ROOT, 'server/shared.js'), 'w', encoding='utf-8').write(shared)
 print('server/shared.js', len(shared.encode()) // 1024, 'KB')

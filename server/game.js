@@ -23,8 +23,8 @@ const MIN_PLAYERS = 3;
 const MAX_SPECS = 10;
 const FAST = typeof process !== 'undefined' && !!process.env && process.env.LIAR_FAST === '1';
 const MS = FAST
-  ? { check: 300, vote: 300, guess: 300, accuse: 30, reveal: 300, dc: 100, lobby: 300 }
-  : { check: 45000, vote: 45000, guess: 60000, accuse: 2600, reveal: 60000, dc: 8000, lobby: 20000 };
+  ? { check: 300, vote: 300, guess: 300, accuse: 30, reveal: 300, dc: 100, lobby: 300, topic: 300, spin: 30 }
+  : { check: 45000, vote: 45000, guess: 60000, accuse: 2600, reveal: 60000, dc: 8000, lobby: 20000, topic: 30000, spin: 5800 };
 const TALK_SECS = [30, 45, 60, 0];          // 0 = 무제한
 const DISCUSS_SECS = [60, 120, 180, 300];
 const CUSTOM_IDX = L.LIARC.length;          // 방장이 넣은 '내 주제'의 번호
@@ -60,7 +60,7 @@ function createRoom({ priv = false, spec = true } = {}) {
     players: [],
     specs: [],
     nextId: 1,
-    cfg: { mode: 'liar', cat: L.RANDOM, liars: 1, acc: false, hint: false, mission: true, diff: 1, laps: 1,
+    cfg: { mode: 'liar', cat: L.VOTE, liars: 1, acc: false, hint: false, mission: true, diff: 1, laps: 1,
       talkSec: 45, discussSec: 120, penalty: false, priv: !!priv, spec: spec !== false, custom: null },
     seed: 0, round: 0, g: null,
     tally: { c: 0, l: 0 }, history: [], recent: {},
@@ -202,12 +202,35 @@ function startGame(room) {
 const modeName = m => ({ liar: '라이어 게임', fool: '바보 라이어', spy: '스파이 게임' }[m]);
 const roleName = room => ({ liar: '라이어', fool: '바보 라이어', spy: '스파이' }[room.cfg.mode]);
 
+/** 라운드 시작 — 주제가 '투표'면 먼저 다 같이 주제를 찍고 표 수만큼 룰렛을 돌린다 */
 function startRound(room) {
+  if (room.cfg.cat === L.VOTE) {
+    room.g = { step: 'topic', endsAt: 0, ready: [], R: null, topic: { votes: {}, counts: null, pick: null }, caught: [] };
+    setStep(room, 'topic', MS.topic);
+    return pushState(room);
+  }
+  buildRound(room, room.cfg.cat, null);
+}
+
+/** 주제 투표 마감 → 표 수 비례로 뽑고 룰렛(spin)을 보여 준 뒤 라운드를 만든다 */
+function spinTopic(room) {
+  const g = room.g, cats = catsOf(room);
+  const tally = {};
+  for (const v of Object.values(g.topic.votes)) tally[v] = (tally[v] || 0) + 1;
+  const counts = Object.entries(tally).map(([k, n]) => [Number(k), n]).sort((a, b) => b[1] - a[1] || a[0] - b[0]);
+  const pick = L.weightedPick(counts, Math.random, cats.map((_, i) => i));
+  g.topic.counts = counts.length ? counts : cats.map((_, i) => [i, 1]);   // 아무도 안 찍으면 모든 주제 같은 칸
+  g.topic.pick = pick;
+  setStep(room, 'spin', MS.spin);
+  pushState(room);
+}
+
+function buildRound(room, catIdx, topic) {
   const c = room.cfg, ps = room.players, n = ps.length;
   const cats = catsOf(room);
-  const cfgR = { mode: c.mode, n, cat: c.cat, seed: room.seed, diff: c.diff, mission: c.mode !== 'spy' && c.mission,
+  const cfgR = { mode: c.mode, n, cat: catIdx, seed: room.seed, diff: c.diff, mission: c.mode !== 'spy' && c.mission,
     hint: c.mode === 'liar' && c.hint, liars: Math.min(c.liars, L.maxLiars(n, c.acc)), acc: c.mode === 'liar' && c.acc && n >= 5 };
-  if (cfgR.cat !== L.RANDOM && cfgR.cat >= cats.length) cfgR.cat = L.RANDOM;
+  if (cfgR.cat !== L.RANDOM && (cfgR.cat < 0 || cfgR.cat >= cats.length)) cfgR.cat = L.RANDOM;
   const recentOf = key => room.recent[key] || [];
   const R = L.genRound(cfgR, room.round, recentOf, cats);
   // 최근 단어 기억(오프라인 판과 같은 방식)
@@ -228,7 +251,7 @@ function startRound(room) {
     qi: 0, nums: R.qs.map(() => ({})), shown: R.qs.map(() => false),
     votes: {}, lastVotes: null, voteRound: 1, cands: null,
     accused: null, caught: [], guess: null, guesses: [],
-    win: null, why: null, delta: null, pen: null,
+    win: null, why: null, delta: null, pen: null, topic,
   };
   const g = room.g;
   for (let lap = 0; lap < (c.mode === 'spy' ? 0 : c.laps); lap++) g.seq.push(...order);
@@ -236,7 +259,7 @@ function startRound(room) {
   pushState(room);
 }
 
-const isLiar = (room, id) => room.g.R.liars.includes(id);
+const isLiar = (room, id) => !!room.g.R && room.g.R.liars.includes(id);
 
 /** 모든 응답 대상이 응답했는지 */
 function allDone(room, set, who) {
@@ -342,6 +365,8 @@ function onTimeout(room, step) {
   const g = room.g;
   if (!g || g.step !== step || room.phase !== 'playing') return;
   switch (step) {
+    case 'topic': return spinTopic(room);
+    case 'spin': return buildRound(room, g.topic.pick, g.topic);
     case 'check': return afterCheck(room);
     case 'talk':
       g.descs.push({ id: g.seq[g.turn], text: '', timeout: true, lap: Math.floor(g.turn / g.order.length) });
@@ -369,6 +394,7 @@ function progress(room) {
   const g = room.g;
   if (!g || room.phase !== 'playing') return;
   switch (g.step) {
+    case 'topic': if (allDone(room, Object.keys(g.topic.votes).map(Number))) spinTopic(room); break;
     case 'check': if (allDone(room, g.ready)) afterCheck(room); break;
     case 'talk': {
       const p = playerOf(room, g.seq[g.turn]);
@@ -401,6 +427,13 @@ function stateFor(room, me) {
     maxLiars: L.maxLiars(room.players.length, c.acc && c.mode === 'liar'),
   };
   if (!g) return s;
+  if (!g.R) {
+    const t = g.topic, tally = {};
+    for (const v of Object.values(t.votes)) tally[v] = (tally[v] || 0) + 1;
+    s.g = { step: g.step, endsAt: g.endsAt, ready: [], caught: [], tally, voted: Object.keys(t.votes).map(Number),
+      myTopic: me ? (t.votes[me.id] != null ? t.votes[me.id] : null) : null, counts: t.counts, pick: t.pick };
+    return s;
+  }
   const R = g.R, done = g.step === 'result' || room.phase === 'over';
   const rev = (qi) => g.shown[qi] || done;
   s.g = {
@@ -414,6 +447,7 @@ function stateFor(room, me) {
     voted: Object.keys(g.votes).map(Number), myVote: me ? g.votes[me.id] || null : null, lastVotes: g.lastVotes,
     voteRound: g.voteRound, cands: g.cands, accused: g.accused, caught: g.caught, guess: g.guess, guesses: g.guesses,
     win: g.win, why: g.why, delta: g.delta, pen: g.pen,
+    topic: g.topic ? { counts: g.topic.counts, pick: g.topic.pick } : null,
   };
   // 내 카드 — 바보 라이어·스파이는 시민과 똑같이 보인다(단어만 다름)
   if (me) {
@@ -510,9 +544,9 @@ function chatText(room, who, msg, extra) {
 
 function setCfg(room, msg) {
   const c = room.cfg;
-  if (['liar', 'fool', 'spy'].includes(msg.mode) && msg.mode !== c.mode) { c.mode = msg.mode; c.cat = L.RANDOM; listChanged(); }
+  if (['liar', 'fool', 'spy'].includes(msg.mode) && msg.mode !== c.mode) { c.mode = msg.mode; if (c.cat !== L.RANDOM) c.cat = L.VOTE; listChanged(); }
   const cats = catsOf(room);
-  if (Number.isInteger(msg.cat) && (msg.cat === L.RANDOM || (msg.cat >= 0 && msg.cat < cats.length))) c.cat = msg.cat;
+  if (Number.isInteger(msg.cat) && (msg.cat === L.RANDOM || msg.cat === L.VOTE || (msg.cat >= 0 && msg.cat < cats.length))) c.cat = msg.cat;
   if (Number.isInteger(msg.liars) && msg.liars >= 1 && msg.liars <= 3) c.liars = msg.liars;
   if (typeof msg.acc === 'boolean') c.acc = msg.acc;
   if (typeof msg.hint === 'boolean') c.hint = msg.hint;
@@ -524,13 +558,13 @@ function setCfg(room, msg) {
   if (DISCUSS_SECS.includes(msg.discussSec)) c.discussSec = msg.discussSec;
   if (typeof msg.priv === 'boolean' && msg.priv !== c.priv) { c.priv = msg.priv; listChanged(); }
   if (typeof msg.spec === 'boolean' && msg.spec !== c.spec) { c.spec = msg.spec; listChanged(); }
-  if (msg.custom === null) { if (c.cat === CUSTOM_IDX) c.cat = L.RANDOM; c.custom = null; }
+  if (msg.custom === null) { if (c.cat === CUSTOM_IDX) c.cat = L.VOTE; c.custom = null; }
   else if (msg.custom && typeof msg.custom === 'object' && Array.isArray(msg.custom.w)) {
     const name = clean(msg.custom.name, 10);
     const w = [...new Set(msg.custom.w.map(x => clean(x, 20)).filter(Boolean))].slice(0, 200);
     if (name && w.length >= 4) { c.custom = { name, w }; if (c.mode === 'spy') c.mode = 'liar'; c.cat = CUSTOM_IDX; }
   }
-  if (c.mode === 'spy' && c.cat === CUSTOM_IDX) c.cat = L.RANDOM;
+  if (c.mode === 'spy' && c.cat === CUSTOM_IDX) c.cat = L.VOTE;
   if (c.mode !== 'liar') { c.acc = false; c.hint = false; }
   c.liars = Math.max(1, Math.min(c.liars, 3));
 }
@@ -625,6 +659,12 @@ function handle(ws, msg) {
   if (room.phase !== 'playing' || !g) return;
 
   switch (msg.t) {
+    case 'topic': {
+      const k = msg.cat | 0;
+      if (g.step !== 'topic' || k < 0 || k >= catsOf(room).length) return;
+      g.topic.votes[me.id] = k;
+      progress(room); pushState(room); return;
+    }
     case 'ready': {
       if (!['check', 'reveal', 'discuss'].includes(g.step) || g.ready.includes(me.id)) return;
       if (g.step === 'discuss' && g.caught.includes(me.id)) return;
@@ -658,7 +698,7 @@ function handle(ws, msg) {
       submitGuess(room, me.id, clean(msg.text, 30)); return;
     }
     case 'skip':      // 방장: 기다리는 단계를 바로 넘긴다(누가 자리를 비웠을 때)
-      if (!isHost || !['check', 'talk', 'answer', 'reveal', 'discuss', 'vote'].includes(g.step)) return;
+      if (!isHost || !['topic', 'check', 'talk', 'answer', 'reveal', 'discuss', 'vote'].includes(g.step)) return;
       onTimeout(room, g.step); return;
     case 'next':
       if (!isHost || g.step !== 'result') return;

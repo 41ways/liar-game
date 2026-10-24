@@ -34,7 +34,7 @@ function makeRoom(n, cfg) {
   const code = host.code;
   const all = [host];
   for (let i = 1; i < n; i++) { const w = new FakeWs('p' + i); w.do({ t: 'join', code, name: '사람' + i }); all.push(w); }
-  if (cfg) host.do(Object.assign({ t: 'cfg' }, cfg));
+  host.do(Object.assign({ t: 'cfg' }, { cat: 63 }, cfg || {}));   // 시험은 기본을 랜덤으로(주제 투표는 따로 시험)
   return { host, all, code };
 }
 
@@ -236,7 +236,7 @@ const roomOf = ctx => G.rooms.get(ctx.code);
     ok(back.state && back.me === cur.me, '토큰으로 재접속');
     const leaver = ctx.all.find(w => w !== ctx.host && w !== cur);
     leaver.do({ t: 'leave' });
-    ok(ctx.host.state.players.find(p => p.id === leaver.me).left, '판 중 나가면 (나감) 표시');
+    ok(r.players.find(p => p.id === leaver.me).left && /\(나감\)/.test(r.players.find(p => p.id === leaver.me).name), '판 중 나가면 (나감) 표시');
     let guard = 0;
     while (r.g.step === 'talk' && guard++ < 20) { const w = [back, ...ctx.all].find(x => x.me === r.g.seq[r.g.turn] && x.readyState === 1); if (w) w.do({ t: 'desc', text: '설명' }); else ctx.host.do({ t: 'skip' }); await sleep(2); }
     await until(() => r.g.step === 'discuss', 'discuss');
@@ -266,6 +266,39 @@ const roomOf = ctx => G.rooms.get(ctx.code);
     ctx.host.do({ t: 'again' });
     ok(ctx.host.state.phase === 'lobby' && ctx.host.state.players.every(p => p.pts === 0), '대기실로, 점수 초기화');
   });
+
+  // 주제 투표 → 표 수 비례 룰렛
+  {
+    const before = fails;
+    const L = require('../server/shared');
+    const hits = {};
+    const T = 600;
+    for (let t = 0; t < T; t++) {
+      const ctx = makeRoom(5, { mode: 'liar', cat: 62 });
+      ctx.host.do({ t: 'start' });
+      const r = roomOf(ctx);
+      if (t === 0) { ok(r.g.step === 'topic' && !r.g.R, '투표 단계로 시작'); ok(ctx.host.state.g.step === 'topic' && !ctx.host.state.g.my, '투표 중엔 카드 없음'); }
+      const pickFor = [2, 2, 2, 0, 4];   // 음식 쪽 3표 : 0번 1표 : 4번 1표
+      ctx.all.forEach((w, i) => w.do({ t: 'topic', cat: pickFor[i] }));
+      if (t === 0) ok(r.g.step === 'spin' && JSON.stringify(r.g.topic.counts) === '[[2,3],[0,1],[4,1]]', '모두 찍으면 룰렛(표 많은 순)');
+      await until(() => r.g.step === 'check', '룰렛 뒤 라운드', 2000);
+      hits[r.g.R.cat] = (hits[r.g.R.cat] || 0) + 1;
+      if (t === 0) ok(r.g.topic && r.g.topic.pick != null && L.LIARC[r.g.topic.pick].name === r.g.R.cat, '뽑힌 주제로 라운드');
+      ctx.all.forEach(w => w.do({ t: 'leave' }));
+    }
+    const f = k => (hits[L.LIARC[k].name] || 0) / T;
+    console.log('    비율', [2, 0, 4].map(k => L.LIARC[k].name + ' ' + (f(k) * 100).toFixed(1) + '%').join(' · '));
+    ok(Math.abs(f(2) - 0.6) < 0.07 && Math.abs(f(0) - 0.2) < 0.06 && Math.abs(f(4) - 0.2) < 0.06, '3:1:1 비율');
+    ok(Object.keys(hits).length === 3, '표 받은 주제만 나옴');
+    // 아무도 안 찍고 시간이 지나면 모든 주제 중 하나
+    const ctx = makeRoom(3, { mode: 'spy', cat: 62 });
+    ctx.host.do({ t: 'start' });
+    const r = roomOf(ctx);
+    await until(() => r.g.step === 'check', '표 없음 → 아무 주제', 3000);
+    ok(r.g.topic.counts.length === L.SPYC.length, '표 없으면 모든 주제 같은 칸');
+    ctx.all.forEach(w => w.do({ t: 'leave' }));
+    console.log(`${fails === before ? '✓' : '✗'} 주제 투표·비율 룰렛`);
+  }
 
   // 관전
   {
