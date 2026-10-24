@@ -422,6 +422,125 @@ details.names summary::-webkit-details-marker{display:none}
 .otp{grid-template-columns:repeat(6,1fr)!important;gap:6px!important}
 .otp i{font-size:32px!important;border-radius:12px!important}
 
+/* ── 첫 화면 큰 갈림길 ── */
+.btn.blu{background:var(--blu)}
+.btn.big2{justify-content:flex-start;gap:14px;padding:13px 18px 15px;text-align:left}
+.btn.big2 svg{width:36px;height:36px}
+.btn.big2 .lbl{display:flex;flex-direction:column;font-size:25px;line-height:1.1}
+.btn.big2 small{font-family:var(--body);font-weight:700;font-size:13px;opacity:.72;margin-top:4px;letter-spacing:0}
+
+/* ── 온라인: 방 고르기 ── */
+.chk{display:flex;align-items:center;gap:10px;margin:10px 0 2px;font-weight:700;cursor:pointer}
+.chk input{width:22px;height:22px;accent-color:var(--ink)}
+.chk small{display:block;font-weight:600;font-size:12.5px;color:#7a6ba8}
+.finput.code4{font-family:var(--disp);font-size:28px;letter-spacing:10px;text-align:center;text-transform:uppercase;padding:6px 10px}
+.rooms{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.rempty{color:#7a6ba8;font-weight:600;font-size:14px;text-align:center;padding:10px 0}
+.rrow{width:100%;display:flex;align-items:center;gap:10px;background:#fff;border:2.5px solid var(--ink);border-radius:14px;padding:6px 10px;cursor:pointer;text-align:left;font:inherit;color:var(--ink);box-shadow:0 3px 0 var(--ink)}
+.rrow[disabled]{opacity:.5;cursor:default}
+.rav{width:38px;flex:none}
+.rmain{flex:1;min-width:0;display:flex;flex-direction:column}
+.rmain b{font-family:var(--disp);font-weight:400;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rmain small{font-size:12.5px;font-weight:700;color:#7a6ba8;display:flex;align-items:center;gap:6px}
+.mtag{font-family:var(--disp);font-size:11px;padding:1px 6px 2px;border-radius:5px;color:var(--ink)}
+.mtag.m-liar{background:var(--red);color:#fff}.mtag.m-fool{background:var(--org)}.mtag.m-spy{background:var(--blu)}
+.rst{flex:none;font-family:var(--disp);font-size:13px;padding:3px 8px 4px;border-radius:8px;background:var(--grn);color:var(--ink)}
+.rst.full,.rst.playing{background:var(--paper3)}
+
+/* ── 온라인: 대기실 ── */
+.otp.o4{grid-template-columns:repeat(4,1fr)!important;max-width:300px;margin:6px auto 0}
+.otp.o4 i{font-size:40px!important}
+.seats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seat{position:relative;background:#fff;border:2.5px solid var(--ink);border-radius:14px;padding:6px 4px 7px;text-align:center}
+.seat.me{background:#fff4c9}
+.seat.off{opacity:.55}
+.seat .av{width:52px;margin:0 auto}
+.seat b{display:block;font-family:var(--disp);font-weight:400;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seat .bd{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;min-height:18px}
+.seat em{font-style:normal;font-size:11px;font-weight:800;background:var(--paper2);border-radius:5px;padding:0 5px}
+.seat em.h{background:var(--yel)}.seat em.x{background:var(--red);color:#fff}
+.seat .kick{position:absolute;top:3px;right:3px;width:22px;height:22px;border-radius:50%;border:2px solid var(--ink);background:var(--paper);padding:2px;cursor:pointer;color:var(--ink)}
+.seat .kick svg{width:100%;height:100%}
+.tile[disabled]{cursor:default}
+.mseg button[disabled]:not(.on){opacity:.35}
+.mseg button.on[disabled]{opacity:1}
+.chip2{display:inline-flex;align-items:center;gap:4px;border:2px solid var(--ink);background:#fff;border-radius:999px;padding:2px 10px 3px 4px;font:inherit;font-weight:800;font-size:13px;cursor:pointer;margin:3px 2px;color:var(--ink)}
+.chip2 .ico{width:22px}.chip2 svg{width:16px;height:16px}
+
+/* ── 온라인: 판 ── */
+.mycard{display:flex;align-items:center;gap:10px;width:100%;margin-top:10px;background:var(--paper);color:var(--ink);border:3px solid var(--ink);border-radius:16px;padding:10px 14px;font:inherit;font-weight:700;font-size:15.5px;cursor:pointer;box-shadow:0 5px 0 var(--ink);text-align:left}
+.mycard svg{width:22px;height:22px;flex:none;color:var(--red)}
+.mycard.on{background:#fff4c9}
+.mycard b{font-family:var(--disp);font-weight:400;font-size:19px}
+.pill.tm{background:var(--paper);color:var(--ink);font-variant-numeric:tabular-nums}
+.pill.tm.hot{background:var(--red);color:#fff;animation:blink .6s infinite}
+.ohead{display:flex;align-items:center;gap:12px;margin:-4px 0 4px}
+.ohead .ohi{width:54px;flex:none}
+.ohead b{display:block;font-size:26px;line-height:1.1}
+.ohead small{font-weight:700;color:#d9cffc;font-size:13px}
+.ostrip{display:flex;gap:6px;overflow-x:auto;padding:12px 2px 6px;margin-top:6px;scrollbar-width:thin}
+.os{position:relative;flex:none;width:66px;text-align:center;background:rgba(255,255,255,.08);border:2px solid transparent;border-radius:14px;padding:4px 2px 5px}
+.os .av{width:46px;margin:0 auto}
+.os b{display:block;font-family:var(--disp);font-weight:400;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.os small{display:inline-block;font-size:11px;font-weight:800;border-radius:6px;padding:0 5px;background:rgba(255,255,255,.18);margin-top:1px}
+.os .pt{display:block;font-size:11px;font-weight:700;color:#cfc4f7}
+.os.me{background:rgba(255,201,40,.18)}
+.os.now{border-color:var(--yel);background:rgba(255,201,40,.28)}.os.now small{background:var(--yel);color:var(--ink)}
+.os.ok small{background:var(--grn);color:var(--ink)}
+.os.r small{background:var(--red)}
+.os.x{opacity:.5}
+.os .cr{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:20px;height:20px}
+.os .cr svg{width:100%;height:100%}
+.board2{display:grid;gap:7px}
+.drow{display:flex;align-items:flex-start;gap:8px}
+.drow>.av{width:34px;flex:none;margin-top:2px}
+.drow>div{background:#fff;border:2px solid var(--ink);border-radius:4px 14px 14px 14px;padding:5px 11px 7px;min-width:0}
+.drow.me>div{background:#fff4c9}
+.drow b{display:block;font-size:12.5px;color:#6e5f95}
+.drow span{font-weight:700;font-size:15.5px;word-break:break-all}
+.drow span.mut{color:#a99fc9;font-weight:600}
+.drow.typing>div{background:var(--paper2)}
+.lapl{font-family:var(--disp);font-size:13px;color:#7a6ba8;text-align:center;border-top:2px dashed var(--paper3);padding-top:6px;margin-top:2px}
+.skip{border:0;background:transparent;color:#7a3cff;font:inherit;font-weight:800;font-size:13px;text-decoration:underline;cursor:pointer;padding:0 0 0 6px}
+.dform{display:flex;gap:8px;align-items:stretch}
+.dform input{flex:1;min-width:0;border:3px solid var(--ink);border-radius:16px;padding:12px 14px;font:inherit;font-weight:700;font-size:17px;color:var(--ink);background:#fff;box-shadow:0 5px 0 var(--ink);outline:0}
+.dform input:focus{box-shadow:0 5px 0 var(--ink),0 0 0 3px var(--acc)}
+.dform .btn{width:62px;flex:none;margin:0;padding:0}
+.dform .btn svg{width:26px;height:26px}
+
+/* ── 채팅 칸 ── */
+.chatp{position:fixed;z-index:12;display:flex;flex-direction:column;background:var(--paper);color:var(--ink);border:3px solid var(--ink);box-shadow:0 8px 0 var(--ink);overflow:hidden;
+ left:10px;right:10px;bottom:10px;height:min(62vh,520px);border-radius:22px}
+.chatp[hidden]{display:none}
+.chatp header{display:flex;align-items:center;gap:8px;background:var(--ink);color:#fff;padding:9px 10px 9px 14px}
+.chatp header b{font-family:var(--disp);font-weight:400;font-size:18px}
+.chatp header span{flex:1;font-size:12.5px;font-weight:700;color:#cfc4f7}
+.chatp header .ibtn{width:32px;height:32px;box-shadow:none;border-width:2px;font-weight:800}
+.clog{flex:1;overflow-y:auto;padding:10px 10px 4px;display:flex;flex-direction:column;gap:6px;background:#fffdf7}
+.cm{align-self:flex-start;max-width:88%;background:#fff;border:2px solid var(--ink);border-radius:4px 14px 14px 14px;padding:4px 10px 6px;font-size:14.5px;line-height:1.4;word-break:break-word}
+.cm i{display:inline-block;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink);margin-right:5px;vertical-align:0}
+.cm b{font-size:12px;color:#6e5f95;margin-right:6px}
+.cm span{font-weight:600}
+.cm.mine{align-self:flex-end;background:#fff4c9;border-radius:14px 4px 14px 14px}
+.cm.desc{background:#e9f8ff;border-color:var(--blu-d);max-width:100%}
+.cm.desc span{font-weight:800}
+.cm.spec{opacity:.8}
+.cm.sys{align-self:center;background:transparent;border:0;color:#7a6ba8;font-size:12.5px;font-weight:700;text-align:center;padding:2px 6px}
+.cform{display:flex;gap:6px;padding:8px;border-top:2px solid var(--paper3);background:var(--paper)}
+.cform input{flex:1;min-width:0;border:2.5px solid var(--ink);border-radius:12px;padding:9px 12px;font:inherit;font-weight:600;font-size:15px;outline:0;background:#fff;color:var(--ink)}
+.cform button{width:46px;border:2.5px solid var(--ink);border-radius:12px;background:var(--yel);font-size:18px;cursor:pointer;color:var(--ink)}
+.chatfab{position:fixed;right:14px;bottom:126px;z-index:11;width:56px;height:56px;border-radius:50%;border:3px solid var(--ink);background:var(--yel);color:var(--ink);box-shadow:0 5px 0 var(--ink);display:grid;place-items:center;cursor:pointer}
+.chatfab[hidden]{display:none}
+.chatfab svg{width:28px;height:28px}
+.chatfab span{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;border-radius:11px;background:var(--red);color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center;padding:0 5px;border:2px solid var(--ink)}
+.chatfab span[hidden]{display:none}
+@media (min-width:900px){
+ body.online #app{max-width:560px;margin-left:max(16px,calc(50% - 470px));margin-right:auto}
+ body.online .chatp{left:auto;right:max(16px,calc(50% - 470px));top:16px;bottom:16px;height:auto;width:360px}
+ body.online .chatp header .ibtn{display:none}
+ body.online .dock>div{max-width:528px;margin-left:max(16px,calc(50% - 470px))}
+}
+
 /* 방법 */
 .how{display:grid;gap:10px}
 .how div{display:flex;gap:12px;align-items:flex-start}
@@ -432,6 +551,12 @@ details.names summary::-webkit-details-marker{display:none}
 <body class="m-liar">
 <div class="bg"></div>
 <div id="app"></div>
+<aside id="chat" class="chatp" hidden aria-label="채팅">
+ <header><b>채팅</b><span id="chatWho"></span><button class="ibtn sm" onclick="chatOpen(false)" aria-label="채팅 닫기">✕</button></header>
+ <div id="chatLog" class="clog" aria-live="polite"></div>
+ <form class="cform" onsubmit="chatSend(event)"><input id="chatText" maxlength="200" placeholder="방 사람들에게 (Enter)" autocomplete="off" enterkeyhint="send"><button aria-label="보내기">➤</button></form>
+</aside>
+<button id="chatFab" class="chatfab" hidden onclick="chatOpen(true)" aria-label="채팅 열기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1h-9l-5 4v-4H4a1 1 0 01-1-1V6a1 1 0 011-1z"/></svg><span id="chatN" hidden></span></button>
 <script>
 /*@DATA@*/
 
@@ -542,22 +667,18 @@ document.addEventListener('pointerdown',e=>{if(e.target.closest('button,.tile,.m
 function toggleMute(){muted=!muted;store.set('mute',muted);if(!muted)sfx.tap();render()}
 
 /* ───────── 시드 난수 (같은 코드 = 모든 폰에서 같은 결과) ───────── */
-function hash(str){let h=1779033703^str.length;for(let i=0;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),3432918353);h=h<<13|h>>>19}h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return(h^h>>>16)>>>0}
-function rng(...k){let a=hash(k.join('|'));return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
-function shuffle(arr,r){const a=arr.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-const pick=(arr,r)=>arr[Math.floor(r()*arr.length)];
+/*@RULES@*/
 
 /* 코드 6글자 = 30비트: 모드2·인원4·주제6·옵션5·시드13
    옵션 — 스파이: 난이도2·스파이 수2 / 라이어·바보: 미션1·힌트1·라이어 수2·공범1 */
-const ABC='23456789ABCDEFGHJKLMNPQRSTUVWXYZ',RANDOM=63,CODE_LEN=6;
-const maxLiars=(n,acc)=>Math.max(1,Math.min(3,Math.floor((n-(acc?1:0)-1)/2)));
+const ABC='23456789ABCDEFGHJKLMNPQRSTUVWXYZ',CODE_LEN=6;
 function packOpt(c){return c.mode==='spy'?(c.diff|((c.liars-1)<<2)):((c.mission?1:0)|(c.hint?2:0)|((c.liars-1)<<2)|(c.acc?16:0))}
 function unpackOpt(mode,o){const liars=((o>>2)&3)+1;return mode==='spy'?{diff:o&3,liars,mission:false,hint:false,acc:!!(o&16)}:{diff:0,mission:!!(o&1),hint:!!(o&2),liars,acc:!!(o&16)}}
 function encode(c){let v=(((MODE_KEYS.indexOf(c.mode)*16+(c.n-3))*64+c.cat)*32+packOpt(c))*8192+c.seed,s='';for(let i=0;i<CODE_LEN;i++){s=ABC[v%32]+s;v=Math.floor(v/32)}return s}
 function cleanCode(s){return(s||'').toUpperCase().replace(/O/g,'0').replace(/[I1]/g,'L').replace(/[^0-9A-Z]/g,'').slice(0,CODE_LEN)}
 function decode(s){s=cleanCode(s);if(s.length!==CODE_LEN)return null;let v=0;for(const ch of s){const i=ABC.indexOf(ch);if(i<0)return null;v=v*32+i}
  const seed=v%8192;v=Math.floor(v/8192);const o=v%32;v=Math.floor(v/32);const cat=v%64;v=Math.floor(v/64);const n=v%16+3;const mode=MODE_KEYS[Math.floor(v/16)];
- if(!mode)return null;const op=unpackOpt(mode,o);
+ if(!mode||mode==='spy')return null;const op=unpackOpt(mode,o);
  if(op.diff>2||op.liars>maxLiars(n,op.acc)||(op.acc&&(mode!=='liar'||n<5))||(op.hint&&mode!=='liar'))return null;
  const cats=mode==='spy'?SPYC:LIARC;if(cat!==RANDOM&&cat>=cats.length)return null;return{mode,n,cat,seed,...op}}
 
@@ -566,55 +687,6 @@ let CUSTOM=store.get('custom',[]).filter(c=>c&&c.name&&Array.isArray(c.w)&&c.w.l
 function saveCustom(){store.set('custom',CUSTOM.map(c=>({name:c.name,w:c.w})))}
 const catsOf=cfg=>cfg.mode==='spy'?SPYC:(cfg.local?LIARC.concat(CUSTOM):LIARC);
 
-/* ───────── 라운드 만들기 ───────── */
-const candCache={};
-function spyCands(ci,d,seed){
- const key=ci+'/'+d+'/'+seed;if(candCache[key])return candCache[key];
- const C=SPYC[ci],{gap:[lo,hi],sim}=DIFFS[d],r=rng(seed,'sp',ci,d),out=[];
- for(let i=0;i<C.w.length;i++)for(let j=i+1;j<C.w.length;j++){
-  const df=C.w[i].v.map((x,k)=>Math.abs(x-C.w[j].v[k]));
-  const avg=df.reduce((a,b)=>a+b,0)/df.length;
-  const first=df.map((x,k)=>k).filter(k=>df[k]>=lo&&df[k]<=hi);
-  if(!first.length||avg>sim)continue;
-  const q1=pick(first,r);
-  let rest=shuffle(df.map((x,k)=>k).filter(k=>k!==q1&&df[k]>=Math.max(2,lo-1)&&df[k]<=hi+1),r);
-  if(rest.length<2)rest=rest.concat(df.map((x,k)=>k).filter(k=>k!==q1&&!rest.includes(k)&&df[k]>=2).sort((a,b)=>df[b]-df[a]));
-  if(rest.length<2)continue; // 쓸 만한 질문(간극 2 이상)이 3개 안 되는 짝은 버린다
-  out.push({i,j,qs:[q1,...rest.slice(0,2)]});
- }
- return candCache[key]=shuffle(out,r);
-}
-const letters=w=>[...w.replace(/\s/g,'')].length;
-/* recent: 폰 돌리기 모드에서만 — 최근 판에 나온 단어를 피한다(각자 폰 모드는 모든 폰이 같은 결과를 내야 하므로 쓰지 않음) */
-function genRound(cfg,round,recent){
- const spy=cfg.mode==='spy',cats=catsOf(cfg);
- const order=shuffle(cats.map((_,i)=>i),rng(cfg.seed,'cats',cats.length));
- const catOf=x=>cfg.cat===RANDOM||cfg.cat>=cats.length?order[x%cats.length]:cfg.cat;
- const c=catOf(round);let k=0;for(let x=0;x<round;x++)if(catOf(x)===c)k++;
- const rr=rng(cfg.seed,'round',round,cfg.mode);
- const people=shuffle([...Array(cfg.n).keys()],rr);
- const liars=people.slice(0,cfg.liars).sort((a,b)=>a-b);
- const acc=cfg.acc?people[cfg.liars]:-1;
- let starter=Math.floor(rr()*cfg.n);
- if(cfg.mode==='liar')for(let t=0;t<cfg.n&&liars.includes(starter);t++)starter=(starter+1)%cfg.n;
- const mission=!spy&&cfg.mission?pick(MISSIONS,rng(cfg.seed,'mission',round)):null;
- const intro=pick(INTROS,rng(cfg.seed,'intro',round));
- const base={cat:cats[c].name,icon:cats[c].icon,liars,acc,starter,mission,intro,rev:!!(mission&&mission[0]==='거꾸로 돌기')};
- if(!spy){
-  const words=shuffle(cats[c].w,rng(cfg.seed,'w',c,cats[c].name));
-  const used=new Set(recent?recent(cfg.mode+':'+cats[c].name):[]);
-  const word=recent?(words.find(w=>!used.has(w))||words[0]):words[k%words.length];
-  let lw=null;
-  if(cfg.mode==='fool'){const others=cats[c].w.filter(x=>x!==word),usedL=new Set(recent?recent(cfg.mode+':'+cats[c].name+':lw'):[]);const fresh=others.filter(x=>!used.has(x)&&!usedL.has(x));lw=pick(fresh.length?fresh:others,rr)}
-  return{...base,word,lw,hint:cfg.hint?letters(word):0,qs:[]};
- }
- const C=SPYC[c],cands=spyCands(c,cfg.diff,cfg.seed);
- let p=cands[k%cands.length];
- if(recent){const used=new Set(recent('spy:'+C.name));p=cands.find(x=>!used.has(C.w[x.i].name)&&!used.has(C.w[x.j].name))||cands.find(x=>!used.has(C.w[x.i].name+'|'+C.w[x.j].name))||p}
- const flip=rr()<.5,a=flip?p.j:p.i,b=flip?p.i:p.j;
- return{...base,word:C.w[a].name,lw:C.w[b].name,hint:0,
-  qs:p.qs.map(q=>({t:C.q[q][0],lo:C.q[q][1],hi:C.q[q][2],a:C.w[a].v[q],b:C.w[b].v[q]}))};
-}
 /* 최근에 나온 단어 기록(이 브라우저에만) */
 const RECENT=store.get('recent',{});
 const recentOf=key=>RECENT[key]||[];
@@ -639,7 +711,7 @@ function saveCfg(){store.set('cfg',{mode:S.mode,n:S.n,cat:S.cat,diff:S.diff,miss
 function go(s){scr=s;render(true)}
 function newGame(cfg,own,me){G={cfg,own,me,round:0,tally:{c:0,l:0},pts:Array(cfg.n).fill(0),history:[]}}
 function startRound(){
- G.R=genRound(G.cfg,G.round,G.own?null:recentOf);G.pi=0;G.qi=0;G.ans=G.R.qs.map(()=>null);G.accused=null;G.sel=null;G.guess=false;G.mine=false;G.rolled=false;G.caught=[];G.done=false;G.pen=null;
+ G.R=genRound(G.cfg,G.round,G.own?null:recentOf,catsOf(G.cfg));G.pi=0;G.qi=0;G.ans=G.R.qs.map(()=>null);G.accused=null;G.sel=null;G.guess=false;G.mine=false;G.rolled=false;G.caught=[];G.done=false;G.pen=null;
  if(!G.own)rememberRound();
  resetTimer();
  if(G.own)store.set('own',{code:encode(G.cfg),round:G.round,me:G.me});
@@ -665,8 +737,13 @@ const timerHTML=()=>`<section class="panel"><div class="ptab">${ico('hourglass')
 /* ───────── 렌더 ───────── */
 /* fresh=true: 새 화면(등장 애니메이션, 맨 위로). false: 같은 화면 갱신(스크롤·애니메이션 유지 — 고를 때마다 화면이 튀지 않게) */
 function render(fresh){
- document.body.className='m-'+(G?G.cfg.mode:(scr==='how'?(howTab||'liar'):S.mode));
- const y=window.scrollY,app=document.getElementById('app');app.innerHTML=`<div class="scr${fresh?'':' still'}">${SCREENS[scr]()}</div>`;
+ const online=scr[0]==='o'&&typeof O!=='undefined'&&O.S&&scr!=='oset';
+ document.body.className='m-'+(online?O.S.cfg.mode:G?G.cfg.mode:(scr==='how'?(howTab||'liar'):S.mode));
+ const ae=document.activeElement,app=document.getElementById('app');
+ const keep=ae&&ae.id&&app.contains(ae)&&/^(INPUT|TEXTAREA)$/.test(ae.tagName)?{id:ae.id,v:ae.value,a:ae.selectionStart,b:ae.selectionEnd}:null;
+ const y=window.scrollY;app.innerHTML=`<div class="scr${fresh?'':' still'}">${SCREENS[scr]()}</div>`;
+ if(keep){const el=document.getElementById(keep.id);if(el){el.value=keep.v;el.focus({preventScroll:true});try{el.setSelectionRange(keep.a,keep.b)}catch(e){}}}
+ if(typeof chatSync==='function')chatSync();
  const dock=app.querySelector('.dock');if(dock)app.appendChild(dock); // 애니메이션(transform) 밖으로 빼야 화면 하단에 고정됨
  window.scrollTo(0,fresh?0:y);drawTimer();
  if(scr==='join')joinSync();
@@ -698,11 +775,12 @@ SCREENS.title=()=>{
  <p class="tagline">한 명만 다르다. 말 한마디로 찾아내라.</p>
  <div class="modes3"><span style="background:var(--red)">라이어</span><span style="background:var(--org)">바보 라이어</span><span style="background:var(--blu)">스파이</span></div>
  <div class="btns">
-  <button class="btn yel" onclick="go('lobby')"><span class="lbl">게임 시작</span></button>
-  <button class="btn paper sm" onclick="S.jc='';go('join')">${IC.phones}<span>코드로 참가하기</span></button>
+  <button class="btn yel big2" onclick="go('lobby')">${IC.phone}<span class="lbl">폰에서 해요<small>폰 하나 돌리기 · 각자 폰(코드)</small></span></button>
+  <button class="btn blu big2" onclick="goOnline()">${IC.monitor}<span class="lbl">컴퓨터에서 해요<small>각자 접속해서 채팅으로 · 온라인 방</small></span></button>
+  <button class="btn paper sm" onclick="S.jc='';go('join')">${IC.phones}<span>폰 코드로 참가하기</span></button>
   ${oc?`<button class="btn dark sm" onclick="resumeOwn()"><span class="lbl">이어하기 · ${o.code} · 라운드 ${o.round+1} · ${o.me+1}번</span></button>`:''}
  </div>
- <div class="ver">서버 없이 동작 · 데이터를 쓰지 않아요</div>
+ <div class="ver">폰에서 해요는 인터넷 없이도 돼요</div>
  </div>`;
 };
 
@@ -710,7 +788,7 @@ SCREENS.title=()=>{
 const HOW={
  liar:[['제시어 확인','폰을 돌려가며 제시어를 봅니다. 라이어만 제시어 대신 주제를 봅니다.'],['한 마디씩 설명','START부터 돌아가며 제시어를 한 마디로 설명합니다. 한두 바퀴 돌아요. 너무 자세하면 라이어가 눈치채고, 너무 애매하면 내가 의심받아요.'],['동시에 지목','토론한 뒤 하나, 둘, 셋에 라이어를 지목합니다. 가장 많이 지목된 사람을 고르세요. 동점이면 동점자끼리 변론하고 다시 지목합니다.'],['마지막 기회','지목된 사람이 라이어가 아니면 라이어 승리. 라이어가 잡혀도 제시어를 맞히면 라이어의 역전승!']],
  fool:[['제시어 확인','모두 단어를 받지만 라이어만 같은 주제의 다른 단어를 받습니다. 라이어 본인도 자기가 라이어인 줄 모릅니다.'],['한 마디씩 설명','미묘하게 어긋나는 설명을 찾으세요. 나도 바보 라이어일 수 있어요.'],['동시에 지목','토론 후 가장 수상한 사람을 지목합니다.'],['마지막 기회','잡힌 라이어는 진짜 제시어를 맞히면 역전승!']],
- spy:[['제시어 확인','스파이만 다른 단어를 받습니다. 스파이 본인도 모릅니다.'],['숫자로 동시에','질문이 나오면 하나, 둘, 셋에 1~10 숫자를 외치거나 손가락으로 보여줍니다. 폰 하나로 할 땐 몰래 입력해서 동시에 공개할 수도 있어요.'],['변명 타임','밥을 받은 사람들은 8~10, 스테이크를 받은 사람은 3? 튀었다면 그럴듯하게 변명하세요.'],['지목과 역전','질문은 최대 3개. 지목된 스파이가 다른 사람들의 단어를 맞히면 역전승!']],
+ spy:[['제시어 확인','스파이만 다른 단어를 받습니다. 스파이 본인도 모릅니다.'],['숫자 몰래 입력','질문이 나오면 폰을 돌려가며 1~10을 몰래 입력하고, 모두 넣으면 한꺼번에 공개돼요. 컴퓨터에서 해요(온라인)로 하면 각자 자기 기기에서 입력해요.'],['변명 타임','밥을 받은 사람들은 8~10, 스테이크를 받은 사람은 3? 튀었다면 그럴듯하게 변명하세요.'],['지목과 역전','질문은 최대 3개. 지목된 스파이가 다른 사람들의 단어를 맞히면 역전승!']],
 };
 const HOW_OPT=[
  ['라이어 수','인원이 많으면 라이어를 2~3명으로 늘릴 수 있어요. 한 명씩 지목하고, 잡힌 라이어마다 정답을 맞힐 기회가 있어요. 라이어를 모두 잡아야 시민 승리, 한 번이라도 시민을 지목하면 라이어 승리.'],
@@ -765,11 +843,14 @@ SCREENS.lobby=()=>{
  </div>${!spy&&S.mission?'<p class="hint">미션 예: <b>비유로만</b>, <b>딱 세 글자</b>, <b>의성어 넣기</b>, <b>거꾸로 돌기</b></p>':''}</section>
  <section class="panel"><div class="ptab">진행 방식</div>
   <div class="seg"><button class="${!own?'on':''}" onclick="set('play','pass')">${IC.phone}폰 하나 돌리기</button><button class="${own?'on':''}" onclick="set('play','own')">${IC.phones}각자 폰으로</button></div>
-  <p class="hint">${!own?'폰 한 대를 차례로 돌려가며 제시어를 확인합니다.':'방장이 만든 <b>코드 6자리</b>를 입력하면 각자 폰에 제시어가 뜹니다. 서버도 인터넷도 필요 없어요.'}</p>
+  <p class="hint">${spy?'스파이 게임은 숫자를 동시에 공개해야 해서 <b>폰 하나 돌리기</b>로 합니다. 각자 기기로 하려면 처음 화면의 <b>컴퓨터에서 해요</b>.':!own?'폰 한 대를 차례로 돌려가며 제시어를 확인합니다.':'방장이 만든 <b>코드 6자리</b>를 입력하면 각자 폰에 제시어가 뜹니다. 서버도 인터넷도 필요 없어요.'}</p>
  </section>
  <div class="dock"><div><button class="btn" onclick="start()"><span class="lbl">${!own?'게임 시작':'코드 만들기'}</span></button></div></div>`;
 };
-function set(k,v){S[k]=v;if(k==='mode'&&S.cat!==RANDOM)S.cat=RANDOM;if(k==='play'&&v==='own'&&S.cat>=LIARC.length&&S.cat!==RANDOM)S.cat=RANDOM;saveCfg();const y=window.scrollY;render();window.scrollTo(0,y)}
+function set(k,v){
+ if(k==='play'&&v==='own'&&S.mode==='spy'){toast('스파이는 숫자를 동시에 공개해야 해서 각자 폰(코드)으론 못 해요. 폰 하나 돌리기나 컴퓨터에서 해요로!');return}
+ if(k==='mode'&&v==='spy'&&S.play==='own'){S.play='pass';toast('스파이는 폰 하나 돌리기로 바꿨어요(숫자 동시 공개)')}
+ S[k]=v;if(k==='mode'&&S.cat!==RANDOM)S.cat=RANDOM;if(k==='play'&&v==='own'&&S.cat>=LIARC.length&&S.cat!==RANDOM)S.cat=RANDOM;saveCfg();const y=window.scrollY;render();window.scrollTo(0,y)}
 function start(){
  const lm=S.mode==='liar',spy=S.mode==='spy',acc=lm&&S.acc&&S.n>=5;
  const cfg={mode:S.mode,n:S.n,cat:S.cat,seed:Math.floor(Math.random()*8192),diff:spy?S.diff:0,mission:!spy&&!!S.mission,hint:lm&&!!S.hint,liars:Math.min(S.liars||1,maxLiars(S.n,acc)),acc,local:S.play!=='own'};
@@ -923,9 +1004,10 @@ SCREENS.play=()=>{
   <div class="qtext">${esc(q.t)}</div>
   <div class="s10">${scaleColors.map((c,i)=>`<i style="background:${c}">${i+1}</i>`).join('')}</div>
   <div class="slbl"><span>1 · ${esc(q.lo)}</span><span>${esc(q.hi)} · 10</span></div>
-  <div class="callout">${IC.hand}<span>하나, 둘, 셋! 하면 모두 동시에 숫자를 외치거나 손가락으로 보여주세요.</span></div>
-  ${plotHTML(G.qi)}
-  <div class="row">${!G.own&&!G.ans[G.qi]?`<button class="btn sm dark" onclick="startAns()">${IC.lock}<span class="lbl">몰래 입력</span></button>`:''}${G.qi+1<R.qs.length?`<button class="btn sm paper" onclick="G.qi++;sfx.flip();go('play')"><span>다음 질문</span>${IC.next}</button>`:''}</div>
+  ${G.ans[G.qi]?`<div class="callout">${IC.eye}<span>모두의 숫자가 한꺼번에 공개됐어요! 튀는 사람에게 왜 그 숫자인지 물어보세요.</span></div>${plotHTML(G.qi)}`
+   :`<div class="callout">${IC.lock}<span>폰을 돌려가며 <b>&nbsp;1~10을 몰래 입력</b>하세요. 모두 넣으면 한꺼번에 공개돼요.</span></div>
+  <button class="btn yel" onclick="startAns()">${IC.lock}<span class="lbl">숫자 몰래 입력 시작</span></button>`}
+  ${G.ans[G.qi]&&G.qi+1<R.qs.length?`<button class="btn sm paper" onclick="G.qi++;sfx.flip();go('play')"><span>다음 질문</span>${IC.next}</button>`:''}
   ${R.qs.length>1?`<div class="qnav">${R.qs.map((_,k)=>`<i class="${k===G.qi?'on':''}" onclick="G.qi=${k};render()"></i>`).join('')}</div>`:''}
   </section>`;
  }
@@ -1027,13 +1109,19 @@ SCREENS.final=()=>{
  <button class="btn paper sm" onclick="G=null;go('title')"><span>처음으로</span></button></div></div>`;
 };
 
+/*@ONLINE@*/
+
 /* 뒤로 가기(안드로이드 제스처 등)로 게임이 통째로 꺼지지 않게 막는다 */
 try{history.pushState({liar:1},'')}catch(e){}
 window.addEventListener('popstate',()=>{try{history.pushState({liar:1},'')}catch(e){}
+ if(scr[0]==='o'){if(scr==='oset'){oWatch(false);go('title')}else oLeave(true);return}
  if(G){if(confirm('게임을 끝내고 처음 화면으로 갈까요?')){resetTimer();G=null;go('title')}}
  else if(scr==='custom')go('lobby');else if(scr!=='title')go('title')});
-window.addEventListener('beforeunload',e=>{if(G&&!G.own&&scr!=='final'){e.preventDefault();e.returnValue=''}});
-render(true);
+window.addEventListener('beforeunload',e=>{if((G&&!G.own&&scr!=='final')||(scr==='ogame'&&O.S&&O.S.phase==='playing'&&!oSpec())){e.preventDefault();e.returnValue=''}});
+{const inv=new URLSearchParams(location.search).get('r');
+ if(ss.get('code')&&ss.get('token')){scr='oset';oResume();render(true)}
+ else if(inv&&/^[A-Za-z0-9]{4}$/.test(inv)){O.code=inv.toUpperCase();goOnline()}
+ else render(true)}
 </script>
 </body>
 </html>

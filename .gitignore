@@ -1,3 +1,5 @@
 __pycache__/
 raw/*.png
 raw/*.jpg
+node_modules/
+.wrangler/

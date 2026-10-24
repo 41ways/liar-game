@@ -7,8 +7,17 @@
 - 폴더: `C:\Users\정한결\liar-game`, GitHub `41ways/liar-game`(공개), 배포 **https://41ways.github.io/liar-game/** (GitHub Pages, main 브랜치 루트 — 푸시하면 1분쯤 뒤 반영)
 - `gh` 없음. 인증은 Git Credential Manager(API는 `git credential fill` 토큰으로 curl).
 - 실행: `index.html` 을 그냥 열면 된다(인터넷·서버 필요 없음). 폰에서 하려면 어딘가에 올려야 한다.
-- 프리뷰: `~/.claude/launch.json` 의 이름 **`liar`** (`python -m http.server 8796 --directory liar-game`)
-- 커밋 메시지는 한국어, 첫 줄에 무엇을·왜. 끝에 Co-Authored-By 줄.
+- 프리뷰: `~/.claude/launch.json` 의 이름 **`liar`** (`python -m http.server 8796 --directory liar-game`, 맥은 `python3`). launch.json 은 기기마다 따로라 없으면 만든다
+- 커밋 메시지는 한국어, 첫 줄에 무엇을·왜. **`Co-Authored-By` 줄은 넣지 않는다**(사용자 지시 — 모든 저장소)
+
+### 윈도우 · 맥 어디서든
+
+- 사용자가 윈도우 PC · 맥북 둘 다에서 만진다. 시작 전 `git pull`
+- 폴더: 윈도우 `C:\Users\정한결\liar-game` · 맥은 클론한 곳(예: `~/projects/liar-game`)
+- 코드 · 도구는 저장소 안 상대 경로만 쓴다. 한쪽 OS 전용 경로 · 명령을 넣지 말 것
+- 파이썬: 윈도우 `python`, 맥 `python3` (이 문서의 `python …` 은 맥에선 `python3 …`). `build.py` 는 Pillow · fontTools 필요
+- 빌드에 쓰는 원본(폰트 · 아이콘 · 시트)은 저장소에 다 들어 있어 어느 쪽에서든 `tools/build.py` 가 돈다
+- 줄 끝은 `.gitattributes` 가 맞춘다
 
 ## 2. 파일 구조와 빌드
 
@@ -111,3 +120,24 @@ localStorage 키: `liar.cfg`, `liar.mute`, `liar.recent`, `liar.custom`, `liar.o
 
 - 사용자 플레이 후 피드백 반영(특히 스파이 값, 점수 규칙).
 - 2026-10-24 저장소 생성·Pages 배포, 버그 점검(같은 화면 갱신 시 스크롤·애니메이션 유지, 뒤로 가기 확인창, 문구 오류) 후 허브(https://41ways.github.io/norara/ , 저장소 norara) 카드 등록: NEW, 추천 1번, 분류 멀티.
+
+## 10. 온라인판 — 컴퓨터에서 해요 (2026-10-24 추가)
+
+첫 화면이 **폰에서 해요**(지금까지의 오프라인: 폰 하나 돌리기 · 각자 폰 코드)와 **컴퓨터에서 해요**(온라인 방 + 채팅)로 나뉜다.
+온라인은 바퀴벌레 포커·로보77 과 같은 허브 표준 짜임이다.
+
+```
+src/rules.js     오프라인·온라인 공용 규칙(genRound·spyCands·난수). 빌드가 화면과 server/shared.js 둘 다에 넣는다
+src/online.js    온라인 화면(방 고르기·대기실·판·결과·최종 순위·채팅). 빌드가 app.html 의 /*@ONLINE@*/ 에 넣는다
+server/game.js   권위 서버 — 방·역할·차례 설명·토론·비밀 투표(동점 1회 재투표, 또 동점이면 라이어 승)·정답 입력·점수·관전·재접속
+server/shared.js 빌드 결과물(data.js + rules.js 를 CommonJS 로) — 직접 고치지 말 것
+worker.js        Cloudflare Worker + Durable Object 하나(main). public/ 은 정적 자산
+server.js        Node 로컬 서버(같은 game.js) — 프리뷰 이름 liar-online(8798)
+test/online.js   가짜 소켓으로 판 흐름·정보 누출·점수·끊김·관전·무작위 300판
+```
+
+- 판 흐름: check(카드 확인·준비) → talk(차례대로 한 줄 설명, laps 바퀴) / 스파이는 answer(1~10 몰래) → reveal(동시 공개) ×3 → discuss(채팅 토론, 모두 「지목하자」) → vote → accuse → guess(잡힌 라이어가 정답 입력, 띄어쓰기·문장부호 무시) → result. 방장은 기다리는 단계를 「건너뛰기」 할 수 있다.
+- 스파이 게임은 숫자를 동시에 공개해야 하므로 **각자 폰(코드) 오프라인 모드에서는 막았다**. 폰 하나 돌리기는 '몰래 입력 → 한꺼번에 공개'가 기본 진행.
+- 화면 주소: GitHub Pages(41ways.github.io/liar-game)에서 열어도 온라인은 `wss://liar.41ways.workers.dev/ws` 로 붙는다(`?ws=` 로 바꿔 시험 가능). workers.dev 나 로컬 node 서버로 열면 같은 주소의 /ws.
+- 시험: `npm test` (= `node test/online.js`, LIAR_FAST 는 스크립트가 스스로 켠다). 로컬: `node server.js` 후 브라우저 탭 여러 개로 들어가 본다(sessionStorage 가 탭마다 달라서 탭 = 사람).
+- 배포: `python tools/build.py` → `npx wrangler deploy`(윈도우 PowerShell 은 `npx.cmd`) → `git push`(Pages). Cloudflare 무료 플랜, 결제 수단 없음.

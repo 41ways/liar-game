@@ -1,0 +1,22 @@
+# 라이어 게임 온라인판 — Cloudflare Workers 무료 플랜 (바퀴벌레 포커와 같은 짜임)
+# 화면(public/)은 정적 자산(무료, 요청 한도에 안 잡힘). /ws 소켓만 Durable Object 하나(main)로 간다.
+# 무료 플랜은 SQLite 방식 Durable Object 만 쓸 수 있다. 결제 수단이 없으므로 한도를 넘어도 요금 없이 그날 요청만 거절된다.
+name = "liar"
+main = "worker.js"
+compatibility_date = "2026-08-01"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+preview_urls = false
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/ws", "/healthz"]
+
+[[durable_objects.bindings]]
+name = "GAME"
+class_name = "LiarGame"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["LiarGame"]

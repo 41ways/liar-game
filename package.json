@@ -1,0 +1,14 @@
+{
+  "name": "liar-game",
+  "version": "2.0.0",
+  "private": true,
+  "description": "라이어 게임 — 폰 하나로(오프라인) / 컴퓨터로(온라인 방·채팅)",
+  "main": "server.js",
+  "scripts": {
+    "build": "python tools/build.py",
+    "start": "node server.js",
+    "test": "node test/online.js"
+  },
+  "dependencies": { "ws": "^8.18.0" },
+  "engines": { "node": ">=20" }
+}
