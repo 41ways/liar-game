@@ -141,3 +141,5 @@ test/online.js   가짜 소켓으로 판 흐름·정보 누출·점수·끊김·
 - 화면 주소: GitHub Pages(41ways.github.io/liar-game)에서 열어도 온라인은 `wss://liar.41ways.workers.dev/ws` 로 붙는다(`?ws=` 로 바꿔 시험 가능). workers.dev 나 로컬 node 서버로 열면 같은 주소의 /ws.
 - 시험: `npm test` (= `node test/online.js`, LIAR_FAST 는 스크립트가 스스로 켠다). 로컬: `node server.js` 후 브라우저 탭 여러 개로 들어가 본다(sessionStorage 가 탭마다 달라서 탭 = 사람).
 - 배포: `python tools/build.py` → `npx wrangler deploy`(윈도우 PowerShell 은 `npx.cmd`) → `git push`(Pages). Cloudflare 무료 플랜, 결제 수단 없음.
+- **주제 투표(기본, cat=62 `VOTE`)**: 온라인은 라운드마다 topic 단계(각자 한 표, 30초) → 서버가 `weightedPick` 으로 표 수 비례 추첨 → spin 단계(5.8초, 모두 같은 룰렛 애니메이션) → check. 폰 하나 돌리기는 tvote 화면에서 손 든 수만큼 눌러 tspin 룰렛. 각자 폰(코드)은 투표를 모을 수 없어 랜덤. 룰렛 그리기는 app.html 의 `wheelHTML`/`wheelSpin` 공용.
+- **속도**: 아이콘(base64)을 HTML에 직접 넣으면 다시 그릴 때마다 430KB를 만들고 그림을 다시 해독해 0.5~2초 멈췄다 → 시작할 때 Blob 주소로 바꾸고 미리 해독한다(`ICONS` 아래 즉시 실행 함수). 아이콘을 늘릴 때도 `ico()` 로만 넣을 것.
