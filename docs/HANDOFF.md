@@ -4,7 +4,8 @@
 
 ## 1. 위치와 실행
 
-- 폴더: `C:\Users\정한결\liar-game` (로컬 git 저장소, **원격 없음**)
+- 폴더: `C:\Users\정한결\liar-game`, GitHub `41ways/liar-game`(공개), 배포 **https://41ways.github.io/liar-game/** (GitHub Pages, main 브랜치 루트 — 푸시하면 1분쯤 뒤 반영)
+- `gh` 없음. 인증은 Git Credential Manager(API는 `git credential fill` 토큰으로 curl).
 - 실행: `index.html` 을 그냥 열면 된다(인터넷·서버 필요 없음). 폰에서 하려면 어딘가에 올려야 한다.
 - 프리뷰: `~/.claude/launch.json` 의 이름 **`liar`** (`python -m http.server 8796 --directory liar-game`)
 - 커밋 메시지는 한국어, 첫 줄에 무엇을·왜. 끝에 Co-Authored-By 줄.
@@ -109,4 +110,4 @@ localStorage 키: `liar.cfg`, `liar.mute`, `liar.recent`, `liar.custom`, `liar.o
 ## 9. 다음에 할 일
 
 - 사용자 플레이 후 피드백 반영(특히 스파이 값, 점수 규칙).
-- **허브(41ways.github.io, `C:\Users\정한결\norara`) 배포와 GitHub 원격 저장소 만들기는 사용자가 요청할 때만.** 할 때는 `41ways/liar-game` 저장소 + GitHub Pages, 허브 index.html에 카드 한 장 추가.
+- 2026-10-24 사용자 요청으로 저장소 생성·Pages 배포 완료. **허브(`C:\Users\정한결\norara`) index.html 카드 추가는 아직 — 사용자가 요청할 때만.**
