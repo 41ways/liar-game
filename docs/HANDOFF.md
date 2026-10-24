@@ -110,4 +110,4 @@ localStorage 키: `liar.cfg`, `liar.mute`, `liar.recent`, `liar.custom`, `liar.o
 ## 9. 다음에 할 일
 
 - 사용자 플레이 후 피드백 반영(특히 스파이 값, 점수 규칙).
-- 2026-10-24 사용자 요청으로 저장소 생성·Pages 배포 완료. **허브(`C:\Users\정한결\norara`) index.html 카드 추가는 아직 — 사용자가 요청할 때만.**
+- 2026-10-24 저장소 생성·Pages 배포, 버그 점검(같은 화면 갱신 시 스크롤·애니메이션 유지, 뒤로 가기 확인창, 문구 오류) 후 허브(https://41ways.github.io/norara/ , 저장소 norara) 카드 등록: NEW, 추천 1번, 분류 멀티.
