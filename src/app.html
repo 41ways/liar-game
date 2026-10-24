@@ -35,6 +35,8 @@ input{-webkit-user-select:text;user-select:text}
  background:radial-gradient(closest-side,rgba(255,236,170,.22),transparent);pointer-events:none}
 #app{max-width:480px;margin:0 auto;padding:12px 16px 120px;min-height:100vh;min-height:100dvh;position:relative}
 .scr{animation:scrIn .32s cubic-bezier(.2,.9,.3,1.2) both}
+.scr.still{animation:none}
+button,.tile,.mcard,.sus,.flip,.pick button,.pad button{touch-action:manipulation}
 @keyframes scrIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
 
 /* 글자 */
@@ -634,7 +636,7 @@ const role=()=>MODES[G.cfg.mode].role;
 const isLiar=i=>G.R.liars.includes(i);
 const namesOf=arr=>arr.map(i=>nameOf(i)).join(', ');
 function saveCfg(){store.set('cfg',{mode:S.mode,n:S.n,cat:S.cat,diff:S.diff,mission:S.mission,hint:S.hint,liars:S.liars,acc:S.acc,penalty:S.penalty,time:S.time,play:S.play,names:S.names})}
-function go(s){scr=s;render()}
+function go(s){scr=s;render(true)}
 function newGame(cfg,own,me){G={cfg,own,me,round:0,tally:{c:0,l:0},pts:Array(cfg.n).fill(0),history:[]}}
 function startRound(){
  G.R=genRound(G.cfg,G.round,G.own?null:recentOf);G.pi=0;G.qi=0;G.ans=G.R.qs.map(()=>null);G.accused=null;G.sel=null;G.guess=false;G.mine=false;G.rolled=false;G.caught=[];G.done=false;G.pen=null;
@@ -661,13 +663,14 @@ const timerHTML=()=>`<section class="panel"><div class="ptab">${ico('hourglass')
  <div class="ctl"><button class="btn sm" id="tb" onclick="timerToggle()"></button><button class="btn sm paper" onclick="timerAdd(30)">${IC.plus}<span>30초</span></button><button class="btn sm paper" onclick="resetTimer();drawTimer()">${IC.reset}<span>리셋</span></button></div></div></section>`;
 
 /* ───────── 렌더 ───────── */
-function render(){
+/* fresh=true: 새 화면(등장 애니메이션, 맨 위로). false: 같은 화면 갱신(스크롤·애니메이션 유지 — 고를 때마다 화면이 튀지 않게) */
+function render(fresh){
  document.body.className='m-'+(G?G.cfg.mode:(scr==='how'?(howTab||'liar'):S.mode));
- const app=document.getElementById('app');app.innerHTML=`<div class="scr">${SCREENS[scr]()}</div>`;
+ const y=window.scrollY,app=document.getElementById('app');app.innerHTML=`<div class="scr${fresh?'':' still'}">${SCREENS[scr]()}</div>`;
  const dock=app.querySelector('.dock');if(dock)app.appendChild(dock); // 애니메이션(transform) 밖으로 빼야 화면 하단에 고정됨
- window.scrollTo(0,0);drawTimer();
+ window.scrollTo(0,fresh?0:y);drawTimer();
  if(scr==='join')joinSync();
- if(scr==='intro')introFx();
+ if(scr==='intro'&&fresh)introFx();
 }
 const SCREENS={};
 const sndBtn=()=>`<button class="ibtn" onclick="toggleMute()" aria-label="소리">${muted?IC.soff:IC.son}</button>`;
@@ -753,7 +756,7 @@ SCREENS.lobby=()=>{
   <div class="seg">${DIFFS.map((d,i)=>`<button class="${S.diff===i?'on':''}" onclick="set('diff',${i})"><span class="gauge">${[0,1,2].map(k=>`<i class="${k<=i?'f':''}" style="height:${6+k*5}px"></i>`).join('')}</span>${d.name}</button>`).join('')}</div>
   <p class="hint"><b>간극 ${DIFFS[S.diff].gap[0]}~${DIFFS[S.diff].gap[1]}</b> · ${DIFFS[S.diff].desc}</p></section>`:''}
  <section class="panel"><div class="ptab">규칙 옵션</div><div class="opts">
-  <div class="opt"><span><b>${R} 수</b><small>${mx>1?`최대 ${mx}명`:'6명 이상부터 늘릴 수 있어요'}</small></span>${segOpt('liars',[[1,'1명'],[2,'2명',mx<2],[3,'3명',mx<3]])}</div>
+  <div class="opt"><span><b>${R} 수</b><small>${mx>1?`최대 ${mx}명`:(lm&&S.acc&&S.n>=5?'공범을 빼면 늘릴 수 있어요':'5명 이상부터 늘릴 수 있어요')}</small></span>${segOpt('liars',[[1,'1명'],[2,'2명',mx<2],[3,'3명',mx<3]])}</div>
   ${lm?`<div class="opt"><span><b>공범</b><small>${S.n<5?'5명 이상부터':'제시어를 아는 라이어 편'}</small></span>${segOpt('acc',[[false,'없음'],[true,'있음',S.n<5]])}</div>
   <div class="opt"><span><b>라이어 힌트</b><small>제시어 글자 수를 알려줌</small></span>${segOpt('hint',[[false,'끄기'],[true,'켜기']])}</div>`:''}
   ${!spy?`<div class="opt"><span><b>라운드 미션</b><small>설명 방식이 매번 바뀜</small></span>${segOpt('mission',[[false,'끄기'],[true,'켜기']])}</div>`:''}
@@ -851,7 +854,7 @@ SCREENS.intro=()=>{
   <p class="introline">“${R.intro}”</p>${ruleChips()}</div>`;
  if(m==='spy')h+=`<section class="panel"><div class="ptab acc">이번 라운드</div><div class="mis">${ico('magnifier','misi')}<div><b>질문 ${R.qs.length}개 준비 완료</b><p>난이도 ${DIFFS[G.cfg.diff].name} · ${k>1?`${k}명`:'한 명'}만 다른 단어를 받았어요. 그게 나일 수도!</p></div></div></section>`;
  else if(G.cfg.mission)h+=`<section class="panel"><div class="ptab acc">이번 라운드 미션</div><div class="mis">${ico('megaphone','misi')}<div>${R.mission?`<b>${R.mission[0]}</b><p>${R.mission[1]}</p>`:`<b>자유 설명</b><p>이번엔 미션 없이 자유롭게 한 마디!</p>`}</div></div></section>`;
- else h+=`<section class="panel"><div class="ptab acc">이번 라운드</div><div class="mis">${ico(m==='liar'?'masks':'qbubble','misi')}<div><b>${rl}를 찾아라</b><p>${m==='liar'?`${rl} ${k>1?k+'명':''}은 주제만 알고 있어요.`:`${k>1?k+'명':'한 명'}만 다른 단어를 받았어요. 본인도 몰라요.`}</p></div></div></section>`;
+ else h+=`<section class="panel"><div class="ptab acc">이번 라운드</div><div class="mis">${ico(m==='liar'?'masks':'qbubble','misi')}<div><b>${rl}를 찾아라</b><p>${m==='liar'?`${k>1?rl+' '+k+'명은':rl+'는'} 주제만 알고 있어요.`:`${k>1?k+'명':'한 명'}만 다른 단어를 받았어요. 본인도 몰라요.`}</p></div></div></section>`;
  h+=`<div class="dock"><div><button class="btn yel" onclick="go(G.own?'play':'pass')"><span class="lbl">${G.own?'내 제시어 보러 가기':'카드 나눠주기'}</span>${IC.next}</button></div></div>`;
  return h;
 };
@@ -872,7 +875,7 @@ function cardHTML(i,{short=false,hint}={}){
  let back;
  if(m==='liar'&&isL)back=`<div class="face back liar"><span class="catTag">주제 · ${esc(R.cat)}</span><div class="lav">${avatar(i,{d:true,hat:false,color:'#ff5a76'})}</div><div class="liarT ol-s" style="color:#fff">당신은 <span style="color:var(--red)">라이어</span></div><p class="note">${R.hint?`<b class="hintb">힌트: 제시어는 ${R.hint}글자</b><br>`:''}제시어를 모릅니다. 들키지 말고 알아내세요.${k>1?`<br>라이어는 모두 ${k}명이에요.`:''}</p></div>`;
  else if(m==='liar'&&i===R.acc)back=`<div class="face back acc"><span class="catTag">주제 · ${esc(R.cat)}</span><div class="liarT ol-s" style="color:#fff;margin-top:8px">당신은 <span style="color:var(--pur2)">공범</span></div><div class="secret sm">${esc(R.word)}</div><p class="note">라이어 편! 라이어가 누군지는 몰라요.<br>시민을 헷갈리게 하세요. 라이어가 이기면 함께 이겨요.</p></div>`;
- else{const w=isL?R.lw:R.word;back=`<div class="face back"><span class="stamp">기밀</span>${ico(R.icon,'cardi')}<span class="catTag">주제 · ${esc(R.cat)}</span><div class="secret ${letters(w)>6?'long':''} ${letters(w)>10?'xl':''}">${esc(w)}</div><p class="note">${m==='liar'?`라이어${k>1?' '+k+'명':''}은 이 단어를 모릅니다${G.cfg.acc?' · 공범은 알아요':''}`:m==='fool'?'혹시 나만 다른 단어일 수도…?':`${k>1?k+'명':'한 명'}은 다른 단어를 받았어요. 나일 수도…?`}</p></div>`}
+ else{const w=isL?R.lw:R.word;back=`<div class="face back"><span class="stamp">기밀</span>${ico(R.icon,'cardi')}<span class="catTag">주제 · ${esc(R.cat)}</span><div class="secret ${letters(w)>6?'long':''} ${letters(w)>10?'xl':''}">${esc(w)}</div><p class="note">${m==='liar'?`${k>1?'라이어 '+k+'명은':'라이어는'} 이 단어를 모릅니다${G.cfg.acc?' · 공범은 알아요':''}`:m==='fool'?'혹시 나만 다른 단어일 수도…?':`${k>1?k+'명':'한 명'}은 다른 단어를 받았어요. 나일 수도…?`}</p></div>`}
  return`<div class="flip ${short?'short':''}" id="card" onclick="flipCard()"><div class="in">
  <div class="face front tapme"><span class="ts">TOP SECRET</span><div class="seal">${IC.lock}</div><h3>${hint||'탭해서 제시어 확인'}</h3><p>다른 사람이 못 보게 조심!</p><div class="lines"><i></i><i></i></div></div>
  ${back}</div></div>`;
@@ -893,7 +896,7 @@ function passNext(){if(G.busy)return;G.busy=true;const c=document.getElementById
 /* 제시어 다시 보기 (폰 돌리기) */
 SCREENS.peek=()=>G.peek==null?`${hud('<span class="hudtitle ol-s">제시어 다시 보기</span>',`<button class="ibtn" onclick="go('play')">${IC.back}</button>`)}
  <p class="why" style="margin-top:-6px">자기 캐릭터를 누르고, 혼자서만 확인하세요.</p>
- <div class="lineupbg"><div class="vgrid ${G.cfg.n>=7&&G.cfg.n!==9?'n4':''}">${Array.from({length:G.cfg.n},(_,i)=>`<div class="sus" onclick="G.peek=${i};render()">${avatar(i)}<b>${esc(nameOf(i))}</b></div>`).join('')}</div></div>`
+ <div class="lineupbg"><div class="vgrid ${G.cfg.n>=7&&G.cfg.n!==9?'n4':''}">${Array.from({length:G.cfg.n},(_,i)=>`<div class="sus" onclick="G.peek=${i};go('peek')">${avatar(i)}<b>${esc(nameOf(i))}</b></div>`).join('')}</div></div>`
  :`${hud('<span class="hudtitle ol-s">제시어 다시 보기</span>',spacer)}
  <div class="turn">${avatar(G.peek)}<h2 class="ol">${esc(nameOf(G.peek))}</h2><p>본인만 보세요!</p></div>${cardHTML(G.peek)}
  <div class="dock"><div><button class="btn" onclick="G.peek=null;go('play')">${IC.chk}<span class="lbl">확인했어요 · 돌아가기</span></button></div></div>`;
@@ -922,7 +925,7 @@ SCREENS.play=()=>{
   <div class="slbl"><span>1 · ${esc(q.lo)}</span><span>${esc(q.hi)} · 10</span></div>
   <div class="callout">${IC.hand}<span>하나, 둘, 셋! 하면 모두 동시에 숫자를 외치거나 손가락으로 보여주세요.</span></div>
   ${plotHTML(G.qi)}
-  <div class="row">${!G.own&&!G.ans[G.qi]?`<button class="btn sm dark" onclick="startAns()">${IC.lock}<span class="lbl">몰래 입력</span></button>`:''}${G.qi+1<R.qs.length?`<button class="btn sm paper" onclick="G.qi++;sfx.flip();render()"><span>다음 질문</span>${IC.next}</button>`:''}</div>
+  <div class="row">${!G.own&&!G.ans[G.qi]?`<button class="btn sm dark" onclick="startAns()">${IC.lock}<span class="lbl">몰래 입력</span></button>`:''}${G.qi+1<R.qs.length?`<button class="btn sm paper" onclick="G.qi++;sfx.flip();go('play')"><span>다음 질문</span>${IC.next}</button>`:''}</div>
   ${R.qs.length>1?`<div class="qnav">${R.qs.map((_,k)=>`<i class="${k===G.qi?'on':''}" onclick="G.qi=${k};render()"></i>`).join('')}</div>`:''}
   </section>`;
  }
@@ -937,7 +940,7 @@ SCREENS.ans=()=>{
  const i=G.ai,q=G.R.qs[G.qi];
  if(!G.ashow)return`${hud(roundPill(),`<button class="ibtn" onclick="go('play')">${IC.x}</button>`)}
  <div class="turn">${avatar(i)}<h2 class="ol">${esc(nameOf(i))} 차례</h2><p>숫자를 몰래 입력하세요 · ${i+1} / ${G.cfg.n}</p></div>
- <div class="dock"><div><button class="btn" onclick="G.ashow=true;sfx.flip();render()">${IC.eye}<span class="lbl">내가 받았어요</span></button></div></div>`;
+ <div class="dock"><div><button class="btn" onclick="G.ashow=true;sfx.flip();go('ans')">${IC.eye}<span class="lbl">내가 받았어요</span></button></div></div>`;
  return`${hud(roundPill(),`<button class="ibtn" onclick="go('play')">${IC.x}</button>`)}
  <section class="panel first"><div class="ptab acc">${esc(nameOf(i))}의 답</div><div class="qtext">${esc(q.t)}</div>
  <div class="slbl"><span>1 · ${esc(q.lo)}</span><span>${esc(q.hi)} · 10</span></div>
@@ -1019,12 +1022,18 @@ SCREENS.final=()=>{
  <div class="ribbon" style="--c:var(--yel);--cd:var(--yel-d);color:var(--ink)"><span>${winners.length?esc(winners.map(r=>nameOf(r.i)).join(', '))+' 우승!':'무승부!'}</span></div>
  <div class="podium">${pod.map((r,k)=>r?`<div class="pd p${[2,1,3][k]}"><div class="pav">${[2,1,3][k]===1?`<div class="crown">${ico('trophy')}</div>`:''}${avatar(r.i)}</div><b>${esc(nameOf(r.i))}</b><div class="bar"><span class="disp">${[2,1,3][k]}</span><small>${r.p}점</small></div></div>`:'<div class="pd"></div>').join('')}</div>
  <section class="panel"><div class="ptab">전체 순위 · ${G.history.length}라운드</div><div class="board">${rank.map((r,k)=>`<div class="rowp"><span class="rk">${k+1}</span>${avatar(r.i)}<span class="nm2">${esc(nameOf(r.i))}</span><span class="pt">${r.p}<small>점</small></span></div>`).join('')}</div></section>
- ${G.history.length?`<section class="panel"><div class="ptab">라운드 기록</div><div class="hist">${G.history.map(x=>`<div><span class="disp">R${x.round}</span><span>${esc(x.cat)} · <b>${esc(x.word)}</b></span><em class="${x.win==='c'?'c':'l'}">${x.win==='c'?'시민':'라이어'}</em></div>`).join('')}</div></section>`:''}
+ ${G.history.length?`<section class="panel"><div class="ptab">라운드 기록</div><div class="hist">${G.history.map(x=>`<div><span class="disp">R${x.round}</span><span>${esc(x.cat)} · <b>${esc(x.word)}</b></span><em class="${x.win==='c'?'c':'l'}">${x.win==='c'?'시민':MODES[G.cfg.mode].role}</em></div>`).join('')}</div></section>`:''}
  <div class="dock"><div><button class="btn yel" onclick="const c=G.cfg;newGame({...c,seed:Math.floor(Math.random()*8192)},G.own,G.me);if(G.own)go('code');else startRound()"><span class="lbl">같은 멤버로 새 게임</span></button>
  <button class="btn paper sm" onclick="G=null;go('title')"><span>처음으로</span></button></div></div>`;
 };
 
-render();
+/* 뒤로 가기(안드로이드 제스처 등)로 게임이 통째로 꺼지지 않게 막는다 */
+try{history.pushState({liar:1},'')}catch(e){}
+window.addEventListener('popstate',()=>{try{history.pushState({liar:1},'')}catch(e){}
+ if(G){if(confirm('게임을 끝내고 처음 화면으로 갈까요?')){resetTimer();G=null;go('title')}}
+ else if(scr==='custom')go('lobby');else if(scr!=='title')go('title')});
+window.addEventListener('beforeunload',e=>{if(G&&!G.own&&scr!=='final'){e.preventDefault();e.returnValue=''}});
+render(true);
 </script>
 </body>
 </html>
