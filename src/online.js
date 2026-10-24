@@ -7,7 +7,7 @@ const WS_URL=(()=>{const q=new URLSearchParams(location.search).get('ws');if(q)r
  return same?(location.protocol==='https:'?'wss':'ws')+'://'+location.host+'/ws':'wss://liar.41ways.workers.dev/ws'})();
 const ss={get(k){try{return sessionStorage.getItem('liar.'+k)}catch(e){return null}},set(k,v){try{sessionStorage.setItem('liar.'+k,v)}catch(e){}},del(k){try{sessionStorage.removeItem('liar.'+k)}catch(e){}}};
 const O={ws:null,S:null,me:null,specId:null,skew:0,rooms:null,watching:false,entering:0,pingT:null,resting:false,
- unread:0,chatOn:false,name:store.get('oname',''),code:'',priv:false,cardOpen:false,descKey:'',descN:0,stepKey:'',dead:false};
+ unread:0,chatOn:false,catOpen:false,name:store.get('oname',''),code:'',priv:false,cardOpen:false,descKey:'',descN:0,stepKey:'',dead:false};
 Object.assign(IC,{
  monitor:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8.5 21h7M12 17v4" stroke-linecap="round"/></svg>',
  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M4 5h16a1 1 0 011 1v10a1 1 0 01-1 1h-9l-5 4v-4H4a1 1 0 01-1-1V6a1 1 0 011-1z"/></svg>',
@@ -180,7 +180,8 @@ SCREENS.olobby=()=>{
   <div class="modegrid">${MODE_KEYS.map(k=>`<div class="mcard ${c.mode===k?'on':''}" style="--c:${MODES[k].c}" ${host?`onclick="oCfg({mode:'${k}'})"`:''}><span class="chk">${IC.chk}</span>${emblem[k]()}<b class="ol-s">${MODES[k].short}</b></div>`).join('')}</div>
   <div class="mdesc"><b>${MODES[c.mode].name}</b>${MODES[c.mode].desc}</div></section>
  <section class="panel"><div class="ptab">주제</div>
-  <div class="tiles">${host||c.cat===VOTE?`<button class="tile ${c.cat===VOTE?'on':''}" ${host?`onclick="oCfg({cat:VOTE})"`:'disabled'}><span class="ti dice">${IC.vote}</span><span>다 같이 투표</span></button>`:''}${host||c.cat===RANDOM?`<button class="tile ${c.cat===RANDOM?'on':''}" ${host?`onclick="oCfg({cat:RANDOM})"`:'disabled'}><span class="ti dice">${IC.dice}</span><span>랜덤</span></button>`:''}${cats.map((x,i)=>host||c.cat===i?`<button class="tile ${c.cat===i?'on':''} ${i>=LIARC.length&&!sp?'my':''}" ${host?`onclick="oCfg({cat:${i}})"`:'disabled'}>${ico(x.icon,'ti')}<span>${esc(x.name)}</span></button>`:'').join('')}</div>
+  ${topicSeg(c.cat,cats,true,'O',"oCfg({cat:VOTE})","oCfg({cat:RANDOM})",!host)}
+  ${host&&O.catOpen?`<div class="tiles" style="margin-top:12px">${cats.map((x,i)=>`<button class="tile ${c.cat===i?'on':''} ${i>=LIARC.length&&!sp?'my':''}" onclick="O.catOpen=false;oCfg({cat:${i}})">${ico(x.icon,'ti')}<span>${esc(x.name)}</span></button>`).join('')}</div>`:''}
   ${c.cat===VOTE?'<p class="hint"><b>다 같이 투표</b> · 라운드마다 각자 주제를 하나 찍고, 표 수만큼 칸이 큰 룰렛으로 뽑아요. (3표·1표·1표면 3:1:1)</p>':''}
   ${host&&!sp&&CUSTOM.length?`<p class="hint">이 기기에 저장된 내 주제를 방에 올릴 수 있어요: ${CUSTOM.map((x,i)=>`<button class="chip2" onclick='oCfg({custom:${JSON.stringify({name:x.name,w:x.w})}})'>${ico('envelope')}${esc(x.name)}</button>`).join(' ')}${c.custom?` <button class="chip2" onclick="oCfg({custom:null})">${IC.x}내 주제 빼기</button>`:''}</p>`:''}</section>
  ${sp?`<section class="panel"><div class="ptab">난이도</div><div class="seg">${DIFFS.map((d,i)=>`<button class="${c.diff===i?'on':''}" ${host?`onclick="oCfg({diff:${i}})"`:'disabled'}><span class="gauge">${[0,1,2].map(k=>`<i class="${k<=i?'f':''}" style="height:${6+k*5}px"></i>`).join('')}</span>${d.name}</button>`).join('')}</div><p class="hint"><b>간극 ${DIFFS[c.diff].gap[0]}~${DIFFS[c.diff].gap[1]}</b> · ${DIFFS[c.diff].desc}</p></section>`:''}

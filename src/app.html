@@ -467,6 +467,12 @@ details.names summary::-webkit-details-marker{display:none}
 .chip2{display:inline-flex;align-items:center;gap:4px;border:2px solid var(--ink);background:#fff;border-radius:999px;padding:2px 10px 3px 4px;font:inherit;font-weight:800;font-size:13px;cursor:pointer;margin:3px 2px;color:var(--ink)}
 .chip2 .ico{width:22px}.chip2 svg{width:16px;height:16px}
 
+/* ── 주제 세 갈래 ── */
+.seg.tseg button{min-width:0}
+.seg.tseg button>span{font-size:15px;line-height:1.15;word-break:keep-all;text-align:center}
+.seg.tseg button small{font-family:var(--body);font-weight:700;font-size:11px;opacity:.7;margin-top:-2px}
+.seg.tseg .segi{width:30px;height:30px}
+
 /* ── 주제 투표 · 룰렛 ── */
 .tile.vt{position:relative;cursor:pointer;user-select:none}
 .tile .vc{position:absolute;top:-8px;right:-6px;min-width:26px;height:26px;border-radius:13px;background:var(--red);color:#fff;border:2.5px solid var(--ink);font-style:normal;font-family:var(--disp);font-size:15px;display:grid;place-items:center;padding:0 5px}
@@ -848,7 +854,8 @@ SCREENS.lobby=()=>{
   ${!own?`<details class="names" ${S.namesOpen?'open':''} ontoggle="S.namesOpen=this.open"><summary>${IC.next.replace('<svg','<svg style="width:14px;height:14px"')} 이름 정하기 (선택)</summary><div class="nlist">${Array.from({length:S.n},(_,i)=>`<label class="nitem">${avatar(i)}<input maxlength="8" placeholder="${i+1}번" value="${esc(S.names[i]||'')}" oninput="S.names[${i}]=this.value;saveCfg()"></label>`).join('')}</div></details>`:''}
  </section>
  <section class="panel"><div class="ptab">주제</div>
-  <div class="tiles">${own?'':`<button class="tile ${S.cat===VOTE?'on':''}" onclick="set('cat',VOTE)"><span class="ti dice">${IC.vote}</span><span>다 같이 투표</span></button>`}<button class="tile ${S.cat===RANDOM?'on':''}" onclick="set('cat',RANDOM)"><span class="ti dice">${IC.dice}</span><span>랜덤</span></button>${cats.map((c,i)=>`<button class="tile ${S.cat===i?'on':''} ${c.custom?'my':''}" onclick="set('cat',${i})">${ico(c.icon,'ti')}<span>${esc(c.name)}</span></button>`).join('')}${!spy&&!own?`<button class="tile add" onclick="openCustom()"><span class="ti plus">${IC.plus}</span><span>내 주제</span></button>`:''}</div>
+  ${topicSeg(S.cat,cats,!own,'S',"set('cat',VOTE)","set('cat',RANDOM)")}
+  ${S.catOpen?`<div class="tiles" style="margin-top:12px">${cats.map((c,i)=>`<button class="tile ${S.cat===i?'on':''} ${c.custom?'my':''}" onclick="S.catOpen=false;set('cat',${i})">${ico(c.icon,'ti')}<span>${esc(c.name)}</span></button>`).join('')}${!spy&&!own?`<button class="tile add" onclick="openCustom()"><span class="ti plus">${IC.plus}</span><span>내 주제</span></button>`:''}</div>`:''}
   ${S.cat===VOTE&&!own?'<p class="hint"><b>다 같이 투표</b> · 라운드마다 손을 들어 주제를 정하고, 표 수만큼 칸이 큰 룰렛으로 뽑아요. (3표·1표·1표면 3:1:1)</p>':''}
   <p class="hint">${spy?`주제 ${cats.length}개 · 단어 ${cats.reduce((a,c)=>a+c.w.length,0)}개 · 질문 ${cats.length*10}개`:`주제 ${cats.length}개 · 제시어 ${cats.reduce((a,c)=>a+c.w.length,0)}개`}${own?'':' · 최근에 나온 단어는 피해서 나와요'}${!spy&&own&&CUSTOM.length?'<br>내가 만든 주제는 폰 하나 돌리기에서만 쓸 수 있어요.':''}</p>
  </section>
@@ -906,6 +913,13 @@ function saveCE(){const name=CE.name.trim(),w=parseWords(CE.words);
  if(CE.idx>=0)CUSTOM[CE.idx]=item;else CUSTOM.push(item);
  saveCustom();S.cat=LIARC.length+CUSTOM.indexOf(item);saveCfg();toast('저장했어요');go('lobby')}
 function delCE(){if(!confirm('이 주제를 지울까요?'))return;CUSTOM.splice(CE.idx,1);saveCustom();S.cat=VOTE;saveCfg();go('lobby')}
+
+/* 주제: 다 같이 투표 · 랜덤 · 지금 고르기 — 고르기를 눌러야 주제 칸(30여 개)이 열린다(평소엔 안 그려서 화면이 가볍다) */
+function topicSeg(cat,cats,canVote,st,onVote,onRand,locked){
+ const picked=cat!==VOTE&&cat!==RANDOM&&cats[cat],open=st==='S'?S.catOpen:O.catOpen,tog=`${st}.catOpen=!${st}.catOpen;render()`;
+ const b=(on,click,icon,label,extra)=>`<button class="${on?'on':''}" ${locked?'disabled':`onclick="${click}"`}>${icon}<span>${label}</span>${extra||''}</button>`;
+ return`<div class="seg tseg">${canVote?b(cat===VOTE,onVote,IC.vote,'다 같이 투표'):''}${b(cat===RANDOM,onRand,IC.dice,'랜덤')}${b(picked||open,tog,picked?ico(picked.icon,'segi'):IC.next.replace('<svg','<svg style="transform:rotate('+(open?-90:90)+'deg)"'),picked?esc(picked.name):'지금 고르기',picked?'<small>바꾸기</small>':'')}</div>`;
+}
 
 /* 각자 폰: 코드 */
 SCREENS.code=()=>{const code=encode(G.cfg);return`
