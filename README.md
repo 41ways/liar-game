@@ -10,6 +10,23 @@
 
 폰 한 대를 돌리거나, 코드 6자리를 나눠 각자 폰으로 할 수 있습니다. 주제 33개·제시어 약 1,500개, 라이어 수 1~3명, 공범, 힌트, 라운드 미션, 내 주제, 벌칙, 점수판.
 
+<table>
+<tr>
+<td><img src="docs/screenshots/title.webp" alt="처음 화면"></td>
+<td><img src="docs/screenshots/setup.webp" alt="게임 설정"></td>
+<td><img src="docs/screenshots/word.webp" alt="제시어 카드"></td>
+<td><img src="docs/screenshots/liar.webp" alt="라이어 카드"></td>
+</tr>
+<tr><td align="center">처음 화면</td><td align="center">게임 설정</td><td align="center">제시어 확인</td><td align="center">라이어에게는</td></tr>
+<tr>
+<td><img src="docs/screenshots/play.webp" alt="토론"></td>
+<td><img src="docs/screenshots/caught.webp" alt="검거"></td>
+<td><img src="docs/screenshots/result.webp" alt="결과"></td>
+<td></td>
+</tr>
+<tr><td align="center">토론 · 미션 · 타이머</td><td align="center">지목 — 검거!</td><td align="center">정답 공개 · 점수</td><td></td></tr>
+</table>
+
 ## 개발
 
 `index.html` 은 빌드 결과물입니다. `src/app.html`, `src/data.js` 를 고친 뒤:
