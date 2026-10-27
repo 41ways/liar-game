@@ -254,7 +254,8 @@ function oplot(qi,reveal){
  const g=oG(),m=g.nums[qi]||{},q=g.qs[qi];
  const cols=Array.from({length:10},(_,v)=>`<div class="col">${Object.entries(m).filter(([,x])=>x===v+1).map(([id])=>{const p=oP(+id)||{av:0};const l=reveal&&g.answer&&g.answer.liars.includes(+id);return avatar(p.av,{d:l,hat:!l})}).join('')}</div>`).join('');
  const exp=reveal&&q.a?`<div class="exp">${Array.from({length:10},(_,v)=>`<span class="${q.a===v+1?'a':q.b===v+1?'b':''}">${q.a===v+1?esc(g.answer.word):q.b===v+1?esc(g.answer.lw):''}</span>`).join('')}</div>`:'';
- return`<div class="plot"><div class="cols">${cols}</div><div class="axis">${Array.from({length:10},(_,v)=>`<span>${v+1}</span>`).join('')}</div>${exp}</div>`;
+ const picks=picksHTML(O.S.players.filter(p=>m[p.id]||!p.left).map(p=>({av:p.av,name:p.name,n:m[p.id],liar:reveal&&g.answer&&g.answer.liars.includes(p.id),me:p.id===O.me})));
+ return`${picks}<div class="plot"><div class="cols">${cols}</div><div class="axis">${Array.from({length:10},(_,v)=>`<span>${v+1}</span>`).join('')}</div>${exp}</div>`;
 }
 function oqcard(qi,body){const q=oG().qs[qi];return`<section class="panel"><div class="ptab acc">질문 ${qi+1} / ${oG().qs.length}</div><div class="qtext">${esc(q.t)}</div><div class="s10">${scaleColors.map((c,i)=>`<i style="background:${c}">${i+1}</i>`).join('')}</div><div class="slbl"><span>1 · ${esc(q.lo)}</span><span>${esc(q.hi)} · 10</span></div>${body||''}</section>`}
 const oHostSkip=label=>O.S.hostId===O.me?`<button class="skip" onclick="if(confirm('기다리지 않고 바로 넘길까요?'))oSend({t:'skip'})">${label||'방장: 건너뛰기'}</button>`:'';

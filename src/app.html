@@ -222,6 +222,16 @@ details.names summary::-webkit-details-marker{display:none}
 .qnav i.on{background:var(--ink);width:24px;border-radius:5px}
 
 /* 분포도 */
+.picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin-top:14px}
+.npick{display:flex;align-items:center;gap:6px;min-width:0;background:#fff;border:2.5px solid var(--ink);border-radius:10px;padding:3px 4px 3px 3px}
+.npick .av{width:28px;flex:none}
+.npick b{flex:1;min-width:0;font-family:var(--disp);font-weight:400;font-size:15px;line-height:1.1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.npick i{flex:none;width:30px;height:30px;display:grid;place-items:center;border:2.5px solid var(--ink);border-radius:7px;font-family:var(--disp);font-style:normal;font-size:17px;line-height:1}
+.npick.none i{background:#eee;color:#999}
+.npick.me{box-shadow:0 0 0 3px var(--yel)}
+.npick.l{border-color:var(--red);background:#ffe6e2}
+.npick.l b{color:var(--red-d)}
+.picks+.plot{margin-top:8px}
 .plot{margin-top:14px;background:#fff;border:2.5px solid var(--ink);border-radius:14px;padding:10px 6px 6px}
 .plot .cols{display:grid;grid-template-columns:repeat(10,1fr);align-items:end;min-height:40px}
 .plot .col{display:flex;flex-direction:column-reverse;align-items:center}
@@ -1076,11 +1086,14 @@ SCREENS.peek=()=>G.peek==null?`${hud('<span class="hudtitle ol-s">제시어 다�
 /* 진행 */
 function orderHTML(){const R=G.R,n=G.cfg.n;return`<div class="order">${Array.from({length:n},(_,k)=>{const i=R.rev?(R.starter-k+n*2)%n:(R.starter+k)%n;return`${k?`<span class="arr">${IC.next.replace('<svg','<svg style="width:14px;height:14px"')}</span>`:''}<div class="o ${k===0?'st':''} ${G.caught.includes(i)?'out':''}">${k===0?'<span class="flag">START</span>':''}${avatar(i,G.caught.includes(i)?{d:true,hat:false}:{})}<span>${esc(nameOf(i))}</span></div>`}).join('')}</div>`}
 const scaleColors=['#8fd3ff','#9fdcf3','#b3e4e0','#c9eccb','#e1f2b4','#f7ef9b','#ffd98a','#ffc07c','#ffa070','#ff8072'];
+/* 누가 몇을 골랐는지: [{av,name,n,liar,me}] → 이름 옆에 숫자 칸 */
+function picksHTML(rows){return`<div class="picks">${rows.map(r=>`<div class="npick ${r.n?'':'none'} ${r.liar?'l':''} ${r.me?'me':''}">${avatar(r.av,r.liar?{d:true,hat:false}:{})}<b>${esc(r.name)}</b><i style="${r.n?`background:${scaleColors[r.n-1]}`:''}">${r.n||'–'}</i></div>`).join('')}</div>`}
 function plotHTML(qi,reveal){
  const a=G.ans[qi],q=G.R.qs[qi];if(!a&&!reveal)return'';
  const cols=Array.from({length:10},(_,v)=>`<div class="col">${a?a.map((x,i)=>x===v+1?avatar(i,{d:reveal&&isLiar(i),hat:!(reveal&&isLiar(i))}):'').join(''):''}</div>`).join('');
  const exp=reveal?`<div class="exp">${Array.from({length:10},(_,v)=>`<span class="${q.a===v+1?'a':q.b===v+1?'b':''}">${q.a===v+1?esc(G.R.word):q.b===v+1?esc(G.R.lw):''}</span>`).join('')}</div>`:'';
- return`<div class="plot">${a?`<div class="cols">${cols}</div>`:''}<div class="axis">${Array.from({length:10},(_,v)=>`<span>${v+1}</span>`).join('')}</div>${exp}</div>`;
+ const picks=a?picksHTML(a.map((x,i)=>({av:i,name:nameOf(i),n:x,liar:reveal&&isLiar(i)}))):'';
+ return`${picks}<div class="plot">${a?`<div class="cols">${cols}</div>`:''}<div class="axis">${Array.from({length:10},(_,v)=>`<span>${v+1}</span>`).join('')}</div>${exp}</div>`;
 }
 SCREENS.play=()=>{
  const R=G.R,m=G.cfg.mode,left=G.cfg.liars-G.caught.length;
